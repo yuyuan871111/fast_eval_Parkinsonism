@@ -127,3 +127,14 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Data
+Data
+PDMotor*
+utils/saved_models/DrGuo/Left_FG_1/Kfold*
+utils/saved_models/DrGuo/Left_FG_2/Kfold*
+utils/saved_models/DrGuo/Left_FG_3/Kfold*
+utils/saved_models/DrGuo/Right_FG_1/Kfold*
+utils/saved_models/DrGuo/Right_FG_2/Kfold*
+utils/saved_models/DrGuo/Right_FG_3/Kfold*
+utils/saved_models/test
