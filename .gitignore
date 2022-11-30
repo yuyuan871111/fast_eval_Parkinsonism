@@ -138,3 +138,6 @@ utils/saved_models/DrGuo/Right_FG_1/Kfold*
 utils/saved_models/DrGuo/Right_FG_2/Kfold*
 utils/saved_models/DrGuo/Right_FG_3/Kfold*
 utils/saved_models/test
+
+# website backup
+src_backup
