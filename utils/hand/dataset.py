@@ -1,10 +1,8 @@
 from torch.utils.data import Dataset
 from utils.seed import set_seed
 from utils.hand.enhance import finger_tapping_distance
-import random
-import pandas as pd
-import numpy as np
-
+import random, pandas as pd, numpy as np, pdb
+from scipy.spatial.transform import Rotation as R
 
 class PDHandData(Dataset):
     # start from 0.5s (30~)
@@ -17,6 +15,7 @@ class PDHandData(Dataset):
                  mk_balanced_type="oversampling",
                  multi_sample_type="replicate",
                  multi_sample_num: int = 1,
+                 random_rotat_3d: bool = False,
                  seed=42,
                  return_label=True,
                  return_name=False,
@@ -39,6 +38,7 @@ class PDHandData(Dataset):
         self.gaussian_sampling = gaussian_sampling
         self.enhanced_type = int(enhanced_type)
         self.input_channels = input_channels
+        self.random_rotat_3d = random_rotat_3d
 
         self.data_root = data_root
         self.return_label = return_label
@@ -95,6 +95,7 @@ class PDHandData(Dataset):
         data = self._timestamp_normalization(data)
         data = self._padding(data)
         data = self._cropping(data, idx)
+        if self.random_rotat_3d: data = self._random_rotat_3d(data)
         return data
 
     # necessary part of the dataset class
@@ -222,6 +223,57 @@ class PDHandData(Dataset):
     #def _cut_outlier(self, data):
     #    data[np.abs(data) > self.outlier_criteria] = 0
     #    return data
+    
+    def _random_rotat_3d(self, data, rnd_theta = 90):
+        # rotation setting
+        rotation_order = random.choice([
+            "zxz",
+            "xyx",
+            "yzy",
+            "zyz",
+            "xzx",
+            "yxy",  # Proper Euler angles
+            "xyz",
+            "yzx",
+            "zxy",
+            "xzy",
+            "zyx",
+            "yxz"
+        ])  # Tait–Bryan angles
+        rnd_angle_one = random.randint(0, rnd_theta)
+        rnd_angle_two = random.randint(0, rnd_theta)
+        rnd_angle_three = random.randint(0, rnd_theta)
+
+        r = R.from_euler(rotation_order,
+                        [rnd_angle_one, rnd_angle_two, rnd_angle_three],
+                        degrees=True)
+
+        # data processing
+        data = pd.DataFrame(data.T, columns=self.input_channels)
+        axis_num = pd.Series([ each.split("_")[0] for each in self.input_channels if "_" in each]).unique()
+        kpts_num = pd.Series([ each.split("_")[-1] for each in self.input_channels if "_" in each]).unique()
+        assert len(axis_num) == 3, "please include 3D keypoints"
+        
+        new_data_list = []
+        for num in kpts_num:
+            data_each_kpts = data[[f'x_{num}', f'y_{num}', f'z_{num}']]
+            new_data = np.dot(r.as_matrix(), data_each_kpts.values.T)
+            new_data_list.append(new_data)
+        
+        new_data = np.array(new_data_list)
+        # new_data: (kpts_num, axis_num[x,y,z], timeframe)
+        new_data = new_data.transpose((1,0,2))
+        # new_data: (axis_num[x,y,z], kpts_num, timeframe)
+        new_data = new_data.reshape((len(axis_num)*len(kpts_num), self.crop_len))
+        # new_data: ([x1,x2,x3,...,y1,y2,y3,...,z1,z2,z3,...], timeframe)
+        new_data = new_data.T
+        # new_data: (timeframe, all_kpts)
+        new_data = np.insert(new_data, 0, data['timestamp'].values, axis=1)
+        # new_data: (timeframe, timestamp+all_kpts)
+        new_data = new_data.T
+        # new_data: (all_channels, timeframe)
+        
+        return new_data
 
     def _padding(self, data):
         if data.shape[1] < self.crop_len:

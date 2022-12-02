@@ -129,6 +129,7 @@ def model_pred_severity(
     test_data_path: str,
     test_map_path: str,
     hand: str = "Left",
+    random_rotat_3d: bool = True,
 ):
     '''
     `test_data_path`: testing data root path
@@ -141,14 +142,15 @@ def model_pred_severity(
     model_prefixs = [f'{hand}_FG_{idx+1}' for idx in range(3)]
     dfs = []
     for each_model_prefix in model_prefixs:
-        model_path = f'./utils/saved_models/DrGuo/{each_model_prefix}/best.pth'
-        args_path = f'./utils/saved_models/DrGuo/{each_model_prefix}/args.txt'
+        model_path = f'./utils/saved_models/DrGuo_3d_rotat/{each_model_prefix}/best.pth'
+        args_path = f'./utils/saved_models/DrGuo_3d_rotat/{each_model_prefix}/args.txt'
         _, df, _ = hand_pos_inference(
             test_data_path=test_data_path,
             test_map_path=test_map_path,
             model_path=model_path,
             args_path=args_path,
             multiple_sampling_num=5,
+            random_rotat_3d=random_rotat_3d,
             class_num=2,
             device='cpu',
             logging=False,
@@ -177,6 +179,7 @@ def hand_pos_inference(
     balance_dataset: bool=False,
     class_num: int=None,            # 
     multiple_sampling_num: int=4,   # the number (at least) of multiple sampling from each video (data post-processing)
+    random_rotat_3d: bool=False,
     gau_samp: bool=False,           # Use Gaussian sampling method for randomly cropping to avoid the head and tail missing.
     logging: bool=False,
 
@@ -195,6 +198,7 @@ def hand_pos_inference(
     `balance_dataset`: set true to balance dataset
     `class_num`: set your class number or automatically counted from labels
     `multiple_sampling_num`: the number (at least) of multiple sampling from each video (data post-processing)
+    `random_rotat_3d`: whether to use random rotate 3d
     `gau_samp`: set true to use Gaussian sampling method for randomly cropping to avoid the head and tail missing.
     `logging`: set true to show logging
     '''
@@ -215,6 +219,7 @@ def hand_pos_inference(
     cfg['balance_dataset'] = balance_dataset
     cfg['multiple_sampling_type'] = 'random-crop' # no other choice
     cfg['multiple_sampling_num'] = multiple_sampling_num
+    cfg['random_rotat_3d'] = random_rotat_3d
     cfg['gau_samp'] = gau_samp
     cfg['logging'] = logging
     ## it is no need to balance dataset when prediction only
@@ -264,6 +269,7 @@ def hand_pos_inference(
                                    multi_sample_type=cfg['multiple_sampling_type'],
                                    multi_sample_num=cfg['multiple_sampling_num'],
                                    enhanced_type=cfg['enhanced_type'],
+                                   random_rotat_3d=cfg['random_rotat_3d'],
                                    group_map=class_map,
                                    gaussian_sampling=cfg['gau_samp'],
                                    crop_len=cfg['crop_len'],
