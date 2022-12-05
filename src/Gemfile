@@ -21,6 +21,9 @@ gem 'sassc-rails', '>= 2.1.0'
 gem 'jquery-rails'
 #gem 'webpacker', '~> 5.0'
 
+# Use Devise to control: login/signup
+gem 'devise'
+
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
 gem "importmap-rails"
 

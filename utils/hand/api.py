@@ -130,6 +130,7 @@ def model_pred_severity(
     test_map_path: str,
     hand: str = "Left",
     random_rotat_3d: bool = True,
+    seed: int = 42,
 ):
     '''
     `test_data_path`: testing data root path
@@ -142,8 +143,8 @@ def model_pred_severity(
     model_prefixs = [f'{hand}_FG_{idx+1}' for idx in range(3)]
     dfs = []
     for each_model_prefix in model_prefixs:
-        model_path = f'./utils/saved_models/DrGuo_3d_rotat/{each_model_prefix}/best.pth'
-        args_path = f'./utils/saved_models/DrGuo_3d_rotat/{each_model_prefix}/args.txt'
+        model_path = f'./utils/saved_models/DrGuo_3d_rotat_val_pick/{each_model_prefix}/best.pth'
+        args_path = f'./utils/saved_models/DrGuo_3d_rotat_val_pick/{each_model_prefix}/args.txt'
         _, df, _ = hand_pos_inference(
             test_data_path=test_data_path,
             test_map_path=test_map_path,
@@ -152,6 +153,7 @@ def model_pred_severity(
             multiple_sampling_num=5,
             random_rotat_3d=random_rotat_3d,
             class_num=2,
+            seed=seed,
             device='cpu',
             logging=False,
             gau_samp=False

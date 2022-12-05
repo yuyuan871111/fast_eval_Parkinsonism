@@ -6,13 +6,13 @@
     </a>
 
     <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-    <li><a href=<%= root_path %> class="nav-link px-7 link-secondary">Home</a></li>
-    <li><a href="#" class="nav-link px-7 link-dark">Demo</a></li>
-    <li><a href="#" class="nav-link px-7 link-dark">Documents</a></li>
+        <li><a href=<%= root_path %> class="nav-link px-7 link-secondary">Home</a></li>
+        <li><a href="#" class="nav-link px-7 link-dark">Demo</a></li>
+        <li><a href="#" class="nav-link px-7 link-dark">Documents</a></li>
     </ul>
 
     <div class="col-md-3 text-end">
-    <button type="button" class="btn btn-outline-primary me-2">Login</button>
-    <button type="button" class="btn btn-primary">Sign-up</button>
+        <%= link_to("Login", new_user_session_path, class: "btn btn-outline-primary me-2") %>
+        <%= link_to("Sign-up", new_user_registration_path, class: "btn btn-primary") %>
     </div>
 </header>
