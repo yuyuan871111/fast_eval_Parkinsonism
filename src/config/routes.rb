@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { 
     sessions: 'users/sessions', 
     registrations: 'users/registrations',
+    passwords: 'users/passwords',
     confirmations: 'users/confirmations' 
   }
 
@@ -23,5 +24,6 @@ Rails.application.routes.draw do
     root "home#index", :as => 'root'
     get '/documents' => 'home#documents', :as => 'documents'
     get '/demo' => 'home#demo', :as => 'demo'
+    get '/status' => 'home#status', :as => 'status'
     
 end

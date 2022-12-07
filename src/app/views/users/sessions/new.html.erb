@@ -11,6 +11,9 @@
           <div class="p-5 p-md-5 border rounded-4 bg-light">
             
             <%= render "users/form/login" %>
+            <% if flash[:alert] %>
+              <small class= "text-muted"> <%= flash[:alert] %> <br /> </small>
+            <% end %>
             <%= render "users/shared/links" %>
 
           </div>

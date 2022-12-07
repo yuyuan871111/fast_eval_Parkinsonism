@@ -1,16 +1,12 @@
-<h2>Resend confirmation instructions</h2>
+<%= render "users/partials/users_header" %>
 
-<%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
-
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email", value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email) %>
+  <div class="col-lg-7 text-center text-lg-start">
+    <h1 class="display-7 fw-bold lh-1 mb-3">Resend confirmation instructions</h1>
   </div>
 
-  <div class="actions">
-    <%= f.submit "Resend confirmation instructions" %>
+  <div class="p-5 p-md-5 border rounded-4 bg-light">
+    <%= render "users/form/confirm" %>
+    <%= render "users/shared/links" %>
   </div>
-<% end %>
 
-<%= render "devise/shared/links" %>
+<%= render "users/partials/users_footer" %>
