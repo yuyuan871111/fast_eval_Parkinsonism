@@ -1,31 +1,25 @@
+<main>
+  <div class="container">
+    <div class="container py-4">
 
+      <%= render "partials/header" %>
+      <div class="row align-items-center g-lg-5 py-5">
+        <div class="col-md-10 mx-auto col-lg-5 p-3">
+          <div class="col-lg-7 text-center text-lg-start">
+            <h1 class="display-7 fw-bold lh-1 mb-3">Sign up</h1>
+          </div>
+          <div class="p-5 p-md-5 border rounded-4 bg-light">
 
-<h2>Sign up</h2>
+            <%= render "users/form/signup" %>
+            <small class="text-muted">By clicking Sign up, you agree to the terms of use.</small>
+            <small class="text-muted">If you already have an account, please </small>
+            <%= render "users/shared/links" %>
+          </div>
+        </div>
+      </div>
+      <%= render "partials/footer"%>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
-
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    </div>
   </div>
+</main>
 
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>

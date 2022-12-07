@@ -1,0 +1,23 @@
+<header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+    
+    <a href=<%= root_path %> class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
+        <!--<img style="height: 45px; diplay: inline" src=<%=image_path("ntulogo.png")%>> -->
+        <span class="fs-4"><b>FastEval Parkinson</b></span>
+    </a>
+
+    <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+        <li><%= link_to("Dashboard", root_path, class: "nav-link px-7 link-secondary") %></li>
+        <li><%= link_to("Demo", demo_path, class: "nav-link px-7 link-dark") %></li>
+        <li><%= link_to("Documents", documents_path,  class: "nav-link px-7 link-dark") %></a></li>
+    </ul>
+
+    <div class="col-md-3 text-end">
+        <% if user_signed_in? %>
+            <%= link_to("Account", edit_user_registration_path, class: "btn btn-outline-primary me-2") %>
+            <%= link_to("Logout", destroy_user_session_path, :method => :delete, class: "btn btn-primary") %>
+        <% else %>
+            <%= link_to("Login", new_user_session_path, class: "btn btn-outline-primary me-2") %>
+            <%= link_to("Sign-up", new_user_registration_path, class: "btn btn-primary") %>
+        <% end %>
+    </div>
+</header>

@@ -1,26 +1,24 @@
-<h2>Log in</h2>
+<main>
+  <div class="container">
+    <div class="container py-4">
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+      <%= render "partials/header" %>
+      <div class="row align-items-center g-lg-5 py-5">
+        <div class="col-md-10 mx-auto col-lg-5 p-3">
+          <div class="col-lg-7 text-center text-lg-start">
+            <h1 class="display-7 fw-bold lh-1 mb-3">Log in</h1>
+          </div>
+          <div class="p-5 p-md-5 border rounded-4 bg-light">
+            
+            <%= render "users/form/login" %>
+            <%= render "users/shared/links" %>
 
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
-  </div>
+          </div>
+        </div>
+      </div>
+      <%= render "partials/footer"%>
 
-  <% if devise_mapping.rememberable? %>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
     </div>
-  <% end %>
-
-  <div class="actions">
-    <%= f.submit "Log in" %>
   </div>
-<% end %>
+</main>
 
-<%= render "devise/shared/links" %>
