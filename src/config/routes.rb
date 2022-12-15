@@ -20,10 +20,12 @@ Rails.application.routes.draw do
   # get 'home/index'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
-    # Defines the root path route ("/")
-    root "home#index", :as => 'root'
-    get '/documents' => 'home#documents', :as => 'documents'
-    get '/demo' => 'home#demo', :as => 'demo'
-    get '/status' => 'home#status', :as => 'status'
+  # Defines the root path route ("/")
+  root "home#index", :as => 'root'
+  get '/documents' => 'home#documents', :as => 'documents'
+  get '/demo' => 'home#demo', :as => 'demo'
+  get '/status' => 'home#status', :as => 'status'
+  get 'dashboard' => 'dashboard#main', :as => 'dashboard'
+  #resources :dashboard
     
 end
