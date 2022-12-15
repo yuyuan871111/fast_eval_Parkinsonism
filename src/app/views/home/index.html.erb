@@ -1,20 +1,11 @@
 <!-- inside app/views/index.html.erb -->  
 
 <main>
-  <div class="container">
-    <div class="container py-4">
+  <div class="container py-4">
 
-      <% if current_user %>
-        <%= render "partials/header_logged" %>
-      
+    <%= render "partials/header" %>
+    <%= render "partials/wellcome" %>
+    <%= render "partials/footer" %>
 
-      <% else %>
-        <%= render "partials/header_unlogged" %>
-        <%= render "partials/wellcome" %>
-      <% end %>
-
-      <%= render "partials/footer"%>
-
-    </div>
   </div>
 </main>

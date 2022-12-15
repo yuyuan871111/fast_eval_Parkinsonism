@@ -1,6 +1,7 @@
 import ffmpeg, os, json, torch, pandas as pd, numpy as np
 from sklearn.metrics import f1_score, recall_score
 from torch.utils.data import DataLoader
+from scipy.spatial.transform import Rotation as R
 from utils.hand.mediapipe_collect_hand_kpt import collect_hand_keypoints_pipe
 from utils.hand.supp2emptytime import supp2emptytimestamp
 from utils.hand.AD import cal_error_frame_ratio
@@ -368,3 +369,31 @@ def hand_pos_inference(
     
     else:
         return cfg, clean_results_df, clean_results_df_woNA
+
+
+def hand_rotation(data_test, rotat_axis="xyz", rotat_angle=[0,90,0]):
+    r = R.from_euler(rotat_axis, rotat_angle, degrees=True)
+    
+    axis_num = pd.Series([ each.split("_")[0] for each in data_test.columns if "_" in each]).unique()
+    kpts_num = pd.Series([ each.split("_")[-1] for each in data_test.columns if "_" in each]).unique()
+    assert len(axis_num) == 3, "please include 3D keypoints"
+
+    new_data_list = []
+    for num in kpts_num:
+        data = data_test[[f'x_{num}', f'y_{num}', f'z_{num}']]
+        new_data = np.dot(r.as_matrix(), data.values.T)
+        new_data_list.append(new_data)
+    new_data = np.array(new_data_list)
+
+    # new_data: (kpts_num, axis_num[x,y,z], timeframe)
+    new_data = new_data.transpose((1,0,2))
+    # new_data: (axis_num[x,y,z], kpts_num, timeframe)
+    new_data = new_data.reshape((len(axis_num)*len(kpts_num), len(data_test)))
+    # new_data: ([x1,x2,x3,...,y1,y2,y3,...,z1,z2,z3,...], timeframe)
+    new_data = new_data.T
+    # new_data: (timeframe, all_kpts)
+    new_data = np.insert(new_data, 0, data_test['timestamp'].values, axis=1)
+    # new_data: (timeframe, timestamp+all_kpts)
+    new_data = pd.DataFrame(new_data, columns=data_test.columns)
+
+    return new_data

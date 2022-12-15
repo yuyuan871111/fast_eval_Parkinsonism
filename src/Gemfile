@@ -24,6 +24,9 @@ gem 'jquery-rails'
 # Use Devise to control: login/signup
 gem 'devise'
 
+# Preview the mail at local
+gem 'letter_opener_web'
+
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
 gem "importmap-rails"
 

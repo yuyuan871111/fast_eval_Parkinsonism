@@ -1,17 +1,31 @@
 Rails.application.routes.draw do
-  devise_for :users, controllers: { sessions: 'users/sessions' }
+
+  devise_for :users, controllers: { 
+    sessions: 'users/sessions', 
+    registrations: 'users/registrations',
+    passwords: 'users/passwords',
+    confirmations: 'users/confirmations' 
+  }
 
   devise_scope :user do  
-    post '/users/sign_in' => 'users/sessions#create'
+    post '/users/sign_in' => 'users/sessions#new'
     get '/users/sign_out' => 'users/sessions#destroy'
+    get '/users/sign_up' => 'users/registrations#new'
   end
-  #devise_scope :user do
-  #  get 'sign_in', to: 'devise/sessions#new'
-  #end
 
+  # preview at http://localhost:3000/letter_opener
+  if Rails.env.development?
+    mount LetterOpenerWeb::Engine, at: "/letter_opener"
+  end
   # get 'home/index'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
   root "home#index", :as => 'root'
+  get '/documents' => 'home#documents', :as => 'documents'
+  get '/demo' => 'home#demo', :as => 'demo'
+  get '/status' => 'home#status', :as => 'status'
+  get 'dashboard' => 'dashboard#main', :as => 'dashboard'
+  #resources :dashboard
+    
 end
