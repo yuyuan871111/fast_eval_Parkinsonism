@@ -1,0 +1,65 @@
+
+<nav id="sidebarMenu" class="col-md-3 col-lg-3 d-md-block bg-light sidebar">
+  <a class="d-flex align-items-center pb-3 mt-4 link-dark text-decoration-none border-bottom">
+      <span class="fs-3 fw-semibold ps-2"> Feature type </span>
+  </a>
+  
+  <div class="position-sticky pt-3 sidebar-sticky">
+    <ul class="list-unstyled ps-0 nav flex-column">
+      
+      <li class="mb-1">
+          <a class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed fs-4" data-bs-toggle="collapse" data-bs-target="#hand_ft-collapse" aria-expanded="false"  aria-controls="hand_ft-collapse">
+            Finger tapping
+          </a>
+          <div class="collapse" id="hand_ft-collapse">
+            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                <li>
+                  <%= link_to("Overview", root_path, class: "fs-4 link-dark d-inline-flex text-decoration-none rounded") %>
+                </li>
+                <li>
+                  <%= link_to("Uploads", "#", class: "fs-4 link-dark d-inline-flex text-decoration-none rounded") %>
+                </li>
+                <li>
+                  <%= link_to("Reports", "#", class: "fs-4 link-dark d-inline-flex text-decoration-none rounded") %>
+                </li>
+            </ul>
+          </div>
+
+          <a class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed fs-4" data-bs-toggle="collapse" data-bs-target="#hand_oc-collapse" aria-expanded="false"  aria-controls="hand_oc-collapse">
+            Hand open/close
+          </a>
+          <div class="collapse" id="hand_oc-collapse">
+            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                <li>
+                  <%= link_to("Overview (dev)", "#", class: "fs-4 link-dark d-inline-flex text-decoration-none rounded") %>
+                </li>
+                <li>
+                  <%= link_to("Uploads (dev)", "#", class: "fs-4 link-dark d-inline-flex text-decoration-none rounded") %>
+                </li>
+                <li>
+                  <%= link_to("Reports (dev)", "#", class: "fs-4 link-dark d-inline-flex text-decoration-none rounded") %>
+                </li>
+            </ul>
+          </div>
+
+          <a class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed fs-4" data-bs-toggle="collapse" data-bs-target="#hand_ps-collapse" aria-expanded="false" aria-controls="hand_ps-collapse">
+            Hand pro-/supi-nation
+          </a>
+          <div class="collapse" id="hand_ps-collapse">
+            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                <li>
+                  <%= link_to("Overview (dev)", "#", class: "fs-4 link-dark d-inline-flex text-decoration-none rounded") %>
+                </li>
+                <li>
+                  <%= link_to("Uploads (dev)", "#", class: "fs-4 link-dark d-inline-flex text-decoration-none rounded") %>
+                </li>
+                <li>
+                  <%= link_to("Reports (dev)", "#", class: "fs-4 link-dark d-inline-flex text-decoration-none rounded") %>
+                </li>
+            </ul>
+          </div>
+      </li>  
+    </ul>
+  </div>
+
+</nav>
