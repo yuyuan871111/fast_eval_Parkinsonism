@@ -405,9 +405,18 @@ def csv2json(csv_input_path: str, json_output_path: str, header=None):
     json_output_path: the path of json output
     '''
     data_input = pd.read_csv(csv_input_path, header=header)
-    data_input.to_json(json_output_path)
+    data_input.to_json(json_output_path, indent=2, orient='index')
     return None
 
+def read_json(json_input_path: str):
+    '''
+    json_input_path: the path of json output
+    '''
+    data = pd.read_json(json_input_path, orient="index")
+    data.columns = data.iloc[0].values
+    data.drop(0, axis=0, inplace=True)
+    data.reset_index(drop=True, inplace=True)
+    return data
 
 def hand_parameters(data_input: pd.DataFrame):
     '''
