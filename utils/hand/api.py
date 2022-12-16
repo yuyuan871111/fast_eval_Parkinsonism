@@ -5,7 +5,7 @@ from scipy.spatial.transform import Rotation as R
 from utils.hand.mediapipe_collect_hand_kpt import collect_hand_keypoints_pipe
 from utils.hand.supp2emptytime import supp2emptytimestamp
 from utils.hand.AD import cal_error_frame_ratio
-from utils.hand.keypoints import reaxis, normalize_by_thumbs
+from utils.hand.keypoints import reaxis, normalize_by_thumbs, finger_tapping_distance, peakFreqInte_bySTFT, moving_average
 from utils.hand.dataset import PDHandData
 from utils.seed import set_seed
 from utils.util import parse_args_keypoint, get_model_by_name
@@ -125,7 +125,6 @@ def mp_kpts_preprocessing(input_filepath: str, output_filepath: str, logging = F
     return error_frame_ratio
 
 
-
 def model_pred_severity(
     test_data_path: str,
     test_map_path: str,
@@ -170,6 +169,7 @@ def model_pred_severity(
     df.columns = ['csvname', 'label', 'error_frame_ratio'] + list(df.columns[3:])
 
     return df
+
 
 def hand_pos_inference(
     test_data_path: str,
@@ -397,3 +397,61 @@ def hand_rotation(data_test, rotat_axis="xyz", rotat_angle=[0,90,0]):
     new_data = pd.DataFrame(new_data, columns=data_test.columns)
 
     return new_data
+
+
+def csv2json(csv_input_path: str, json_output_path: str, header=None):
+    '''
+    csv_input_path: the path of csv
+    json_output_path: the path of json output
+    '''
+    data_input = pd.read_csv(csv_input_path, header=header)
+    data_input.to_json(json_output_path)
+    return None
+
+
+def hand_parameters(data_input: pd.DataFrame):
+    '''
+    data_input: (timeframe, x0~x20, y0~20, z0~20)
+    return "results":
+        distance-thumb-ratio: finger tapping
+        frequency-interval: frequency interval of short-time Fourrier Transformation
+        stft: short-time Fourrier Transformation
+            time: timestamp
+            freq: the frequency with max intensity in each timestamp
+            intensity: the max intensity of the frequency in each timestamp
+        freq-mean: mean of stft['freq']
+        freq-std: standard deviation of stft['freq']
+        freq-median: median of stft['freq']
+        intensity-mean: mean of stft['intensity']
+        intensity-std: standard deviation of stft['intensity']
+        intensity-median: median of stft['intensity']
+    '''
+    results = {
+        'stft':{}
+    }
+    x = data_input.filter(regex="x_")
+    y = data_input.filter(regex="y_")
+    z = data_input.filter(regex="z_")
+
+    d2 = finger_tapping_distance(x, y, z, kpt_method='mediapipe-pd')
+    d = d2.pow(0.5)
+    d = moving_average(d, 5) # average for each 5 frames (0.083s under 60fs)
+
+    t, f, _, max_freq, max_intensity = peakFreqInte_bySTFT(
+        d, fs=60, nperseg=150, noverlap=145, 
+        f_lower_cutoff=1, f_upper_cutoff=10
+    )
+
+    results['distance-thumb-ratio'] = d.tolist()
+    results['frequency-interval'] = f.tolist()
+    results['stft']['time'] = t.tolist()
+    results['stft']['freq'] = max_freq
+    results['stft']['intensity'] = max_intensity.tolist()
+    results['freq-mean'] = np.mean(max_freq)
+    results['freq-std'] = np.std(max_freq)
+    results['freq-median'] = np.median(max_freq)
+    results['intensity-mean'] = np.mean(max_intensity)
+    results['intensity-std'] = np.std(max_intensity)
+    results['intensity-median'] = np.median(max_intensity)
+    
+    return results

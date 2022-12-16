@@ -36,4 +36,7 @@ bash Miniconda3-py38_4.12.0-Linux-x86_64.sh
 # conda 
 conda env create -f environment.yml 
 conda activate mediapipe
+
+# python open-cv pkg
+apt-get install python3-opencv
 ```
