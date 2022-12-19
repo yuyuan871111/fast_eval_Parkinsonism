@@ -128,9 +128,13 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
+# Sensitive script
+PDMotor*
+InnerDataset*
+CaseStudy*
+
 # Data
 Data
-PDMotor*
 utils/saved_models/DrGuo/Left_FG_1/Kfold*
 utils/saved_models/DrGuo/Left_FG_2/Kfold*
 utils/saved_models/DrGuo/Left_FG_3/Kfold*

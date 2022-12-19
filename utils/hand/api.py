@@ -1,4 +1,4 @@
-import ffmpeg, os, json, torch, pandas as pd, numpy as np
+import ffmpeg, os, json, torch, pandas as pd, numpy as np, cv2, pdb, warnings
 from sklearn.metrics import f1_score, recall_score
 from torch.utils.data import DataLoader
 from scipy.spatial.transform import Rotation as R
@@ -30,14 +30,17 @@ def ffmpeg4format(video_path: str, output_path: str, overwrite_output: bool=True
     return None
 
 
-def mp_kpts_generator(video_path: str, output_root_path: str, hand_query: str='left', logging: bool=False):
+def mp_kpts_generator(video_path: str, output_root_path: str, hand_query: str='Left', export_video: bool = False, logging: bool=False):
     '''
     video_path: your video path (.mp4 only). (video quality should be `fps=60, w=720, h=1280` or after `ffmpeg4format`) e.g. `/your/path/to/test0001.mp4`
     output_root_path: your output root path. e.g. `/your/path/to/folder`
     hand_query: please indicate which is the side of your hand. Choices = `Left` or `Right`
+    export_video: whether to export the annotated video with hand keypoints
     '''
     assert '.mp4' in video_path, "Only mp4 video file is available."
     filename = video_path.split('/')[-1].replace('.mp4','')
+    hand_query = hand_query.capitalize()
+    assert (hand_query == "Right") or (hand_query == "Left"), "Please indicate the handness"
 
     # skip existed files
     if os.path.isfile(f"{output_root_path}/{filename}_mp_hand_kpt.csv"):
@@ -52,17 +55,20 @@ def mp_kpts_generator(video_path: str, output_root_path: str, hand_query: str='l
                 #raise NotImplementedError #skip this part 
                 # main transformation: thershold=0.5
                 kpt_output_path = f"{output_root_path}/{filename}_mp_hand_kpt.csv"
-                collect_hand_keypoints_pipe(
+                video_output_path = f"{output_root_path}/{filename}_annot.mp4"
+                annotated_images = collect_hand_keypoints_pipe(
                     video_path = video_path, 
                     hand_query = hand_query, 
                     output_path = kpt_output_path, 
                     threshold = 0.5,
                     logging=logging
                     )
-            
+                if export_video: frames2video(annotated_images=annotated_images, video_output_path=video_output_path)
+
             except:
                 # main transformation: thershold=0
                 kpt_output_path = f"{output_root_path}/{filename}_mp_hand_kpt.thre0.csv"
+                video_output_path = f"{output_root_path}/{filename}_annot.thre0.mp4"
                 collect_hand_keypoints_pipe(
                     video_path = video_path, 
                     hand_query = hand_query, 
@@ -70,7 +76,8 @@ def mp_kpts_generator(video_path: str, output_root_path: str, hand_query: str='l
                     threshold = 0,
                     logging=logging
                     )
-        
+                if export_video: frames2video(annotated_images=annotated_images, video_output_path=video_output_path)
+
         except Exception as E:
             # merely return columns with no keypoints
             kpt_output_path = f"{output_root_path}/{filename}_mp_hand_kpt.empty.csv"
@@ -319,7 +326,7 @@ def hand_pos_inference(
 
         test_acc_epoch = correct_cum / data_num
         test_f1_epoch = f1_score(label_list_test, pred_list_test, average="weighted")
-        test_recall_epoch = recall_score(label_list_test, pred_list_test, average="weighted")
+        test_recall_epoch = recall_score(label_list_test, pred_list_test, average="weighted", zero_division=0)
 
         if cfg['logging']: print(f"Raw test Acc {test_acc_epoch:.4f} F1 {test_f1_epoch:.4f} Recall {test_recall_epoch:.4f}")
 
@@ -464,3 +471,13 @@ def hand_parameters(data_input: pd.DataFrame):
     results['intensity-median'] = np.median(max_intensity)
     
     return results
+
+# export video
+def frames2video(annotated_images, video_output_path):
+    fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+    out = cv2.VideoWriter(f'{video_output_path}', fourcc, 60.0, (720,  1280))
+    for annotated_image in annotated_images:
+        out.write(cv2.flip(annotated_image, 1))
+    out.release()
+
+    return None

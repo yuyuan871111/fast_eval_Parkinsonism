@@ -9,7 +9,8 @@ mp_drawing = mp.solutions.drawing_utils
 mp_drawing_styles = mp.solutions.drawing_styles
 mp_hands = mp.solutions.hands
 
-def collect_hand_keypoints_pipe(video_path: str, hand_query, output_path = "./output.csv", threshold=0.5, logging=False):
+
+def collect_hand_keypoints_pipe(video_path: str, hand_query, output_path: str=None, threshold=0.5, logging=False):
     '''
     video_path: [str] your video path
     hand_query: ["Left", "Right"] which hand you want to extract
@@ -17,7 +18,7 @@ def collect_hand_keypoints_pipe(video_path: str, hand_query, output_path = "./ou
     threshold: [float, 0~1] confidence ratio you want to fix
     '''
     frames = read_video_data(video_path, logging=logging)
-    time_frame, keypoints_list, _ = collect_hand_keypoints(frames, hand_query, threshold=threshold, logging=logging) # hand_query: Right or Left
+    time_frame, keypoints_list, _, annotated_images = collect_hand_keypoints(frames, hand_query, threshold=threshold, logging=logging, create_annotated_img=True) # hand_query: Right or Left
     t = pd.DataFrame(time_frame)
     x = pd.DataFrame(keypoints_list[0].T)
     y = pd.DataFrame(keypoints_list[1].T)
@@ -25,10 +26,10 @@ def collect_hand_keypoints_pipe(video_path: str, hand_query, output_path = "./ou
 
     keypoints_data = pd.concat([t,x,y,z], axis=1)
     keypoints_data.columns = ["timestamp"]+[f"x_{idx}" for idx in range(21)]+[f"y_{idx}" for idx in range(21)]+[f"z_{idx}" for idx in range(21)]
-    keypoints_data.to_csv(output_path, index=False)
+    if output_path is not None: keypoints_data.to_csv(output_path, index=False)
     if logging: print(f"{video_path}: DONE.")
 
-    return None
+    return annotated_images
 
 # read video
 def read_video_data(video_path: str, logging: bool=False):
