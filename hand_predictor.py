@@ -26,8 +26,7 @@ def main_single(cfg):
         video_output_path = f'{output_root_path}/{filename}.mp4'
         ffmpeg4format(video_path=video_path, output_path=video_output_path)
     except Exception as e:
-        print(e, "\n")
-        print(filename)
+        print(filename, ": ", e)
 
     # Step 1: mediapipe keypoint generation
     mp_kpts_generator(
@@ -50,8 +49,7 @@ def main_single(cfg):
             error_frame_ratio = mp_kpts_preprocessing(csv_input_path, csv_output_path, logging=False)
 
     except:
-        print(e, "\n")
-        print("Not predictable due to no keypoint extracted.")
+        print(filename, ": ", e, ": Not predictable due to no keypoint extracted.")
         error_frame_ratio = 1
 
     df_map_list.append([csv_output_path.split("/")[-1], int(0), error_frame_ratio])
@@ -67,7 +65,8 @@ def main_single(cfg):
         seed=42
     )
     df_predict.drop(["label"], inplace =True, axis=1)
-    df_predict.to_csv(f"{output_root_path}/{filename}_UPDRS_prediction.csv", index=None)
+    #df_predict.to_csv(f"{output_root_path}/{filename}_UPDRS_prediction.csv", index=None)
+    df_predict.iloc[0].to_json(f"{output_root_path}/{filename}_UPDRS_prediction.json", indent=2)
 
     # Step 4: clean uneccasary files
     os.remove(f"{output_root_path}/{filename}_map.csv")
@@ -84,8 +83,16 @@ def main_single(cfg):
             json.dump(results, ff, indent=2)
 
     except Exception as e:
-        print(e, "\n")
-        print(filename)
+        print(filename, ": ", e)
+
+    # Step 6: plot for traditional parameters
+    stft_plot(np.array(results["distance-thumb-ratio"]), png_filepath=f"{output_root_path}/{filename}_stft.png")
+    mergePlot_PeakInteRaw(
+        np.array(results["stft"]["time"]), 
+        np.array(results["distance-thumb-ratio"]), 
+        max_freq=np.array(results["stft"]["freq"]), max_intensity=np.array(results["stft"]["intensity"]),
+        inte_ylim_max=0.5, png_filepath=f"{output_root_path}/{filename}_merge.png"
+    )
     
     return None
 
@@ -135,4 +142,9 @@ if __name__ == "__main__":
     cfg = args.__dict__ # args -> cfg
     set_seed(cfg['seed'])
 
-    main_single(cfg)
+    if cfg['mode'] == 'single':
+        main_single(cfg)
+    elif cfg['mode'] == 'batch':
+        main_batch(cfg)
+    else:
+        raise NotImplementedError

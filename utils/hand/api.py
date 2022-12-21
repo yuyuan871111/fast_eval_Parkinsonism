@@ -2,6 +2,7 @@ import ffmpeg, os, json, torch, pandas as pd, numpy as np, cv2, pdb, warnings
 from sklearn.metrics import f1_score, recall_score
 from torch.utils.data import DataLoader
 from scipy.spatial.transform import Rotation as R
+from scipy import signal
 from utils.hand.mediapipe_collect_hand_kpt import collect_hand_keypoints_pipe
 from utils.hand.supp2emptytime import supp2emptytimestamp
 from utils.hand.AD import cal_error_frame_ratio
@@ -443,21 +444,27 @@ def hand_parameters(data_input: pd.DataFrame):
         intensity-median: median of stft['intensity']
     '''
     results = {
-        'stft':{}
+        'stft':{},
+        'peaks':{}
     }
     x = data_input.filter(regex="x_")
     y = data_input.filter(regex="y_")
     z = data_input.filter(regex="z_")
 
+    # calcualte the distance between thumbs and index finger
     d2 = finger_tapping_distance(x, y, z, kpt_method='mediapipe-pd')
     d = d2.pow(0.5)
     d = moving_average(d, 5) # average for each 5 frames (0.083s under 60fs)
 
+    # short-time Fourier transform
     t, f, _, max_freq, max_intensity = peakFreqInte_bySTFT(
         d, fs=60, nperseg=150, noverlap=145, 
-        f_lower_cutoff=1, f_upper_cutoff=10
+        f_lower_cutoff=0.5, f_upper_cutoff=10
     )
 
+    # find peaks
+    peaks, _ = signal.find_peaks(d, prominence=0.1) # 10% of thumb length
+    
     results['distance-thumb-ratio'] = d.tolist()
     results['frequency-interval'] = f.tolist()
     results['stft']['time'] = t.tolist()
@@ -469,6 +476,11 @@ def hand_parameters(data_input: pd.DataFrame):
     results['intensity-mean'] = np.mean(max_intensity)
     results['intensity-std'] = np.std(max_intensity)
     results['intensity-median'] = np.median(max_intensity)
+    results['peaks']['time'] = (peaks/60).tolist() # timeframe/60fps
+    results['peaks']['peak_h'] = [] if results['peaks']['time'] == [] else d[peaks].tolist()
+    results['peaks-mean'] = None if results['peaks']['time'] == [] else np.mean(d[peaks])
+    results['peaks-std'] = None if results['peaks']['time'] == [] else np.std(d[peaks])
+    results['peaks-median'] = None if results['peaks']['time'] == [] else np.median(d[peaks])
     
     return results
 

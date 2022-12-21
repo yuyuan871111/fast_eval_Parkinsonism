@@ -273,7 +273,7 @@ def mergePlot_PeakInteRaw(
     if error_frame_ratio is not None: ax1.set_title(f"Error frame ratio: {error_frame_ratio:.3f}")
     ax1.set_xlim([-0.5,t_max])
 
-    peaks, _ = signal.find_peaks(sig, prominence=0.1)
+    peaks, _ = signal.find_peaks(sig, prominence=0.1) # 10% of thumb length
     ax3.plot(np.arange(len(sig))/fs, sig)
     sig_upper = sig.max()*1.1
     ax3.plot(peaks/fs, sig[peaks], "xr")
