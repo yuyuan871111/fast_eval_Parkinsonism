@@ -461,7 +461,8 @@ def hand_parameters(data_input: pd.DataFrame):
         d, fs=60, nperseg=150, noverlap=145, 
         f_lower_cutoff=0.5, f_upper_cutoff=10
     )
-
+    IF_value = max_intensity*max_freq
+    
     # find peaks
     peaks, _ = signal.find_peaks(d, prominence=0.1) # 10% of thumb length
     
@@ -470,12 +471,16 @@ def hand_parameters(data_input: pd.DataFrame):
     results['stft']['time'] = t.tolist()
     results['stft']['freq'] = max_freq
     results['stft']['intensity'] = max_intensity.tolist()
+    results['stft']['inte-freq'] = IF_value.tolist()
     results['freq-mean'] = np.mean(max_freq)
     results['freq-std'] = np.std(max_freq)
     results['freq-median'] = np.median(max_freq)
     results['intensity-mean'] = np.mean(max_intensity)
     results['intensity-std'] = np.std(max_intensity)
     results['intensity-median'] = np.median(max_intensity)
+    results['inte-freq-mean'] = np.mean(IF_value)
+    results['inte-freq-std'] = np.std(IF_value)
+    results['inte-freq-median'] = np.median(IF_value)
     results['peaks']['time'] = (peaks/60).tolist() # timeframe/60fps
     results['peaks']['peak_h'] = [] if results['peaks']['time'] == [] else d[peaks].tolist()
     results['peaks-mean'] = None if results['peaks']['time'] == [] else np.mean(d[peaks])

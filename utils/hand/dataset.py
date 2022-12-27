@@ -250,8 +250,8 @@ class PDHandData(Dataset):
 
         # data processing
         data = pd.DataFrame(data.T, columns=self.input_channels)
-        axis_num = pd.Series([ each.split("_")[0] for each in self.input_channels if "_" in each]).unique()
-        kpts_num = pd.Series([ each.split("_")[-1] for each in self.input_channels if "_" in each]).unique()
+        axis_num = pd.Series([ each.split("_")[0] for each in self.input_channels if ("_" in each) and not ("enhanced_feat" in each)]).unique()
+        kpts_num = pd.Series([ each.split("_")[-1] for each in self.input_channels if ("_" in each) and not ("enhanced_feat" in each)]).unique()
         assert len(axis_num) == 3, "please include 3D keypoints"
         
         new_data_list = []
@@ -272,6 +272,8 @@ class PDHandData(Dataset):
         # new_data: (timeframe, timestamp+all_kpts)
         new_data = new_data.T
         # new_data: (all_channels, timeframe)
+        if "enhanced_feat" in self.input_channels:
+            new_data = np.concatenate([new_data, [data['enhanced_feat'].values]], axis=0)
         
         return new_data
 
