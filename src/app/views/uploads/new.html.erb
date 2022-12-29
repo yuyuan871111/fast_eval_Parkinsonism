@@ -1,0 +1,26 @@
+<!-- ./app/views/uploads/new.html.erb -->
+
+
+<main>
+  <%= render "partials/header" %>
+
+  <div class="container-fluid px-4">
+    <div class="row">
+      
+      <!-- flex-shrink-0 p-3 bg-grey -->
+      <%= render "dashboard/partials/sidebar" %>
+      
+      <div class="col-md-9 ms-sm-auto col-lg-9 px-md-4">
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+          <h1 class="h2"><%= @hand_pos %></h1>
+        </div>
+
+        <%= render "uploads/form/upload" %>
+      
+      </div>
+    </div>
+  </div>
+
+  <%= render "partials/footer" %>
+</main>
+

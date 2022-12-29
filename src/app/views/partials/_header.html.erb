@@ -6,7 +6,12 @@
     </a>
 
     <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-        <li><%= link_to("Dashboard", dashboard_path, class: "nav-link px-7 link-secondary fs-5", data: {turbo: "false"}) %></li>
+        <% if user_signed_in? %>
+            <% #byebug %>
+            <li><%= link_to "Dashboard", dashboard_index_path, class: "nav-link px-7 link-secondary fs-5", data: {turbo: "false"} %></li>
+        <% else %>
+            <li><%= link_to("Dashboard", new_user_session_path, class: "nav-link px-7 link-secondary fs-5", data: {turbo: "false"}) %></li>
+        <% end %>
         <li><%= link_to("Demo", demo_path, class: "nav-link px-7 link-dark fs-5") %></li>
         <li><%= link_to("Documents", documents_path,  class: "nav-link px-7 link-dark fs-5") %></a></li>
     </ul>

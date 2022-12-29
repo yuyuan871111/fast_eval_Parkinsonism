@@ -32,6 +32,9 @@ gem 'cancancan'
 gem 'rails_admin', '~> 3.0'
 gem "cssbundling-rails"
 
+# Carrierwave: Uploader
+gem 'carrierwave', '>= 2.2.3', '< 3.0'
+
 # Preview the mail at local
 gem 'letter_opener_web'
 

@@ -26,8 +26,11 @@ Rails.application.routes.draw do
   get '/documents' => 'home#documents', :as => 'documents'
   get '/demo' => 'home#demo', :as => 'demo'
   get '/status' => 'home#status', :as => 'status'
-  get '/dashboard' => 'dashboard#main', :as => 'dashboard'
-  get '/dashboard' => 'dashboard#download', :as => 'dashboard_download'
-  #resources :dashboard
+  
+  resources :uploads
+
+  #get '/dashboard' => 'dashboard#index', :as => 'dashboard'
+  resources :dashboard
+  #get '/dashboard' => 'dashboard#download', :as => 'dashboard_download'
     
 end

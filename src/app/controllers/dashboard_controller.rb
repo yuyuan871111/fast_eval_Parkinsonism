@@ -1,20 +1,11 @@
+require 'hand_parser'
 class DashboardController < ApplicationController
 
     before_action :authenticate_user!
-
-    def main
-        if params[:hand_pos].present? 
-            # byebug
-            if params[:hand_pos] == '1'
-                @hand_pos = "Finger tapping"
-            elsif params[:hand_pos] == '2'
-                @hand_pos = "Open/close hand movement"
-            elsif params[:hand_pos] == '3'
-                @hand_pos = "Pronation/supination hand movement"
-            end
-        else
-            @hand_pos = "Please select the feature type."
-        end
+    include HandParser
+    def index
+        @user_id = current_user.id
+        hand_pos_name()
     end
 
 end
