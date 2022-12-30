@@ -29,8 +29,8 @@ Rails.application.routes.draw do
   
   resources :uploads
 
-  #get '/dashboard' => 'dashboard#index', :as => 'dashboard'
-  resources :dashboard
+  get '/dashboard' => 'dashboard#index', :as => 'dashboard_index'
+  #resources :dashboard
   #get '/dashboard' => 'dashboard#download', :as => 'dashboard_download'
     
 end

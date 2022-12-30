@@ -1,6 +1,4 @@
 <!-- ./app/views/uploads/new.html.erb -->
-
-
 <main>
   <%= render "partials/header" %>
 
@@ -14,8 +12,10 @@
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
           <h1 class="h2"><%= @hand_pos %></h1>
         </div>
-
-        <%= render "uploads/form/upload" %>
+        <% if @hand_pos != "Please select the feature type." %>
+          <%= render "uploads/form/upload" %>
+        <% end %>
+        <p> <%= flash[:notice] if flash[:notice] %> </p>
       
       </div>
     </div>

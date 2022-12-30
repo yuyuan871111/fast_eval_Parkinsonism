@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_29_100348) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_30_072722) do
   create_table "dashboard", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -27,6 +27,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_29_100348) do
     t.integer "file_size"
     t.string "avatar"
     t.integer "user_id"
+    t.string "hand_pos"
+    t.string "hand_LR"
   end
 
   create_table "users", force: :cascade do |t|

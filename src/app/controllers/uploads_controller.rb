@@ -9,12 +9,18 @@ class UploadsController < ApplicationController
     end
 
     def create
-        @upload = current_user.uploads.create(upload_params)
-        if @upload.save
-            flash[:notice] = "Successfully uploaded (#{@upload.avatar.filename})."
-            #sleep(1)
-            redirect_to status_path
+        # check whether the upload file has been selected.
+        if params[:upload][:avatar].nil?
+            flash[:notice] = "Please choose your file to upload."
+        else
+            @upload = current_user.uploads.create(upload_params)
+            if @upload.save
+                flash[:notice] = "Successfully uploaded '#{@upload.avatar.filename}'."
+            else
+                flash[:notice] = "Only allow specific extensions ('mp4', 'avi', 'mov')."
+            end
         end
+        redirect_to controller: 'uploads', action: 'new', hand_pos: upload_params[:hand_pos]
     end
 
     def destroy
@@ -24,6 +30,6 @@ class UploadsController < ApplicationController
 
     private
     def upload_params
-        params.require(:upload).permit(:avatar)
+        params.require(:upload).permit(:avatar, :hand_LR, :hand_pos)
     end
 end

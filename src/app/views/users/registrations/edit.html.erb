@@ -1,11 +1,11 @@
 <%= render "users/partials/users_header" %>
 
   <div class="col-lg-7 text-center text-lg-start">
-    <h1 class="display-7 fw-bold lh-1 mb-3">Account Details & Edit</h1>
+    <h1 class="display-7 fw-bold lh-1 mb-3"><%= "#{resource_name.to_s.humanize}'s Account Details & Edit"%></h1>
   </div>
 
   <div class="p-5 p-md-5 border rounded-4 bg-light">
-    <h2 class="display-10 fw-bold lh-1 mb-3"><%= resource_name.to_s.humanize %></h2>
+    <h2 class="display-10 fw-bold lh-1 mb-3"><%= "Modify my password" %></h2>
     <%= render "users/form/edit_account" %>
     <% if flash[:notice] %>
       <small class= "text-muted"> <%= flash[:notice] %> <br /> </small>
