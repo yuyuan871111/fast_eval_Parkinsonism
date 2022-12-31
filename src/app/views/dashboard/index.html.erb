@@ -19,12 +19,11 @@
             </div>
           </div>
         </div>
-        <% if @upload %>
-          <%= image_tag @upload.image_url.to_s %>
+
+        <% if @hand_pos != "Please select the feature type." %>
+          <%= render "dashboard/partials/table" %>
         <% end %>
 
-        <!-- <h2>Section title</h2> -->
-        <% render "dashboard/partials/table" %>
       </div>
     </div>
   </div>

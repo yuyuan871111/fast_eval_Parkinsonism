@@ -3,7 +3,7 @@
         <%= form.label :avatar, 'Video Upload Here (mp4, avi, mov):' %>
         <%= form.file_field :avatar, id: :upload_avatar %>
         
-        <%= form.label :hand_LR, 'Choose your video is left-hand or right-hand:' %>
+        <%= form.label :hand_LR, 'Choose your video is [ left / right ] hand:' %>
         <%= form.select :hand_LR, ['not_selected', 'left', 'right'] %>
         <%= form.hidden_field :hand_pos, value: params[:hand_pos] %>
     </div>

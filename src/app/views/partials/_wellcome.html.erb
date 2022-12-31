@@ -7,11 +7,7 @@
       Using a series of utilities, you can create this jumbotron, just like the one in previous versions of Bootstrap. 
       Check out the examples below for how you can remix and restyle it to your liking.
     </p>
-    <% if user_signed_in? %>
       <%= link_to("Start Now", dashboard_index_path, class: "btn btn-primary btn-lg", data: {turbo: "false"}) %>
-    <% else %>
-      <%= link_to("Start Now", new_user_session_path, class: "btn btn-primary btn-lg", data: {turbo: "false"}) %>
-    <% end %>
   </div>
 </div>
 
