@@ -155,6 +155,7 @@ utils/saved_models/DrGuo_3d_rotat_val_pick/Left_FG_3/Kfold*
 utils/saved_models/DrGuo_3d_rotat_val_pick/Right_FG_1/Kfold*
 utils/saved_models/DrGuo_3d_rotat_val_pick/Right_FG_2/Kfold*
 utils/saved_models/DrGuo_3d_rotat_val_pick/Right_FG_3/Kfold*
+utils/saved_models/DrGuo_3d_valpick_enhanced_feat
 
 utils/saved_models/DrGuo_3d_valpick_enhanced_feat/Left_FG_1/Kfold*
 utils/saved_models/DrGuo_3d_valpick_enhanced_feat/Left_FG_2/Kfold*
@@ -167,3 +168,4 @@ private
 
 # website backup
 src_backup
+src
