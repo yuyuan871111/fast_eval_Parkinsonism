@@ -5,9 +5,10 @@ class DashboardController < ApplicationController
     include HandParser
 
     def index
-        @user_id = current_user.id
-        @uploads = current_user.uploads
-        hand_pos_name()
+        @uploads_L = current_user.uploads.where("hand_pos == #{params[:hand_pos]} AND hand_LR == 'left'")
+        @uploads_R = current_user.uploads.where("hand_pos == #{params[:hand_pos]} AND hand_LR == 'right'")
+        @uploads_ns = current_user.uploads.where("hand_pos == #{params[:hand_pos]} AND hand_LR == 'not_selected'")
+        hand_pos_name(params[:hand_pos])
     end
     
 

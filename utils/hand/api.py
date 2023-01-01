@@ -297,7 +297,7 @@ def hand_pos_inference(
                                 in_channels=cfg['channels_num'],
                                 crop_len = cfg['crop_len'],
                                 device=cfg['device'])
-    model.load_state_dict(torch.load(cfg['model_path']))
+    model.load_state_dict(torch.load(cfg['model_path'], map_location=cfg['device']))
     model.to(cfg['device'])
 
     # prediction

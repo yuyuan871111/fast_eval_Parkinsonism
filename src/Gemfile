@@ -35,6 +35,9 @@ gem "cssbundling-rails"
 # Carrierwave: Uploader
 gem 'carrierwave', '>= 2.2.3', '< 3.0'
 
+# Active Storage validator (file size, type)
+gem 'activestorage-validator'
+
 # Preview the mail at local
 gem 'letter_opener_web'
 

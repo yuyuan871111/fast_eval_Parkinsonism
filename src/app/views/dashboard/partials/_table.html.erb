@@ -11,55 +11,60 @@
         </thead>
         <tbody>
             <% @counter = 0 %>
-            <% @uploads.order('created_at DESC').each do |upload| %>
+            <% uploads.order('created_at DESC').each do |upload| %>
                 <tr>
                     <% #byebug %>
-                    <% if upload.hand_pos == params[:hand_pos] %>
-                        <% @counter += 1 %>
-                        <!-- Name -->
-                        <td>
-                        <p> <%= upload.avatar_identifier %> </p>
-                        <div class="btn-group" role="group">
-                            <%= link_to 'View', upload_path(:id => upload.id) , :title => 'View', class: "btn btn-info" %>
+                    <% @counter += 1 %>
+                    <!-- Name -->
+                    <td>
+                    <p> <%= upload.video.filename %> </p>
+                    <div class="btn-group" role="group">
+                        <%= link_to 'View', upload_path(:id => upload.id), :hand_pos => upload.hand_pos, data: {turbo: false}, class: "btn btn-success" %>
+                        <br>
+                        <%= link_to 'Edit info', edit_upload_path(:id => upload.id), :title => 'Edit info', data: {turbo: false}, class: "btn btn-info" %>
+                        <br>
+                        <% if upload.status == 'uploaded' %>
+                            <%= link_to 'Run analysis', '#', :title => 'Run analysis', class: "btn btn-warning" %>
                             <br>
-                            <%= link_to 'Run analysis', '#', :title => 'Run analysis', class: "btn btn-success" %>
-                            <br>
+                        <% end%>
+                        <% if upload.status == 'done' %>
                             <%= link_to 'Retrieve results', '#', :title => 'Retrieve results', class: "btn btn-warning" %>
                             <br>
-                            <%= link_to 'Delete', upload_path(:id => upload.id), data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}, :title => 'Delete', class: "btn btn-danger" %>
-                        </div>
-                        </td>
-                        
-                        <!-- Status -->
-                        <td>
-                        <%= upload.hand_pos %>
-                        </td>
-                        
-                        <!-- Video info -->
-                        <td>
-                        <ul>
-                            <li>hand: <%= upload.hand_LR %></li>
-                            <li>hand_pos: <%= upload.hand_pos %></li>
-                            <li>hand_pos: <%= upload.hand_pos %></li>
-                        </ul>
-                        </td>
+                        <% end %>
+                        <%= link_to 'Delete', upload_path(:id => upload.id), data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}, :title => 'Delete', class: "btn btn-danger" %>
+                    </div>
+                    </td>
+                    
+                    <!-- Status -->
+                    <td>
+                    <%= upload.status %>
+                    </td>
+                    
+                    <!-- Video info -->
+                    <td>
+                    <ul>
+                        <li>hand: <%= upload.hand_LR %></li>
+                        <li>hand_pos: <%= upload.hand_pos %></li>
+                        <li>hand_pos: <%= upload.hand_pos %></li>
+                    </ul>
+                    </td>
 
-                        <!-- Results -->
-                        <td>
-                        <ul>
-                            <li>hand_pos: <%= upload.hand_pos %></li>
-                            <li>hand_pos: <%= upload.hand_pos %></li>
-                            <li>hand_pos: <%= upload.hand_pos %></li>
-                            <li>hand_pos: <%= upload.hand_pos %></li>
-                            <li>hand_pos: <%= upload.hand_pos %></li>
-                        </ul>
-                        </td>
+                    <!-- Results -->
+                    <td>
+                    <ul>
+                        <li>hand_pos: <%= upload.hand_pos %></li>
+                        <li>hand_pos: <%= upload.hand_pos %></li>
+                        <li>hand_pos: <%= upload.hand_pos %></li>
+                        <li>hand_pos: <%= upload.hand_pos %></li>
+                        <li>hand_pos: <%= upload.hand_pos %></li>
+                    </ul>
+                    </td>
 
-                        <!-- Create at -->
-                        <td>
-                        <%= upload.created_at %>
-                        </td>
-                    <% end %>
+                    <!-- Create at -->
+                    <td>
+                    <%= upload.created_at %>
+                    </td>
+
                 </tr>
             <% end %>
         </tbody>

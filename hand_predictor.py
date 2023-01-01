@@ -7,7 +7,7 @@ from utils.seed import set_seed
 from utils.hand.keypoints import stft_plot, mergePlot_PeakInteRaw
 
 def main_batch(cfg):
-    pass
+    raise NotImplementedError
 
 
 def main_single(cfg):
@@ -34,6 +34,9 @@ def main_single(cfg):
         output_root_path=output_root_path,
         hand_query=hand_LR, export_video=True, logging=False
     )
+    ffmpeg4format(video_path=video_output_path.replace(".mp4", "_annot.mp4"), 
+                  output_path=video_output_path.replace(".mp4", "_annot_.mp4"))
+                  # encode to h264
 
     # Step 2: data preprocessing
     df_map_list = []
@@ -70,6 +73,7 @@ def main_single(cfg):
 
     # Step 4: clean uneccasary files
     os.remove(f"{output_root_path}/{filename}_map.csv")
+    os.rename(video_output_path.replace(".mp4", "_annot_.mp4"), video_output_path.replace(".mp4", "_annot.mp4"))
 
     # Step 5: traditional parameters
     results = {}
