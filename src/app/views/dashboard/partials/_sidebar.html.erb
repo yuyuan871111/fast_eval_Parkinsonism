@@ -8,19 +8,19 @@
     <ul class="list-unstyled ps-0 nav flex-column">
       
       <li class="mb-1">
-          <a class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed fs-4" data-bs-toggle="collapse" data-bs-target="#hand_ft-collapse" aria-expanded="false"  aria-controls="hand_ft-collapse">
+          <a class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed fs-4" data-bs-toggle="collapse" data-bs-target="#hand_ft-collapse" aria-expanded="false" aria-controls="hand_ft-collapse">
             Finger tapping
           </a>
           <div class="collapse" id="hand_ft-collapse">
             <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                 <li>
-                  <%= link_to("Overview", root_path, class: "fs-4 link-dark d-inline-flex text-decoration-none rounded") %>
+                  <%= link_to "Overview", dashboard_index_path(:hand_pos => '1'), class: "p-2 fs-4 link-dark d-inline-flex text-decoration-none rounded", data: {turbo: false} %>
                 </li>
                 <li>
-                  <%= link_to("Uploads", "#", class: "fs-4 link-dark d-inline-flex text-decoration-none rounded") %>
+                  <%= link_to "Uploads", new_upload_path(current_user.id, :hand_pos => '1'), class: "p-2 fs-4 link-dark d-inline-flex text-decoration-none rounded", data: {turbo: false} %>
                 </li>
                 <li>
-                  <%= link_to("Reports", "#", class: "fs-4 link-dark d-inline-flex text-decoration-none rounded") %>
+                  <%= link_to "Case Report", dashboard_index_path(:hand_pos => '1'), class: "p-2 fs-4 link-dark d-inline-flex text-decoration-none rounded", data: {turbo: false} %>
                 </li>
             </ul>
           </div>
@@ -31,13 +31,13 @@
           <div class="collapse" id="hand_oc-collapse">
             <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                 <li>
-                  <%= link_to("Overview (dev)", "#", class: "fs-4 link-dark d-inline-flex text-decoration-none rounded") %>
+                  <%= link_to "Overview", dashboard_index_path(:hand_pos => '2'), class: "p-2 fs-4 link-dark d-inline-flex text-decoration-none rounded", data: {turbo: false} %>
                 </li>
                 <li>
-                  <%= link_to("Uploads (dev)", "#", class: "fs-4 link-dark d-inline-flex text-decoration-none rounded") %>
+                  <%= link_to "Uploads", new_upload_path(current_user.id, :hand_pos => '2'), class: "p-2 fs-4 link-dark d-inline-flex text-decoration-none rounded", data: {turbo: false} %>
                 </li>
                 <li>
-                  <%= link_to("Reports (dev)", "#", class: "fs-4 link-dark d-inline-flex text-decoration-none rounded") %>
+                  <%= link_to "Reports (dev)", dashboard_index_path(:hand_pos => '2'), class: "p-2 fs-4 link-dark d-inline-flex text-decoration-none rounded", data: {turbo: false} %>
                 </li>
             </ul>
           </div>
@@ -48,13 +48,13 @@
           <div class="collapse" id="hand_ps-collapse">
             <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                 <li>
-                  <%= link_to("Overview (dev)", "#", class: "fs-4 link-dark d-inline-flex text-decoration-none rounded") %>
+                  <%= link_to "Overview", dashboard_index_path(:hand_pos => '3'), class: "p-2 fs-4 link-dark d-inline-flex text-decoration-none rounded", data: {turbo: false} %>
                 </li>
                 <li>
-                  <%= link_to("Uploads (dev)", "#", class: "fs-4 link-dark d-inline-flex text-decoration-none rounded") %>
+                  <%= link_to "Uploads", new_upload_path(current_user.id, :hand_pos => '3'), class: "p-2 fs-4 link-dark d-inline-flex text-decoration-none rounded", data: {turbo: false} %>
                 </li>
                 <li>
-                  <%= link_to("Reports (dev)", "#", class: "fs-4 link-dark d-inline-flex text-decoration-none rounded") %>
+                  <%= link_to "Reports (dev)", dashboard_index_path(:hand_pos => '3'), class: "p-2 fs-4 link-dark d-inline-flex text-decoration-none rounded", data: {turbo: false} %>
                 </li>
             </ul>
           </div>

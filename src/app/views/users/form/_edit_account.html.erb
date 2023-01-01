@@ -3,7 +3,7 @@
 
   <div class="field">
     <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
+    <b> <%= current_user.email %> </b>
   </div>
   <br />
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
@@ -11,7 +11,7 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
+    <%= f.label :password, "New password" %> <i>(leave blank if you don't want to change it)</i><br />
     <%= f.password_field :password, autocomplete: "new-password", class: "form-control" %>
     <% if @minimum_password_length %>
       <em><%= @minimum_password_length %> characters minimum</em>
@@ -19,7 +19,7 @@
   </div>
   <br />
   <div class="field">
-    <%= f.label :password_confirmation %><br />
+    <%= f.label :password_confirmation, "Confirm new password" %><br />
     <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
   </div>
   <br />
@@ -29,6 +29,6 @@
   </div>
   <br />
   <div class="actions">
-    <%= f.submit "Update", class: "w-100 btn btn-lg btn-warning"  %>
+    <%= f.submit "Update", class: "w-100 btn btn-lg btn-warning", data: {turbo: false}  %>
   </div>
 <% end %>

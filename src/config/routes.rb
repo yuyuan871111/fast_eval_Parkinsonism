@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  # preview at http://localhost:3000/admin
+  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
 
   devise_for :users, controllers: { 
     sessions: 'users/sessions', 
@@ -22,10 +24,11 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "home#index", :as => 'root'
+  get '/dashboard' => 'dashboard#index', :as => 'dashboard_index'
   get '/documents' => 'home#documents', :as => 'documents'
   get '/demo' => 'home#demo', :as => 'demo'
   get '/status' => 'home#status', :as => 'status'
-  get 'dashboard' => 'dashboard#main', :as => 'dashboard'
-  #resources :dashboard
+  
+  resources :uploads
     
 end

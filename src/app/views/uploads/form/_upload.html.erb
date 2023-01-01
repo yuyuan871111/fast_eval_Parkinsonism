@@ -1,0 +1,15 @@
+<%= form_for(@upload) do |form| %>
+    <div>
+        <%= form.label :video, 'Video Upload Here (mp4, avi, mov):' %>
+        <%= form.file_field :video, id: :upload_avatar %>
+        
+        <%= form.label :hand_LR, 'Choose your video is [ left / right ] hand:' %>
+        <%= form.select :hand_LR, ['not_selected', 'left', 'right'] %>
+        <%= form.hidden_field :hand_pos, value: params[:hand_pos] %>
+        <%= form.hidden_field :status, value: "uploaded" %>
+    </div>
+
+    <%= form.submit "Upload" %>
+    
+
+<% end %>

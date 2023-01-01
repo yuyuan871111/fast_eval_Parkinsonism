@@ -1,0 +1,77 @@
+<div class="table-responsive">
+    <table class="table table-striped table-sm">
+        <thead>
+            <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Status</th>
+            <th scope="col">Video info</th>
+            <th scope="col">Results</th>
+            <th scope="col">Created at</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% @counter = 0 %>
+            <% uploads.order('created_at DESC').each do |upload| %>
+                <tr>
+                    <% #byebug %>
+                    <% @counter += 1 %>
+                    <!-- Name -->
+                    <td>
+                    <p> <%= upload.video.filename %> </p>
+                    <div class="btn-group" role="group">
+                        <%= link_to 'View', upload_path(:id => upload.id), :hand_pos => upload.hand_pos, data: {turbo: false}, class: "btn btn-success" %>
+                        <br>
+                        <%= link_to 'Edit info', edit_upload_path(:id => upload.id), :title => 'Edit info', data: {turbo: false}, class: "btn btn-info" %>
+                        <br>
+                        <% if upload.status == 'uploaded' %>
+                            <%= link_to 'Run analysis', '#', :title => 'Run analysis', class: "btn btn-warning" %>
+                            <br>
+                        <% end%>
+                        <% if upload.status == 'done' %>
+                            <%= link_to 'Retrieve results', '#', :title => 'Retrieve results', class: "btn btn-warning" %>
+                            <br>
+                        <% end %>
+                        <%= link_to 'Delete', upload_path(:id => upload.id), data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}, :title => 'Delete', class: "btn btn-danger" %>
+                    </div>
+                    </td>
+                    
+                    <!-- Status -->
+                    <td>
+                    <%= upload.status %>
+                    </td>
+                    
+                    <!-- Video info -->
+                    <td>
+                    <ul>
+                        <li>hand: <%= upload.hand_LR %></li>
+                        <li>hand_pos: <%= upload.hand_pos %></li>
+                        <li>hand_pos: <%= upload.hand_pos %></li>
+                    </ul>
+                    </td>
+
+                    <!-- Results -->
+                    <td>
+                    <ul>
+                        <li>hand_pos: <%= upload.hand_pos %></li>
+                        <li>hand_pos: <%= upload.hand_pos %></li>
+                        <li>hand_pos: <%= upload.hand_pos %></li>
+                        <li>hand_pos: <%= upload.hand_pos %></li>
+                        <li>hand_pos: <%= upload.hand_pos %></li>
+                    </ul>
+                    </td>
+
+                    <!-- Create at -->
+                    <td>
+                    <%= upload.created_at %>
+                    </td>
+
+                </tr>
+            <% end %>
+        </tbody>
+    </table>
+    <% if @counter == 0 %>
+        <%= "Total files: #{@counter}, please upload your file first." %>
+        <% else %>
+        <%= "Total files: #{@counter}." %>
+    <% end %>
+</div>

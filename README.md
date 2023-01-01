@@ -39,4 +39,7 @@ conda activate mediapipe
 
 # python open-cv pkg
 apt-get install python3-opencv
+
+# install ffmpeg
+apt install ffmpeg -y
 ```
