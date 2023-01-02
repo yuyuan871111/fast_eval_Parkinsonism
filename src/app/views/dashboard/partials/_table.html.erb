@@ -1,12 +1,12 @@
 <div class="table-responsive">
-    <table class="table table-striped table-sm">
+    <table class="table table-striped  table-sm">
         <thead>
             <tr>
             <th scope="col">Name</th>
             <th scope="col">Status</th>
             <th scope="col">Video info</th>
             <th scope="col">Results</th>
-            <th scope="col">Created at</th>
+            <th scope="col">Timeline</th>
             </tr>
         </thead>
         <tbody>
@@ -17,21 +17,28 @@
                     <% @counter += 1 %>
                     <!-- Name -->
                     <td>
-                    <p> <%= upload.video.filename %> </p>
+                    <p> <%= upload.video.filename.base %> </p>
                     <div class="btn-group" role="group">
+                        <!-- View button -->
                         <%= link_to 'View', upload_path(:id => upload.id), :hand_pos => upload.hand_pos, data: {turbo: false}, class: "btn btn-success" %>
-                        <br>
-                        <%= link_to 'Edit info', edit_upload_path(:id => upload.id), :title => 'Edit info', data: {turbo: false}, class: "btn btn-info" %>
-                        <br>
-                        <% if upload.status == 'uploaded' %>
-                            <%= link_to 'Run analysis', '#', :title => 'Run analysis', class: "btn btn-warning" %>
+                        
+                        <% #byebug %>
+                        <% if (upload.status == 'queuing') ^ (upload.status != 'running') %>
                             <br>
-                        <% end%>
-                        <% if upload.status == 'done' %>
-                            <%= link_to 'Retrieve results', '#', :title => 'Retrieve results', class: "btn btn-warning" %>
+                            <%= link_to 'Edit info', edit_upload_path(:id => upload.id), :title => 'Edit info', data: {turbo: false}, class: "btn btn-info" %>
                             <br>
+
+                            <% if upload.hand_LR != 'not_selected' %>
+                                <% if upload.status == 'uploaded' %>
+                                    <!-- Run analysis button -->
+                                    <%= link_to 'Run analysis', do_run_path(:id => upload.id), :title => 'Run analysis', data: {turbo: false}, class: "btn btn-warning" %>
+                                    <br>
+                                <% end%>
+                            <% end %>
+                            <!-- Delete button -->
+                            <%= link_to 'Delete', upload_path(:id => upload.id), data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}, :title => 'Delete', class: "btn btn-danger" %>
+                        
                         <% end %>
-                        <%= link_to 'Delete', upload_path(:id => upload.id), data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}, :title => 'Delete', class: "btn btn-danger" %>
                     </div>
                     </td>
                     
@@ -43,26 +50,38 @@
                     <!-- Video info -->
                     <td>
                     <ul>
-                        <li>hand: <%= upload.hand_LR %></li>
-                        <li>hand_pos: <%= upload.hand_pos %></li>
-                        <li>hand_pos: <%= upload.hand_pos %></li>
+                        <% #byebug %>
+                        <li>content type: <%= upload.video.content_type %> </li>
+                        <li>duration: <%= upload.video.blob.metadata.fetch(:duration, 0).round(2) %> sec.</li>
+                        <li>height: <%= upload.video.blob.metadata.fetch(:height, 0).round(0) %></li>
+                        <li>width: <%= upload.video.blob.metadata.fetch(:width, 0).round(0) %></li>
+                        <li>aspect ratio: <%= upload.video.blob.metadata.fetch(:display_aspect_ratio, [0,0]) %></li>
                     </ul>
                     </td>
 
                     <!-- Results -->
                     <td>
-                    <ul>
-                        <li>hand_pos: <%= upload.hand_pos %></li>
-                        <li>hand_pos: <%= upload.hand_pos %></li>
-                        <li>hand_pos: <%= upload.hand_pos %></li>
-                        <li>hand_pos: <%= upload.hand_pos %></li>
-                        <li>hand_pos: <%= upload.hand_pos %></li>
-                    </ul>
+                    
+                    <% if upload.status == 'done' %>
+                        <ul>                    
+                        <li>error frame ratio: <%= upload.hand_pos %></li>
+                        <li>predicted UPDRS: <%= upload.hand_pos %></li>
+                        <li>mean frequency: <%= upload.hand_pos %> Hz</li>
+                        <li>mean intensity: <%= upload.hand_pos %> (A.U.)</li>
+                        <li>mean inte-freq: <%= upload.hand_pos %> (A.U./s)</li>
+                        <li>mean peak: <%= upload.hand_pos %> <br> (distance/thumb-length)</li>
+                        </ul>
+                    <% else %>
+                        <p> Click "Run analysis" to get results. </p>
+                    <% end %>
+                    
                     </td>
 
-                    <!-- Create at -->
+                    <!-- Timeline -->
                     <td>
-                    <%= upload.created_at %>
+                    <p> Created at: <%= upload.created_at if upload.created_at? %> </p>
+                    <p> <%= "Retrieved results at: #{upload.retrieved_at}" if upload.retrieved_at? %> </p>
+                    <p> Updated at: <%= upload.updated_at if upload.updated_at? %> </p>
                     </td>
 
                 </tr>
@@ -71,7 +90,7 @@
     </table>
     <% if @counter == 0 %>
         <%= "Total files: #{@counter}, please upload your file first." %>
-        <% else %>
+    <% else %>
         <%= "Total files: #{@counter}." %>
     <% end %>
 </div>

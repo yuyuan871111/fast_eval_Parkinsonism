@@ -10,13 +10,15 @@
       
       <div class="col-md-9 ms-sm-auto col-lg-9 px-md-4">
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-          <h1 class="h2"><%= "#{@hand_pos}: #{@upload.video.filename}" %></h1>
+          <h1 class="h2"><%= "#{@hand_pos}: #{@upload.video.filename.base}" %></h1>
+          <% if @hand_pos != "Please select the feature type." %>
+            <%= link_to "Back to overview", dashboard_index_path(hand_pos: @upload.hand_pos), class: "btn btn-sm btn-outline-secondary", data: {turbo: false}  %>
+          <% end %>
         </div>
 
         <% if @hand_pos != "Please select the feature type." %>
-          <p><%= @upload.video.filename %></p>
+          <%= render "uploads/form/edit_info", upload: @upload %>
         <% end %>
-        <%= link_to "Back to overview", dashboard_index_path(hand_pos: @upload.hand_pos), class: "btn btn-sm btn-outline-secondary", data: {turbo: false}  %>
       
       </div>
     </div>

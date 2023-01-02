@@ -1,3 +1,11 @@
-<%= video_tag(url_for(@upload.video), width: "50%", :controls => true,  muted: true)%>
+<p> 
+    <%= "The video is assigned to '#{@upload.hand_LR}' hand, " %>
+    please check whether it is correct or edit 
+    <%= link_to 'here', edit_upload_path(:id => @upload.id), data: {turbo: false} %>
+    . 
+</p>
+<%= video_tag(url_for(@upload.video), width: "50%", :controls => true,  muted: true, :autoplay => true)%>
 <br>
-<p>If the video cannot be played, please download video and play locally.</p>
+<p>If the video cannot be played, please download and locally play it .</p>
+
+<%# byebug %>

@@ -30,5 +30,13 @@ Rails.application.routes.draw do
   get '/status' => 'home#status', :as => 'status'
   
   resources :uploads
+  get '/uploads/:id/do_run' => 'uploads#do_run', :as => 'do_run'
+
+  get '/test' => 'home#test', :as => 'test'
+
+  require 'sidekiq/web'
+  # authenticate :user, lambda { |u| u.admin? } do
+    mount Sidekiq::Web => '/sidekiq'
+  # end
     
 end

@@ -1,0 +1,5 @@
+<h1> test page </h1>
+<p> <%= %W( #{config.root}/app/jobs ) %> </p>
+<%# HardJob.perform_async('hard', 5) %>
+<%# HardJob.perform_in(5.minutes, 'easy', 5) %>
+<%# HardJob.perform_at(5.minutes.from_now, 'easy', 5) %>
