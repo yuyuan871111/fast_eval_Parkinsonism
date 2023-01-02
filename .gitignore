@@ -134,34 +134,34 @@ CaseStudy*
 
 # Data
 Data
-utils/saved_models/DrGuo/Left_FG_1/Kfold*
-utils/saved_models/DrGuo/Left_FG_2/Kfold*
-utils/saved_models/DrGuo/Left_FG_3/Kfold*
-utils/saved_models/DrGuo/Right_FG_1/Kfold*
-utils/saved_models/DrGuo/Right_FG_2/Kfold*
-utils/saved_models/DrGuo/Right_FG_3/Kfold*
-utils/saved_models/test
+src/lib/hand_predictor/utils/saved_models/DrGuo/Left_FG_1/Kfold*
+src/lib/hand_predictor/utils/saved_models/DrGuo/Left_FG_2/Kfold*
+src/lib/hand_predictor/utils/saved_models/DrGuo/Left_FG_3/Kfold*
+src/lib/hand_predictor/utils/saved_models/DrGuo/Right_FG_1/Kfold*
+src/lib/hand_predictor/utils/saved_models/DrGuo/Right_FG_2/Kfold*
+src/lib/hand_predictor/utils/saved_models/DrGuo/Right_FG_3/Kfold*
+src/lib/hand_predictor/utils/saved_models/test
 
-utils/saved_models/DrGuo_3d_rotat/Left_FG_1/Kfold*
-utils/saved_models/DrGuo_3d_rotat/Left_FG_2/Kfold*
-utils/saved_models/DrGuo_3d_rotat/Left_FG_3/Kfold*
-utils/saved_models/DrGuo_3d_rotat/Right_FG_1/Kfold*
-utils/saved_models/DrGuo_3d_rotat/Right_FG_2/Kfold*
-utils/saved_models/DrGuo_3d_rotat/Right_FG_3/Kfold*
+src/lib/hand_predictor/utils/saved_models/DrGuo_3d_rotat/Left_FG_1/Kfold*
+src/lib/hand_predictor/utils/saved_models/DrGuo_3d_rotat/Left_FG_2/Kfold*
+src/lib/hand_predictor/utils/saved_models/DrGuo_3d_rotat/Left_FG_3/Kfold*
+src/lib/hand_predictor/utils/saved_models/DrGuo_3d_rotat/Right_FG_1/Kfold*
+src/lib/hand_predictor/utils/saved_models/DrGuo_3d_rotat/Right_FG_2/Kfold*
+src/lib/hand_predictor/utils/saved_models/DrGuo_3d_rotat/Right_FG_3/Kfold*
 
-utils/saved_models/DrGuo_3d_rotat_val_pick/Left_FG_1/Kfold*
-utils/saved_models/DrGuo_3d_rotat_val_pick/Left_FG_2/Kfold*
-utils/saved_models/DrGuo_3d_rotat_val_pick/Left_FG_3/Kfold*
-utils/saved_models/DrGuo_3d_rotat_val_pick/Right_FG_1/Kfold*
-utils/saved_models/DrGuo_3d_rotat_val_pick/Right_FG_2/Kfold*
-utils/saved_models/DrGuo_3d_rotat_val_pick/Right_FG_3/Kfold*
+src/lib/hand_predictor/utils/saved_models/DrGuo_3d_rotat_val_pick/Left_FG_1/Kfold*
+src/lib/hand_predictor/utils/saved_models/DrGuo_3d_rotat_val_pick/Left_FG_2/Kfold*
+src/lib/hand_predictor/utils/saved_models/DrGuo_3d_rotat_val_pick/Left_FG_3/Kfold*
+src/lib/hand_predictor/utils/saved_models/DrGuo_3d_rotat_val_pick/Right_FG_1/Kfold*
+src/lib/hand_predictor/utils/saved_models/DrGuo_3d_rotat_val_pick/Right_FG_2/Kfold*
+src/lib/hand_predictor/utils/saved_models/DrGuo_3d_rotat_val_pick/Right_FG_3/Kfold*
 
-utils/saved_models/DrGuo_3d_valpick_enhanced_feat/Left_FG_1/Kfold*
-utils/saved_models/DrGuo_3d_valpick_enhanced_feat/Left_FG_2/Kfold*
-utils/saved_models/DrGuo_3d_valpick_enhanced_feat/Left_FG_3/Kfold*
-utils/saved_models/DrGuo_3d_valpick_enhanced_feat/Right_FG_1/Kfold*
-utils/saved_models/DrGuo_3d_valpick_enhanced_feat/Right_FG_2/Kfold*
-utils/saved_models/DrGuo_3d_valpick_enhanced_feat/Right_FG_3/Kfold*
+src/lib/hand_predictor/utils/saved_models/DrGuo_3d_valpick_enhanced_feat/Left_FG_1/Kfold*
+src/lib/hand_predictor/utils/saved_models/DrGuo_3d_valpick_enhanced_feat/Left_FG_2/Kfold*
+src/lib/hand_predictor/utils/saved_models/DrGuo_3d_valpick_enhanced_feat/Left_FG_3/Kfold*
+src/lib/hand_predictor/utils/saved_models/DrGuo_3d_valpick_enhanced_feat/Right_FG_1/Kfold*
+src/lib/hand_predictor/utils/saved_models/DrGuo_3d_valpick_enhanced_feat/Right_FG_2/Kfold*
+src/lib/hand_predictor/utils/saved_models/DrGuo_3d_valpick_enhanced_feat/Right_FG_3/Kfold*
 
 private
 

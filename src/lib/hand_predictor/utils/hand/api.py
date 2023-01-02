@@ -134,6 +134,7 @@ def mp_kpts_preprocessing(input_filepath: str, output_filepath: str, logging = F
 
 
 def model_pred_severity(
+    wkdir_path: str,
     test_data_path: str,
     test_map_path: str,
     hand: str = "Left",
@@ -151,8 +152,8 @@ def model_pred_severity(
     model_prefixs = [f'{hand}_FG_{idx+1}' for idx in range(3)]
     dfs = []
     for each_model_prefix in model_prefixs:
-        model_path = f'./utils/saved_models/DrGuo_3d_rotat_val_pick/{each_model_prefix}/best.pth'
-        args_path = f'./utils/saved_models/DrGuo_3d_rotat_val_pick/{each_model_prefix}/args.txt'
+        model_path = f'{wkdir_path}/utils/saved_models/DrGuo_3d_rotat_val_pick/{each_model_prefix}/best.pth'
+        args_path = f'{wkdir_path}/utils/saved_models/DrGuo_3d_rotat_val_pick/{each_model_prefix}/args.txt'
         _, df, _ = hand_pos_inference(
             test_data_path=test_data_path,
             test_map_path=test_map_path,

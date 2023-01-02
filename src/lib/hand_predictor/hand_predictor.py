@@ -17,6 +17,7 @@ def main_single(cfg):
     input_root_path = cfg['input_root_path']
     output_root_path = cfg['output_root_path']
     hand_LR = cfg['hand_LR']
+    wkdir_path = cfg['wkdir_path']
 
     video_path = f"{input_root_path}/{filename}.{ext}"
     assert os.path.exists(video_path), "Please check your video path."
@@ -61,6 +62,7 @@ def main_single(cfg):
 
     # Step 3: prediction
     df_predict = model_pred_severity(
+        wkdir_path=wkdir_path,
         test_data_path=output_root_path,
         test_map_path=f"{output_root_path}/{filename}_map.csv",
         hand=hand_LR,
@@ -103,6 +105,10 @@ def main_single(cfg):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     # basic setting
+    parser.add_argument('--wkdir_path',
+                        type=str,
+                        default='.',
+                        help='where is the root path of this script')
     parser.add_argument('--seed',
                         type=int,
                         default=42,
@@ -111,7 +117,7 @@ if __name__ == "__main__":
     # data
     parser.add_argument('--filename',
                         type=str,
-                        default="sample_video",
+                        default="sample_fast",
                         help='the name of the video')
     parser.add_argument('--ext', 
                         type=str,
@@ -119,16 +125,16 @@ if __name__ == "__main__":
                         help='the extension of the file')
     parser.add_argument('--hand_LR',
                         type=str,
-                        default="Right",
+                        default="Left",
                         choices=["Right", "Left"],
                         help="Which hand to transform: [Left or Right]")
     parser.add_argument('--input_root_path',
                         type=str,
-                        default="./Data/InnerDataset/mp4",
+                        default="./",
                         help="the root path of the input")
     parser.add_argument('--output_root_path',
                         type=str,
-                        default="./Data/sample_output",
+                        default="./sample_output",
                         help="the root path of the input")                    
     parser.add_argument('--mode',
                         type=str,
