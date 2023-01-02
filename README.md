@@ -1,4 +1,4 @@
-# fast_eval_Parkinsons
+# fast_eval_Parkinsonism
 
 ## Installation
 ### Docker for ruby
