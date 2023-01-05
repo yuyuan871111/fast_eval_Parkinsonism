@@ -32,8 +32,8 @@ gem 'cancancan'
 gem 'rails_admin', '~> 3.0'
 gem "cssbundling-rails"
 
-# Carrierwave: Uploader
-gem 'carrierwave', '>= 2.2.3', '< 3.0'
+# Carrierwave: Uploader (replaced by Active Storage)
+# gem 'carrierwave', '>= 2.2.3', '< 3.0'
 
 # Active Storage validator (file size, type)
 gem 'activestorage-validator'
@@ -52,6 +52,7 @@ gem "stimulus-rails"
 
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
+gem "json"
 
 # Use Redis wiath sidekiq
 gem "sidekiq", "~> 7.0"

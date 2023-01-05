@@ -29,6 +29,9 @@ apt install sqlite3 # install sqlite3
 # install ffmpeg
 apt install ffmpeg -y
 
+# install zip
+apt install zip
+
 # REDIS: https://redis.io/docs/getting-started/installation/install-redis-on-linux/
 # lsb-release, redis (sidekiq)
 apt install lsb-release

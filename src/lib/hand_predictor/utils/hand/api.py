@@ -51,12 +51,12 @@ def mp_kpts_generator(video_path: str, output_root_path: str, hand_query: str='L
     elif os.path.isfile(f"{output_root_path}/{filename}_mp_hand_kpt.empty.csv"):
         pass
     else:
+        video_output_path = f"{output_root_path}/{filename}_annot.mp4"
         try:
             try:
                 #raise NotImplementedError #skip this part 
                 # main transformation: thershold=0.5
                 kpt_output_path = f"{output_root_path}/{filename}_mp_hand_kpt.csv"
-                video_output_path = f"{output_root_path}/{filename}_annot.mp4"
                 annotated_images = collect_hand_keypoints_pipe(
                     video_path = video_path, 
                     hand_query = hand_query, 
@@ -69,8 +69,7 @@ def mp_kpts_generator(video_path: str, output_root_path: str, hand_query: str='L
             except:
                 # main transformation: thershold=0
                 kpt_output_path = f"{output_root_path}/{filename}_mp_hand_kpt.thre0.csv"
-                video_output_path = f"{output_root_path}/{filename}_annot.thre0.mp4"
-                collect_hand_keypoints_pipe(
+                annotated_images = collect_hand_keypoints_pipe(
                     video_path = video_path, 
                     hand_query = hand_query, 
                     output_path = kpt_output_path, 
@@ -87,6 +86,9 @@ def mp_kpts_generator(video_path: str, output_root_path: str, hand_query: str='L
                 # write columns only (empty data)
                 ff.write("timestamp,x_0,x_1,x_2,x_3,x_4,x_5,x_6,x_7,x_8,x_9,x_10,x_11,x_12,x_13,x_14,x_15,x_16,x_17,x_18,x_19,x_20,y_0,y_1,y_2,y_3,y_4,y_5,y_6,y_7,y_8,y_9,y_10,y_11,y_12,y_13,y_14,y_15,y_16,y_17,y_18,y_19,y_20,z_0,z_1,z_2,z_3,z_4,z_5,z_6,z_7,z_8,z_9,z_10,z_11,z_12,z_13,z_14,z_15,z_16,z_17,z_18,z_19,z_20")
                 ff.write("\n")
+
+            # annot video = original video (because it can't extract keypoints)
+            if export_video: os.system(f"cp {video_path} {video_output_path}")
 
             # report to logs
             if logging:
@@ -173,7 +175,7 @@ def model_pred_severity(
     test_data_df_raw = pd.read_csv(test_map_path, header=None) # read
     df = pd.concat(dfs, axis=1)
     df = df.filter(regex="predict")
-    df['predict_overall'] = df.sum(axis=1)
+    df['predict_overall'] = df.sum(axis=1, skipna=False)
     df = pd.concat([test_data_df_raw, df], axis=1)
     df.columns = ['csvname', 'label', 'error_frame_ratio'] + list(df.columns[3:])
 
@@ -271,66 +273,72 @@ def hand_pos_inference(
     test_data_df = test_data_df[test_data_mask] 
     if cfg['logging']: print(f"Files remains: {len(test_data_df)}/{origin_files_num} ({file_remained_ratio:.3f})")
     
-    # dataset proccessing
-    test_dataset = PDHandData(filename_label_df=test_data_df,
-                                   input_channels=all_channels,
-                                   data_root=test_data_path,
-                                   seed=cfg['seed'],
-                                   mk_balanced_dataset=cfg['balance_dataset'],
-                                   mk_balanced_type=cfg['balance_dataset_method'],
-                                   multi_sample_type=cfg['multiple_sampling_type'],
-                                   multi_sample_num=cfg['multiple_sampling_num'],
-                                   enhanced_type=cfg['enhanced_type'],
-                                   random_rotat_3d=cfg['random_rotat_3d'],
-                                   group_map=class_map,
-                                   gaussian_sampling=cfg['gau_samp'],
-                                   crop_len=cfg['crop_len'],
-                                   return_name=True)
-
-    test_loader = DataLoader(test_dataset,
-                                batch_size=cfg['batch_size'],
-                                shuffle=False,
-                                num_workers=1)
-    
-    # read model
-    model = get_model_by_name(model_name=cfg['model'],
-                                n_classes=class_num,
-                                in_channels=cfg['channels_num'],
-                                crop_len = cfg['crop_len'],
-                                device=cfg['device'])
-    model.load_state_dict(torch.load(cfg['model_path'], map_location=cfg['device']))
-    model.to(cfg['device'])
-
-    # prediction
-    model.eval()
-    with torch.no_grad():
-        correct_cum = 0
-        data_num = 0
+    # check whether the file have been all filtered.
+    if file_remained_ratio == 0:
         pred_list_test = []
         label_list_test = []
         csvname_list_test = []
-        for i, (signal, labels, csvname) in enumerate(test_loader):
-            if cfg['logging']:
-                print(
-                    f"Val Processing... {i+1}/{len(test_loader)}            ",
-                    end="\r")
-            signal = signal.float().to(cfg['device'])
-            labels = labels.long().to(cfg['device'])
-            out = model(signal)
-            _, preds = torch.max(out, 1)
-            correct = torch.sum(preds == labels.data).cpu().numpy()
-            correct_cum += correct
-            data_num += signal.shape[0]
+    else:
+        # dataset proccessing
+        test_dataset = PDHandData(filename_label_df=test_data_df,
+                                    input_channels=all_channels,
+                                    data_root=test_data_path,
+                                    seed=cfg['seed'],
+                                    mk_balanced_dataset=cfg['balance_dataset'],
+                                    mk_balanced_type=cfg['balance_dataset_method'],
+                                    multi_sample_type=cfg['multiple_sampling_type'],
+                                    multi_sample_num=cfg['multiple_sampling_num'],
+                                    enhanced_type=cfg['enhanced_type'],
+                                    random_rotat_3d=cfg['random_rotat_3d'],
+                                    group_map=class_map,
+                                    gaussian_sampling=cfg['gau_samp'],
+                                    crop_len=cfg['crop_len'],
+                                    return_name=True)
 
-            pred_list_test += list(preds.cpu().numpy())
-            label_list_test += list(labels.data.cpu().numpy())
-            csvname_list_test += list(csvname)
+        test_loader = DataLoader(test_dataset,
+                                    batch_size=cfg['batch_size'],
+                                    shuffle=False,
+                                    num_workers=1)
+        
+        # read model
+        model = get_model_by_name(model_name=cfg['model'],
+                                    n_classes=class_num,
+                                    in_channels=cfg['channels_num'],
+                                    crop_len = cfg['crop_len'],
+                                    device=cfg['device'])
+        model.load_state_dict(torch.load(cfg['model_path'], map_location=cfg['device']))
+        model.to(cfg['device'])
 
-        test_acc_epoch = correct_cum / data_num
-        test_f1_epoch = f1_score(label_list_test, pred_list_test, average="weighted")
-        test_recall_epoch = recall_score(label_list_test, pred_list_test, average="weighted", zero_division=0)
+        # prediction
+        model.eval()
+        with torch.no_grad():
+            correct_cum = 0
+            data_num = 0
+            pred_list_test = []
+            label_list_test = []
+            csvname_list_test = []
+            for i, (signal, labels, csvname) in enumerate(test_loader):
+                if cfg['logging']:
+                    print(
+                        f"Val Processing... {i+1}/{len(test_loader)}            ",
+                        end="\r")
+                signal = signal.float().to(cfg['device'])
+                labels = labels.long().to(cfg['device'])
+                out = model(signal)
+                _, preds = torch.max(out, 1)
+                correct = torch.sum(preds == labels.data).cpu().numpy()
+                correct_cum += correct
+                data_num += signal.shape[0]
 
-        if cfg['logging']: print(f"Raw test Acc {test_acc_epoch:.4f} F1 {test_f1_epoch:.4f} Recall {test_recall_epoch:.4f}")
+                pred_list_test += list(preds.cpu().numpy())
+                label_list_test += list(labels.data.cpu().numpy())
+                csvname_list_test += list(csvname)
+            
+            test_acc_epoch = correct_cum / data_num
+            test_f1_epoch = f1_score(label_list_test, pred_list_test, average="weighted")
+            test_recall_epoch = recall_score(label_list_test, pred_list_test, average="weighted", zero_division=0)
+
+            if cfg['logging']: print(f"Raw test Acc {test_acc_epoch:.4f} F1 {test_f1_epoch:.4f} Recall {test_recall_epoch:.4f}")
 
     # post-processing
     results_df = pd.DataFrame(
@@ -365,6 +373,7 @@ def hand_pos_inference(
     clean_results_df = pd.DataFrame(clean_results, columns=["csvname", "label", "predict", "note or details"])
     clean_results_df_woNA = clean_results_df.dropna(axis=0, how='any')
 
+    # export results (either to file or return)
     if output_folder is not None:
         os.makedirs(output_folder, exist_ok=True)
         # write results

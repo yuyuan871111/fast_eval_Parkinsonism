@@ -1,6 +1,13 @@
 Rails.application.routes.draw do
-  # preview at http://localhost:3000/admin
-  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
+  
+  authenticate :user, lambda { |u| u.admin? } do
+    # preview at http://localhost:3000/admin
+    mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
+    
+    # monitor jobs at http://localhost:3000/sidekiq
+    require 'sidekiq/web'
+    mount Sidekiq::Web => '/sidekiq'
+  end
 
   devise_for :users, controllers: { 
     sessions: 'users/sessions', 
@@ -34,9 +41,6 @@ Rails.application.routes.draw do
 
   get '/test' => 'home#test', :as => 'test'
 
-  require 'sidekiq/web'
-  # authenticate :user, lambda { |u| u.admin? } do
-    mount Sidekiq::Web => '/sidekiq'
-  # end
+  
     
 end

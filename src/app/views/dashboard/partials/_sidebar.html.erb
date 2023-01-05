@@ -26,35 +26,35 @@
           </div>
 
           <a class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed fs-4" data-bs-toggle="collapse" data-bs-target="#hand_oc-collapse" aria-expanded="false"  aria-controls="hand_oc-collapse">
-            Hand open/close
+            Open/close hand (dev)
           </a>
           <div class="collapse" id="hand_oc-collapse">
             <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                 <li>
-                  <%= link_to "Overview", dashboard_index_path(:hand_pos => '2'), class: "p-2 fs-4 link-dark d-inline-flex text-decoration-none rounded", data: {turbo: false} %>
+                  <% link_to "Overview", dashboard_index_path(:hand_pos => '2'), class: "p-2 fs-4 link-dark d-inline-flex text-decoration-none rounded", data: {turbo: false} %>
                 </li>
                 <li>
-                  <%= link_to "Uploads", new_upload_path(current_user.id, :hand_pos => '2'), class: "p-2 fs-4 link-dark d-inline-flex text-decoration-none rounded", data: {turbo: false} %>
+                  <% link_to "Uploads", new_upload_path(current_user.id, :hand_pos => '2'), class: "p-2 fs-4 link-dark d-inline-flex text-decoration-none rounded", data: {turbo: false} %>
                 </li>
                 <li>
-                  <%= link_to "Reports (dev)", dashboard_index_path(:hand_pos => '2'), class: "p-2 fs-4 link-dark d-inline-flex text-decoration-none rounded", data: {turbo: false} %>
+                  <% link_to "Reports (dev)", dashboard_index_path(:hand_pos => '2'), class: "p-2 fs-4 link-dark d-inline-flex text-decoration-none rounded", data: {turbo: false} %>
                 </li>
             </ul>
           </div>
 
           <a class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed fs-4" data-bs-toggle="collapse" data-bs-target="#hand_ps-collapse" aria-expanded="false" aria-controls="hand_ps-collapse">
-            Hand pro-/supi-nation
+            Pro/supination (dev)
           </a>
           <div class="collapse" id="hand_ps-collapse">
             <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                 <li>
-                  <%= link_to "Overview", dashboard_index_path(:hand_pos => '3'), class: "p-2 fs-4 link-dark d-inline-flex text-decoration-none rounded", data: {turbo: false} %>
+                  <% link_to "Overview", dashboard_index_path(:hand_pos => '3'), class: "p-2 fs-4 link-dark d-inline-flex text-decoration-none rounded", data: {turbo: false} %>
                 </li>
                 <li>
-                  <%= link_to "Uploads", new_upload_path(current_user.id, :hand_pos => '3'), class: "p-2 fs-4 link-dark d-inline-flex text-decoration-none rounded", data: {turbo: false} %>
+                  <% link_to "Uploads", new_upload_path(current_user.id, :hand_pos => '3'), class: "p-2 fs-4 link-dark d-inline-flex text-decoration-none rounded", data: {turbo: false} %>
                 </li>
                 <li>
-                  <%= link_to "Reports (dev)", dashboard_index_path(:hand_pos => '3'), class: "p-2 fs-4 link-dark d-inline-flex text-decoration-none rounded", data: {turbo: false} %>
+                  <% link_to "Reports (dev)", dashboard_index_path(:hand_pos => '3'), class: "p-2 fs-4 link-dark d-inline-flex text-decoration-none rounded", data: {turbo: false} %>
                 </li>
             </ul>
           </div>

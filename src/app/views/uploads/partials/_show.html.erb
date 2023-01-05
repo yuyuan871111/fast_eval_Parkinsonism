@@ -1,11 +1,26 @@
-<p> 
-    <%= "The video is assigned to '#{@upload.hand_LR}' hand, " %>
-    please check whether it is correct or edit 
-    <%= link_to 'here', edit_upload_path(:id => @upload.id), data: {turbo: false} %>
-    . 
-</p>
-<%= video_tag(url_for(@upload.video), width: "50%", :controls => true,  muted: true, :autoplay => true)%>
+<div class="table-responsive">
+<% if @upload.status == 'done' %>
+    <div class="row justify-content-evenly" style="height: 400px" >
+    <div class="col-4">
+        <%= video_tag(url_for(@upload.results.blobs[1]), height: "400px", :controls => true,  muted: true, :autoplay => true)%>
+    </div>
+    <div class="col-4">
+        <%= image_tag(url_for(@upload.results.blobs[3]), height: "400px") if @upload.results.blobs[2] != nil %>
+    </div>
+    </div>
+<% else %>
+    <p> 
+        <%= "The video is assigned to '#{@upload.hand_LR}' hand, " %>
+        please check whether it is correct or edit 
+        <%= link_to 'here', edit_upload_path(:id => @upload.id), data: {turbo: false} %>
+        . 
+    </p>
+    <%= video_tag(url_for(@upload.video), height: "600", :controls => true,  muted: true, :autoplay => true)%>
+<% end %>
+    <p>If the video cannot be played, please download and locally play it .</p>
+
+</div>
 <br>
-<p>If the video cannot be played, please download and locally play it .</p>
+
 
 <%# byebug %>

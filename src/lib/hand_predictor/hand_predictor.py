@@ -1,4 +1,4 @@
-import os, pandas as pd, numpy as np, json, matplotlib.pyplot as plt, argparse
+import os, pandas as pd, numpy as np, json, pdb, argparse
 
 
 from utils.hand.api import ffmpeg4format, mp_kpts_generator, mp_kpts_preprocessing, hand_pos_inference, model_pred_severity
@@ -48,11 +48,11 @@ def main_single(cfg):
             error_frame_ratio = mp_kpts_preprocessing(csv_input_path, csv_output_path, logging=False)
 
         except:
-            csv_input_path = f"{output_root_path}/{filename}_mp_hand_kpt.thres0.csv"
-            csv_output_path = f"{output_root_path}/{filename}_mp_hand_kpt_processed.thres0.csv"
+            csv_input_path = f"{output_root_path}/{filename}_mp_hand_kpt.thre0.csv"
+            csv_output_path = f"{output_root_path}/{filename}_mp_hand_kpt_processed.thre0.csv"
             error_frame_ratio = mp_kpts_preprocessing(csv_input_path, csv_output_path, logging=False)
 
-    except:
+    except Exception as e:
         print(filename, ": ", e, ": Not predictable due to no keypoint extracted.")
         error_frame_ratio = 1
 

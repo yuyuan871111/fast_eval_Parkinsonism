@@ -19,7 +19,7 @@ class UploadsController < ApplicationController
                 flash[:notice] = "Successfully uploaded '#{@upload.video.filename}'."
                 VideoToMp4Job.perform_async(@upload.id)
             else
-                flash[:notice] = "Only allow video extensions (e.g. 'mp4', 'avi', 'mov') and the maximum video size is 20MB."
+                flash[:notice] = "Only allow video extensions (e.g. 'mp4', 'avi', 'mov') and the maximum video size is 50MB."
             end
         end
         redirect_to controller: 'uploads', action: 'new', hand_pos: upload_params[:hand_pos]
@@ -53,6 +53,7 @@ class UploadsController < ApplicationController
                 flash[:notice] = "This file is still processing, please wait a couple minutes."
                 redirect_to status_path
             elsif @upload.update(update_params)
+                reset_results(@upload)
                 flash[:notice] = "Successfully updated."
                 redirect_to controller: 'dashboard', action: 'index', hand_pos: @upload.hand_pos
             else
@@ -98,6 +99,22 @@ class UploadsController < ApplicationController
 
     def update_params
         params.require(:upload).permit(:hand_LR, :status)
+    end
+
+    def reset_results(upload)
+        upload.updrs = nil
+        upload.err_frame_ratio = nil 
+        upload.retrieved_at = nil
+        upload.mean_freq = nil
+        upload.std_freq = nil
+        upload.mean_inte = nil
+        upload.std_inte = nil
+        upload.mean_inte_freq = nil
+        upload.std_inte_freq = nil
+        upload.mean_peak = nil
+        upload.std_peak = nil
+        upload.save
+        upload.results.purge
     end
     
     def user_files_accessible_check

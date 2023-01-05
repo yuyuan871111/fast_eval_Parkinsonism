@@ -45,17 +45,25 @@
                     <!-- Status -->
                     <td>
                     <%= upload.status %>
+                    <% if upload.status == 'fail' %>
+                        <p>(Please email to <br> us to report the fail.)</p>
+                    <% end %>
                     </td>
                     
                     <!-- Video info -->
                     <td>
                     <ul>
-                        <% #byebug %>
+                        <% angle=upload.video.blob.metadata.fetch(:angle, 0).round(0) %>
+                        <% duration=upload.video.blob.metadata.fetch(:duration, 0).round(2) %>
+                        <% height=upload.video.blob.metadata.fetch(:height, 0).round(0) %>
+                        <% width=upload.video.blob.metadata.fetch(:width, 0).round(0) %>
+                        <% aspect_ratio=upload.video.blob.metadata.fetch(:display_aspect_ratio, [0,0]) %>
                         <li>content type: <%= upload.video.content_type %> </li>
-                        <li>duration: <%= upload.video.blob.metadata.fetch(:duration, 0).round(2) %> sec.</li>
-                        <li>height: <%= upload.video.blob.metadata.fetch(:height, 0).round(0) %></li>
-                        <li>width: <%= upload.video.blob.metadata.fetch(:width, 0).round(0) %></li>
-                        <li>aspect ratio: <%= upload.video.blob.metadata.fetch(:display_aspect_ratio, [0,0]) %></li>
+                        <% if angle != 0 %><li>angle: <%= angle %> degree</li><% end %>
+                        <% if duration != 0 %><li>duration: <%= duration %> sec. </li><% end %>
+                        <% if height != 0 %><li>height: <%= height %> pixels </li><% end %>
+                        <% if width != 0 %><li>width: <%= width %> pixels </li><% end %>
+                        <% if aspect_ratio != [0,0] %><li>aspect ratio: <%= aspect_ratio %></li><% end %>
                     </ul>
                     </td>
 
@@ -64,12 +72,23 @@
                     
                     <% if upload.status == 'done' %>
                         <ul>                    
-                        <li>error frame ratio: <%= upload.hand_pos %></li>
-                        <li>predicted UPDRS: <%= upload.hand_pos %></li>
-                        <li>mean frequency: <%= upload.hand_pos %> Hz</li>
-                        <li>mean intensity: <%= upload.hand_pos %> (A.U.)</li>
-                        <li>mean inte-freq: <%= upload.hand_pos %> (A.U./s)</li>
-                        <li>mean peak: <%= upload.hand_pos %> <br> (distance/thumb-length)</li>
+                        <% err_frame_ratio = upload.err_frame_ratio %>
+                        <% mean_freq = upload.mean_freq %>
+                        <% std_freq = upload.std_freq %>
+                        <% mean_inte = upload.mean_inte %>
+                        <% std_inte = upload.std_inte %>
+                        <% mean_inte_freq = upload.mean_inte_freq %>
+                        <% std_inte_freq = upload.std_inte_freq %>
+                        <% mean_peak = upload.mean_peak %>
+                        <% std_peak = upload.std_peak %>
+                        <li>error frame ratio: <%= (err_frame_ratio != nil) ? err_frame_ratio.round(3) : "nil" %></li>
+                        <li>predicted UPDRS: <%= upload.updrs ? upload.updrs : "out of applicability domain" %></li>
+                        <li>mean frequency: <%= (mean_freq != nil) ? "#{mean_freq.round(1)} ± #{std_freq.round(1)} (Hz)" : "nil" %></li>
+                        <li>mean intensity: <%= (mean_inte != nil) ? "#{mean_inte.round(3)} ± #{mean_inte.round(3)} (A.U.)" : "nil" %> </li>
+                        <li>mean inte-freq: <%= (mean_inte_freq != nil) ? "#{mean_inte_freq.round(3)} ± #{std_inte_freq.round(3)} (A.U./s)" : "nil" %> </li>
+                        <li>mean peak: <%= (mean_peak != nil) ? "#{mean_peak.round(2)} ± #{std_peak.round(2)}" : "nil" %> <br> 
+                            <%= "(distance/thumb-length)" if (mean_peak != nil) %>
+                        </li>
                         </ul>
                     <% else %>
                         <p> Click "Run analysis" to get results. </p>
@@ -79,9 +98,9 @@
 
                     <!-- Timeline -->
                     <td>
-                    <p> Created at: <%= upload.created_at if upload.created_at? %> </p>
+                    <p> Created at: <%= upload.created_at %> </p>
                     <p> <%= "Retrieved results at: #{upload.retrieved_at}" if upload.retrieved_at? %> </p>
-                    <p> Updated at: <%= upload.updated_at if upload.updated_at? %> </p>
+                    <p> Updated at: <%= upload.updated_at %> </p>
                     </td>
 
                 </tr>
