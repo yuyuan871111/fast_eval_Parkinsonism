@@ -15,9 +15,14 @@
           <div class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group me-2">
               <% if @hand_pos != "Please select the feature type." %>
-                <%= link_to "Download mp4", rails_blob_path(@upload.video, disposition: 'attachment'), class: "btn btn-sm btn-outline-secondary" %>
+                
                 <% if @upload.status == 'done' %>
-                  <button type="button" class="btn btn-sm btn-outline-secondary">Download keypoint</button>
+                  <%= link_to "Download all results", rails_blob_path(@upload.results.blobs[0], disposition: 'attachment'), class: "btn btn-sm btn-outline-secondary" %>
+                  <%= link_to "annotated mp4", rails_blob_path(@upload.results.blobs[1], disposition: 'attachment'), class: "btn btn-sm btn-outline-secondary" %>
+                  <%= link_to "raw keypoint", rails_blob_path(@upload.results.blobs[2], disposition: 'attachment'), class: "btn btn-sm btn-outline-secondary" %>
+                  <%= link_to "hand-params image", rails_blob_path(@upload.results.blobs[3], disposition: 'attachment'), class: "btn btn-sm btn-outline-secondary" if @upload.results.blobs[3] != nil %>
+                <% else %>
+                  <%= link_to "Download mp4", rails_blob_path(@upload.video, disposition: 'attachment'), class: "btn btn-sm btn-outline-secondary" %>
                 <% end %>
               <% end %>
             </div>
@@ -26,7 +31,11 @@
         </div>
         <% if @hand_pos != "Please select the feature type." %>
           <%= render "uploads/partials/show" %>
-          <%= link_to "Back to overview", dashboard_index_path(hand_pos: @upload.hand_pos), class: "btn btn-sm btn-outline-secondary", data: {turbo: false}  %>
+          <% if @upload.archived == true %>
+            <%= link_to "Back to archive", dashboard_archive_path(hand_pos: @upload.hand_pos), class: "btn btn-sm btn-outline-secondary", data: {turbo: false}  %>
+          <% else %>
+            <%= link_to "Back to overview", dashboard_index_path(hand_pos: @upload.hand_pos), class: "btn btn-sm btn-outline-secondary", data: {turbo: false}  %>
+          <% end %>
         <% end %>
         
       </div>

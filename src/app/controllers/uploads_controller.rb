@@ -69,7 +69,6 @@ class UploadsController < ApplicationController
     def destroy
         if user_files_accessible_check
             @upload = Upload.find(params[:id])
-            @hand_pos = @upload[:hand_pos]
             @upload.destroy
             flash[:notice] = "Successfully deleted."
             redirect_to controller: 'dashboard', action: 'index', hand_pos: @upload[:hand_pos]
@@ -83,9 +82,34 @@ class UploadsController < ApplicationController
         if user_files_accessible_check
             @upload = Upload.find(params[:id])
             @upload.update(status: 'queuing')
+            @upload.update(submitted_at: Time.current)
             PyHandJob.perform_async(@upload.id)
             flash[:notice] = "The job is now queuing, come back to see results later."
             redirect_to controller: 'dashboard', action: 'index', hand_pos: @upload[:hand_pos]
+        else
+            flash[:notice] = "You are not allowed to operate this file."
+            redirect_to status_path
+        end
+    end
+
+    def archive
+        if user_files_accessible_check
+            @upload = Upload.find(params[:id])
+            @upload.update(:archived => true)
+            flash[:notice] = "Successfully archived."
+            redirect_to controller: 'dashboard', action: 'index', hand_pos: @upload[:hand_pos]
+        else
+            flash[:notice] = "You are not allowed to operate this file."
+            redirect_to status_path
+        end
+    end
+
+    def unarchive
+        if user_files_accessible_check
+            @upload = Upload.find(params[:id])
+            @upload.update(:archived => false)
+            flash[:notice] = "Successfully unarchived."
+            redirect_to controller: 'dashboard', action: 'archive', hand_pos: @upload[:hand_pos]
         else
             flash[:notice] = "You are not allowed to operate this file."
             redirect_to status_path
@@ -104,7 +128,7 @@ class UploadsController < ApplicationController
     def reset_results(upload)
         upload.updrs = nil
         upload.err_frame_ratio = nil 
-        upload.retrieved_at = nil
+        upload.submitted_at = nil
         upload.mean_freq = nil
         upload.std_freq = nil
         upload.mean_inte = nil

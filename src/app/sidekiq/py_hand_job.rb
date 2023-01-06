@@ -87,11 +87,9 @@ class PyHandJob
       @upload.save
 
       @upload.update(status: 'done')
-      @upload.update(retrieved_at: Time.current)
     
     rescue 
       @upload.update(status: 'fail')
-      @upload.update(retrieved_at: Time.current)
     
     end
     

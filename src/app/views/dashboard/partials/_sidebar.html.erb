@@ -20,7 +20,7 @@
                   <%= link_to "Uploads", new_upload_path(current_user.id, :hand_pos => '1'), class: "p-2 fs-4 link-dark d-inline-flex text-decoration-none rounded", data: {turbo: false} %>
                 </li>
                 <li>
-                  <%= link_to "Case Report", dashboard_index_path(:hand_pos => '1'), class: "p-2 fs-4 link-dark d-inline-flex text-decoration-none rounded", data: {turbo: false} %>
+                  <%= link_to "Archive", dashboard_archive_path(:hand_pos => '1'), class: "p-2 fs-4 link-dark d-inline-flex text-decoration-none rounded", data: {turbo: false} %>
                 </li>
             </ul>
           </div>

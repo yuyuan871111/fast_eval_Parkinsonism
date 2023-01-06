@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_05_051106) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_06_072905) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -47,7 +47,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_05_051106) do
     t.string "hand_pos"
     t.string "hand_LR"
     t.string "status"
-    t.datetime "retrieved_at"
+    t.datetime "submitted_at"
     t.integer "updrs"
     t.float "err_frame_ratio"
     t.float "mean_freq"
@@ -58,6 +58,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_05_051106) do
     t.float "std_inte_freq"
     t.float "mean_peak"
     t.float "std_peak"
+    t.boolean "archived"
   end
 
   create_table "users", force: :cascade do |t|

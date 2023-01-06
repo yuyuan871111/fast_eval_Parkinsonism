@@ -1,5 +1,6 @@
 class Upload < ApplicationRecord
     belongs_to :user
+    after_initialize :init, unless: :persisted?
     
     # uploader
     # serialize :avatar, JSON # If you use SQLite, add this line.
@@ -13,4 +14,7 @@ class Upload < ApplicationRecord
 
     validates :video, presence: true, blob: { content_type: :video, size_range: 1..(50.megabytes) }
     # validates :photos, presence: true, blob: { content_type: %r{^image/}, size_range: 1..(5.megabytes) }
+    def init
+        self.archived = false if self.archived.nil?
+    end
 end

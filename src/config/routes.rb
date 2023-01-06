@@ -32,12 +32,15 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root "home#index", :as => 'root'
   get '/dashboard' => 'dashboard#index', :as => 'dashboard_index'
+  get '/dashboard/archive' => 'dashboard#archive', :as => 'dashboard_archive'
   get '/documents' => 'home#documents', :as => 'documents'
   get '/demo' => 'home#demo', :as => 'demo'
   get '/status' => 'home#status', :as => 'status'
   
   resources :uploads
   get '/uploads/:id/do_run' => 'uploads#do_run', :as => 'do_run'
+  get '/uploads/:id/archive'=> 'uploads#archive', :as => 'archive'
+  get '/uploads/:id/unarchive'=> 'uploads#unarchive', :as => 'unarchive'
 
   get '/test' => 'home#test', :as => 'test'
 
