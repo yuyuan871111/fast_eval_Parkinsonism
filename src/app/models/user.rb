@@ -5,10 +5,8 @@ class User < ApplicationRecord
 
   def set_default_role
     self.role ||= :user
+    self.admin ||= false
   end
-
-  # Set Dashboard
-  
 
   # Set uploader
   has_many :uploads

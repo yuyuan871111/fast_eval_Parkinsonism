@@ -1,0 +1,17 @@
+<% @latest_L = {
+        :updrs => @uploads_L.where.not(:updrs => nil).order("created_at DESC").first["updrs"],
+        :mean_freq => @uploads_L.where.not(:mean_freq => nil).order("created_at DESC").first["mean_freq"],
+        :mean_inte => @uploads_L.where.not(:mean_inte => nil).order("created_at DESC").first["mean_inte"],
+        :mean_inte_freq => @uploads_L.where.not(:mean_inte_freq => nil).order("created_at DESC").first["mean_inte_freq"],
+        :mean_peak => @uploads_L.where.not(:mean_peak => nil).order("created_at DESC").first["mean_peak"],
+    } 
+%>
+
+<% @latest_R = {
+        :updrs => @uploads_R.where.not(:updrs => nil).order("created_at DESC").first["updrs"],
+        :mean_freq => @uploads_R.where.not(:mean_freq => nil).order("created_at DESC").first["mean_freq"],
+        :mean_inte => @uploads_R.where.not(:mean_inte => nil).order("created_at DESC").first["mean_inte"],
+        :mean_inte_freq => @uploads_R.where.not(:mean_inte_freq => nil).order("created_at DESC").first["mean_inte_freq"],
+        :mean_peak => @uploads_R.where.not(:mean_peak => nil).order("created_at DESC").first["mean_peak"],
+    } 
+%>

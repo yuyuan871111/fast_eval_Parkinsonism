@@ -12,8 +12,9 @@ class Upload < ApplicationRecord
     validates :hand_LR, inclusion: { in: ['not_selected', 'left', 'right'] } 
     validates :status, inclusion: { in: ['uploaded', 'queuing', 'running', 'done', 'fail']}
 
+    # file size limit
     validates :video, presence: true, blob: { content_type: :video, size_range: 1..(50.megabytes) }
-    # validates :photos, presence: true, blob: { content_type: %r{^image/}, size_range: 1..(5.megabytes) }
+
     def init
         self.archived = false if self.archived.nil?
     end

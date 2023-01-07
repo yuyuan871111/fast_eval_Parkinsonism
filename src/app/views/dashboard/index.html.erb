@@ -18,6 +18,9 @@
         </div>
 
         <% if @hand_pos != "Please select the feature type." %>
+          <h2 class="h3">Overview</h2>
+          <%= render "dashboard/partials/plot"%>
+          <br>
           <h2 class="h3">Left hand</h2>
           <%= render "dashboard/partials/table", uploads: @uploads_L, archive: @archive %>
           <br>
