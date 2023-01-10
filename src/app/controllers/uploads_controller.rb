@@ -6,12 +6,18 @@ class UploadsController < ApplicationController
     def new
         @upload = Upload.new
         hand_pos_name(params[:hand_pos])
+        # check data usage
+        @record_ids = ActiveStorage::Attachment.where(record: current_user.uploads).where(name: "video").pluck(:record_id)
+        current_user.data_usage = ActiveStorage::Blob.joins(:attachments).where(active_storage_attachments: { record_id: @record_ids}).sum(:byte_size)
+        current_user.save
     end
 
     def create
         # check whether the upload file has been selected.
         if params[:upload][:video].nil?
             flash[:notice] = "Please choose your file to upload."
+        elsif current_user.data_usage > current_user.data_usage_limit
+            flash[:notice] = "You have reached the limit of data usage, please clean useless files or contact to us to enlarge your space."
         else
             @upload = current_user.uploads.create(upload_params)
             # byebug

@@ -1,0 +1,93 @@
+
+<!-- radar plot config -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+var marksCanvas = document.getElementById("marksChart");
+
+var scaler = {
+    peak: {
+        max: 0.531, // R: 0.531; L: 0.525
+        min: 0.366  // R: 0.366; L: 0.397
+    },
+    intensity: {
+        max: 0.0820, // R: 0.0757; L: 0.0820
+        min: 0.0308  // R: 0.0308; L: 0.0478 
+    },
+    frequency: {
+        max: 3.21,  // R: 3.21; L: 3.21
+        min: 1.70   // R: 1.70; L: 1.77
+    },
+    inte_freq: {
+        max: 0.267,  // R: 0.238; L: 0.267
+        min: 0.0561  // R: 0.0561; L: 0.0930
+    },
+    score: {
+        max: 80,
+        min: 20
+    },
+    UPDRS: {
+        max: 0,
+        min: 3
+    }
+}
+
+function linear_transform(scaler_name, data) {
+    // scaler_name: peak, intensity, frequency, inte_freq
+    score = scaler["score"]["min"] + (scaler["score"]["max"] - scaler["score"]["min"])/(scaler[scaler_name]["max"] - scaler[scaler_name]["min"]) * (data - scaler[scaler_name]["min"]);
+    if (score >= scaler["score"]["max"]){
+        return scaler["score"]["max"]
+    } else if (score <= scaler["score"]["min"]){
+        return scaler["score"]["min"]
+    }
+    else {
+        return score
+    }
+}
+
+var marksData = {
+  labels: ["predicted-UPDRS", "Frequency", "Frequency-Intensity", "Intensity", "Peak"],
+  datasets: [{
+    label: "Left hand",
+    backgroundColor: "rgba(200,0,0,0.2)",
+    data: [
+        linear_transform("UPDRS", <%= select_L[:updrs] %>), 
+        linear_transform("frequency", <%= select_L[:mean_freq] %>), 
+        linear_transform("inte_freq", <%= select_L[:mean_inte_freq] %>), 
+        linear_transform("intensity", <%= select_L[:mean_inte] %>), 
+        linear_transform("peak", <%= select_L[:mean_peak] %>)
+    ]}, {
+    label: "Right hand",
+    backgroundColor: "rgba(0,0,200,0.2)",
+    data: [
+        linear_transform("UPDRS", <%= select_R[:updrs] %>), 
+        linear_transform("frequency", <%= select_R[:mean_freq] %>), 
+        linear_transform("inte_freq", <%= select_R[:mean_inte_freq] %>), 
+        linear_transform("intensity", <%= select_R[:mean_inte] %>), 
+        linear_transform("peak", <%= select_R[:mean_peak] %>)
+    ]}]
+};
+
+var radarChart = new Chart(marksCanvas, {
+  type: 'radar',
+  data: marksData,
+   options: {
+        plugins: {
+            title: {
+                display: true,
+                text: 'The latest status of Left and Right hand'
+            }
+        },
+        scales: {
+            r: {
+                suggestedMin: 15,
+                suggestedMax: 80,
+                grid: {
+                    color: ['#332D2D', '#DC4C64', '#FBFBFB', '#E4A11B', '#FBFBFB', '#54B4D3', '#FBFBFB', '#14A44D']
+                }
+            }
+        
+        }
+        
+    }
+});
+</script>

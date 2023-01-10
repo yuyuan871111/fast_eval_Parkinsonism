@@ -1,169 +1,95 @@
-<% #line_chart @uploads_L.where.not(:updrs => nil).group_by_day(:created_at).average(:updrs), ytitle: "UPDRS" %>
+<% if (@uploads_L == []) || (@uploads_R == []) %>
+  <p> Please upload video first. </p>
 
-<div id="carouselExampleIndicators" class="carousel carousel-dark slide" data-bs-ride="carousel">
-  
-  <div class="carousel-indicators mx-auto position-static top-0">
-    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
-    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4" aria-label="Slide 5"></button>
-    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="5" aria-label="Slide 6"></button>
+<% elsif (@uploads_L.where(status: "done") != []) && (@uploads_R.where(status: "done") != []) %>
+  <div id="carouselExampleIndicators" class="carousel carousel-dark slide" data-bs-ride="carousel">
+    
+    <div class="carousel-indicators mx-auto position-static top-0">
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4" aria-label="Slide 5"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="5" aria-label="Slide 6"></button>
+    </div>
+    
+    <div class="carousel-inner px-5">
+
+      <div class="carousel-item active" data-bs-interval="10000">
+        <div> 
+          <%= render "dashboard/partials/latest_status" %>
+          <canvas id="marksChart"></canvas>
+        </div>
+        <p class="text-center">
+          Scale: 
+          <b class="badge bg-success text-wrap">good:80</b> - 
+          <b class="badge bg-info text-wrap">slight:60</b> -
+          <b class="badge bg-warning text-wrap">moderate:40</b> - 
+          <b class="badge bg-danger text-wrap">severe:20</b> 
+        </p>
+      </div>
+
+      <div class="carousel-item" data-bs-interval="10000">
+          <%@plot_L = @uploads_L.pluck(:created_at, :updrs)%>
+          <%@plot_R = @uploads_R.pluck(:created_at, :updrs)%>
+          <%= line_chart [
+              {:name=>"Left hand", :data=> @plot_L, library: {lineTension: 0, spanGaps: true}},
+              {:name=>"Right hand", :data=> @plot_R, library: {lineTension: 0, spanGaps: true}}
+          ], xtitle: "Time", ytitle: "UPDRS", min: -0.5, title: "Predicted UPDRS" %>
+      </div>
+
+      <div class="carousel-item" data-bs-interval="10000">
+      <%@plot_L = @uploads_L.pluck(:created_at, :mean_freq)%>
+          <%@plot_R = @uploads_R.pluck(:created_at, :mean_freq)%>
+          <%= line_chart [
+              {:name=>"Left hand", :data=> @plot_L, library: {lineTension: 0, spanGaps: true}},
+              {:name=>"Right hand", :data=> @plot_R, library: {lineTension: 0, spanGaps: true}}
+          ], xtitle: "Time", ytitle: "Frequency (Hz)", title: "Frequency" %>
+      </div>
+
+      <div class="carousel-item" data-bs-interval="10000">
+          <%@plot_L = @uploads_L.pluck(:created_at, :mean_inte_freq)%>
+          <%@plot_R = @uploads_R.pluck(:created_at, :mean_inte_freq)%>
+          <%= line_chart [
+              {:name=>"Left hand", :data=> @plot_L, library: {lineTension: 0, spanGaps: true}},
+              {:name=>"Right hand", :data=> @plot_R, library: {lineTension: 0, spanGaps: true}}
+          ], xtitle: "Time", ytitle: "Frequency-intensity (A.U./s)", title: "Frequency-intensity" %>
+      </div>
+
+      <div class="carousel-item" data-bs-interval="10000">
+          <%@plot_L = @uploads_L.pluck(:created_at, :mean_inte)%>
+          <%@plot_R = @uploads_R.pluck(:created_at, :mean_inte)%>
+          <%= line_chart [
+              {:name=>"Left hand", :data=> @plot_L, library: {lineTension: 0, spanGaps: true}},
+              {:name=>"Right hand", :data=> @plot_R, library: {lineTension: 0, spanGaps: true}}
+          ], xtitle: "Time", ytitle: "Intensity (A.U.)", title: "Intensity" %>
+      </div>
+
+      <div class="carousel-item" data-bs-interval="10000">
+          <%@plot_L = @uploads_L.pluck(:created_at, :mean_peak)%>
+          <%@plot_R = @uploads_R.pluck(:created_at, :mean_peak)%>
+          <%= line_chart [
+              {:name=>"Left hand", :data=> @plot_L, library: {lineTension: 0, spanGaps: true}},
+              {:name=>"Right hand", :data=> @plot_R, library: {lineTension: 0, spanGaps: true}}
+          ], xtitle: "Time", ytitle: "Peak (distance/thumb)", title: "Peak" %>
+      </div>
+
+    </div>
+
+    <button class="carousel-control-prev justify-content-start" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next justify-content-end" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+
   </div>
-  
-  <div class="carousel-inner px-5">
 
-    <div class="carousel-item active" data-bs-interval="10000">
-      <%= render "dashboard/partials/latest_status" %>
-      <canvas id="marksChart"></canvas>
-    </div>
+  <%= render "dashboard/partials/radar_plot", select_L: @latest_L, select_R: @latest_R %>
 
-    <div class="carousel-item" data-bs-interval="10000">
-        <%@plot_L = @uploads_L.pluck(:created_at, :updrs)%>
-        <%@plot_R = @uploads_R.pluck(:created_at, :updrs)%>
-        <%= line_chart [
-            {:name=>"Left hand", :data=> @plot_L, library: {lineTension: 0, spanGaps: true}},
-            {:name=>"Right hand", :data=> @plot_R, library: {lineTension: 0, spanGaps: true}}
-        ], xtitle: "Time", ytitle: "UPDRS", min: -0.5, title: "Predicted UPDRS" %>
-    </div>
+<% else %>
+  <p> Please run analysis for both hands to get the overview plots. </p>
 
-    <div class="carousel-item" data-bs-interval="10000">
-    <%@plot_L = @uploads_L.pluck(:created_at, :mean_freq)%>
-        <%@plot_R = @uploads_R.pluck(:created_at, :mean_freq)%>
-        <%= line_chart [
-            {:name=>"Left hand", :data=> @plot_L, library: {lineTension: 0, spanGaps: true}},
-            {:name=>"Right hand", :data=> @plot_R, library: {lineTension: 0, spanGaps: true}}
-        ], xtitle: "Time", ytitle: "Frequency (Hz)", title: "Frequency" %>
-    </div>
-
-    <div class="carousel-item" data-bs-interval="10000">
-        <%@plot_L = @uploads_L.pluck(:created_at, :mean_inte)%>
-        <%@plot_R = @uploads_R.pluck(:created_at, :mean_inte)%>
-        <%= line_chart [
-            {:name=>"Left hand", :data=> @plot_L, library: {lineTension: 0, spanGaps: true}},
-            {:name=>"Right hand", :data=> @plot_R, library: {lineTension: 0, spanGaps: true}}
-        ], xtitle: "Time", ytitle: "Intensity (A.U.)", title: "Intensity" %>
-    </div>
-
-    <div class="carousel-item" data-bs-interval="10000">
-        <%@plot_L = @uploads_L.pluck(:created_at, :mean_inte_freq)%>
-        <%@plot_R = @uploads_R.pluck(:created_at, :mean_inte_freq)%>
-        <%= line_chart [
-            {:name=>"Left hand", :data=> @plot_L, library: {lineTension: 0, spanGaps: true}},
-            {:name=>"Right hand", :data=> @plot_R, library: {lineTension: 0, spanGaps: true}}
-        ], xtitle: "Time", ytitle: "Intensity-frequency (A.U./s)", title: "Intensity-frequency" %>
-    </div>
-
-    <div class="carousel-item" data-bs-interval="10000">
-        <%@plot_L = @uploads_L.pluck(:created_at, :mean_peak)%>
-        <%@plot_R = @uploads_R.pluck(:created_at, :mean_peak)%>
-        <%= line_chart [
-            {:name=>"Left hand", :data=> @plot_L, library: {lineTension: 0, spanGaps: true}},
-            {:name=>"Right hand", :data=> @plot_R, library: {lineTension: 0, spanGaps: true}}
-        ], xtitle: "Time", ytitle: "Peak (distance/thumb)", title: "Peak" %>
-    </div>
-
-  </div>
-
-  <button class="carousel-control-prev justify-content-start" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next justify-content-end" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
-
-</div>
-
-
-
-<!-- radar plot config -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-var marksCanvas = document.getElementById("marksChart");
-
-var scaler = {
-    peak: {
-        max: 0.525,
-        min: 0.397
-    },
-    intensity: {
-        max: 0.0820,
-        min: 0.0478
-    },
-    frequency: {
-        max: 3.21,
-        min: 1.77
-    },
-    inte_freq: {
-        max: 0.267,
-        min: 0.0930
-    },
-    score: {
-        max: 80,
-        min: 20
-    },
-    UPDRS: {
-        max: 0,
-        min: 3
-    }
-}
-
-function linear_transform(scaler_name, data) {
-    // scaler_name: peak, intensity, frequency, inte_freq
-    score = scaler["score"]["min"] + (scaler["score"]["max"] - scaler["score"]["min"])/(scaler[scaler_name]["max"] - scaler[scaler_name]["min"]) * (data - scaler[scaler_name]["min"]);
-    if (score >= scaler["score"]["max"]){
-        return scaler["score"]["max"]
-    } else if (score <= scaler["score"]["min"]){
-        return scaler["score"]["min"]
-    }
-    else {
-        return score
-    }
-}
-
-var marksData = {
-  labels: ["predicted-UPDRS", "Frequency", "Frequency-Intensity", "Intensity", "Peak"],
-  datasets: [{
-    label: "Left hand",
-    backgroundColor: "rgba(200,0,0,0.2)",
-    data: [
-        linear_transform("UPDRS", <%= @latest_L[:updrs] %>), 
-        linear_transform("frequency", <%= @latest_L[:mean_freq] %>), 
-        linear_transform("inte_freq", <%= @latest_L[:mean_inte_freq] %>), 
-        linear_transform("intensity", <%= @latest_L[:mean_inte] %>), 
-        linear_transform("peak", <%= @latest_L[:mean_peak] %>)
-    ]}, {
-    label: "Right hand",
-    backgroundColor: "rgba(0,0,200,0.2)",
-    data: [
-        linear_transform("UPDRS", <%= @latest_R[:updrs] %>), 
-        linear_transform("frequency", <%= @latest_R[:mean_freq] %>), 
-        linear_transform("inte_freq", <%= @latest_R[:mean_inte_freq] %>), 
-        linear_transform("intensity", <%= @latest_R[:mean_inte] %>), 
-        linear_transform("peak", <%= @latest_R[:mean_peak] %>)
-    ]}]
-};
-
-var radarChart = new Chart(marksCanvas, {
-  type: 'radar',
-  data: marksData,
-   options: {
-        plugins: {
-            title: {
-                display: true,
-                text: 'The latest status of Left and Right hand (good: 80; slight: 60; moderate: 40; severe:20)'
-            }
-        },
-        scales: {
-            r: {
-                suggestedMin: 15,
-                suggestedMax: 80
-            }
-        
-        }
-        
-    }
-});
-</script>
+<% end %>
