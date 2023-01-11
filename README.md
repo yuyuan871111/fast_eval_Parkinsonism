@@ -1,4 +1,4 @@
-# fast_eval_Parkinsonism
+# FastEval Parkinsonism
 ![cover_image](./imgs/cover.png)
 ## Installation
 ### Docker for ruby
