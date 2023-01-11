@@ -1,5 +1,5 @@
 # fast_eval_Parkinsonism
-![cover_image]("./imgs/cover.png")
+![cover_image](./imgs/cover.png)
 ## Installation
 ### Docker for ruby
 ```bash
