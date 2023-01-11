@@ -11,7 +11,7 @@
         </thead>
         <tbody>
             <% @counter = 0 %>
-            <% uploads.order('created_at DESC').each do |upload| %>
+            <% uploads.order('recorded_at DESC').each do |upload| %>
                 <% if upload.archived == archive %>
                     <tr>
                         <% #byebug %>
@@ -106,6 +106,7 @@
 
                         <!-- Timeline -->
                         <td>
+                        <p> Recorded at: <%= upload.recorded_at %> </p>
                         <p> Created at: <%= upload.created_at %> </p>
                         <p> <%= "Submitted to run at: #{upload.submitted_at}" if upload.submitted_at? %> </p>
                         <p> Updated at: <%= upload.updated_at %> </p>

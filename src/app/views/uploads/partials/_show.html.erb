@@ -58,9 +58,9 @@
         <div class="col-md-5 d-flex justify-content-center"> 
             <b><br>
             Note: The video is assigned to 
-            <p class="badge badge-primary text-wrap"> <%= @upload.hand_LR %> </p>
+            <p class="badge bg-primary"> <%= @upload.hand_LR %> </p>
             hand, please check whether it is correct or edit 
-            <%= link_to 'here', edit_upload_path(:id => @upload.id), data: {turbo: false}, class: "badge badge-warning text-wrap" %>
+            <%= link_to 'here', edit_upload_path(:id => @upload.id), data: {turbo: false}, class: "badge bg-warning text-dark" %> 
             . </b>
         </div>
     </div>

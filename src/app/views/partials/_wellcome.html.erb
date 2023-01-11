@@ -2,12 +2,19 @@
 <div class="p-5 mb-4 bg-light rounded-3">
   <div class="container-fluid py-5">
     <h1 class="display-5 fw-bold">Fast Evaluation for Parkinsonism</h1>
-    <img class="rounded float-end" style="width: 250px; max-width: 90%" src=<%=image_path("Parkinson-rafiki.png")%>>
+    <img class="rounded float-end" style="width: 275px; max-width: 90%" src=<%=image_path("Parkinson-rafiki.png")%>>
     <p class="col-md-8 fs-4">
-      Using a series of utilities, you can create this jumbotron, just like the one in previous versions of Bootstrap. 
-      Check out the examples below for how you can remix and restyle it to your liking.
-    </p>
+      Parkinsonism is a clinical syndrome including tremors, bradykinesia, rigidity, and postural instability. 
+      Our tool provides a video-based platform to help users self-evaluate the possibility of Parkinsonism. <br>
+      <br>
+      Our 3 main features: <br>
+      (1) Track over time. <br>
+      (2) Compare between left and right side. <br>
+      (3) Give a predicted-UPDRS score and quantitative parameters. <br>
+      <b> Note: this tool is NOT a standard clinical evaluation tool but a preliminary tool for self-tracking. </b> <br>
+      <br>
       <%= link_to("Start Now", dashboard_index_path, class: "btn btn-primary btn-lg", data: {turbo: "false"}) %>
+    </p>
   </div>
 </div>
 
@@ -15,14 +22,18 @@
   <div class="col-md-6">
     <div class="h-100 p-5 text-bg-dark rounded-3">
       <h2>Demo</h2>
-      <p>Swap the background-color utility and add a `.text-*` color utility to mix up the jumbotron look. Then, mix and match with additional component themes and more.</p>
+      <p class="fs-5">
+        We aim to help patients to monitor their health status and assist doctors in giving more objective evaluation to achieve the goals of personalized medicine. 
+        Here is a demo case.
+      <br>
+      </p>
       <%= link_to("Example", demo_path, class: "btn btn-outline-light") %>
     </div>
   </div>
   <div class="col-md-6">
     <div class="h-100 p-5 bg-light border rounded-3">
       <h2>Documents</h2>
-      <p>You can find the documents here. Please follow the steps.</p>
+      <p class="fs-5">You can find the documents here. Please follow the steps.</p>
       <%= link_to("More", documents_path, class: "btn btn-outline-secondary") %>
     </div>
   </div>

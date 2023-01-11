@@ -124,11 +124,11 @@ class UploadsController < ApplicationController
 
     private
     def upload_params
-        params.require(:upload).permit(:avatar, :hand_LR, :hand_pos, :video, :status)
+        params.require(:upload).permit(:hand_LR, :hand_pos, :video, :status, :recorded_at)
     end
 
     def update_params
-        params.require(:upload).permit(:hand_LR, :status)
+        params.require(:upload).permit(:hand_LR, :status, :recorded_at)
     end
 
     def reset_results(upload)

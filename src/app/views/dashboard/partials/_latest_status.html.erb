@@ -1,17 +1,39 @@
+<% @updrs_tab = @uploads_L.where.not(:updrs => nil) %>
+<% (@updrs_tab != nil) ? @updrs = @updrs_tab.order("recorded_at DESC").first["updrs"] : @updrs = nil %>
+<% @mean_freq_tab = @uploads_L.where.not(:mean_freq => nil) %>
+<% (@mean_freq_tab != nil) ? @mean_freq = @mean_freq_tab.order("recorded_at DESC").first["mean_freq"] : @mean_freq = nil %>
+<% @mean_inte_tab = @uploads_L.where.not(:mean_inte => nil) %>
+<% (@mean_inte_tab != nil) ? @mean_inte = @mean_inte_tab.order("recorded_at DESC").first["mean_inte"] : @mean_inte = nil %>
+<% @mean_inte_freq_tab = @uploads_L.where.not(:mean_inte_freq => nil) %>
+<% (@mean_inte_freq_tab != nil) ? @mean_inte_freq = @mean_inte_freq_tab.order("recorded_at DESC").first["mean_inte_freq"] : @mean_inte_freq = nil %>
+<% @mean_peak_tab = @uploads_L.where.not(:mean_peak => nil) %>
+<% (@mean_peak_tab != nil) ? @mean_peak = @mean_peak_tab.order("recorded_at DESC").first["mean_peak"] : @mean_peak = nil %>
+
 <% @latest_L = {
-        :updrs => @uploads_L.where.not(:updrs => nil).order("created_at DESC").first["updrs"],
-        :mean_freq => @uploads_L.where.not(:mean_freq => nil).order("created_at DESC").first["mean_freq"],
-        :mean_inte => @uploads_L.where.not(:mean_inte => nil).order("created_at DESC").first["mean_inte"],
-        :mean_inte_freq => @uploads_L.where.not(:mean_inte_freq => nil).order("created_at DESC").first["mean_inte_freq"],
-        :mean_peak => @uploads_L.where.not(:mean_peak => nil).order("created_at DESC").first["mean_peak"],
+        :updrs => @updrs,
+        :mean_freq => @mean_freq,
+        :mean_inte => @mean_inte,
+        :mean_inte_freq => @mean_inte_freq,
+        :mean_peak => @mean_peak,
     } 
 %>
+<% #byebug %>
+<% @updrs_tab = @uploads_R.where.not(:updrs => nil) %>
+<% (@updrs_tab != nil) ? @updrs = @updrs_tab.order("recorded_at DESC").first["updrs"] : @updrs = nil %>
+<% @mean_freq_tab = @uploads_R.where.not(:mean_freq => nil) %>
+<% (@mean_freq_tab != nil) ? @mean_freq = @mean_freq_tab.order("recorded_at DESC").first["mean_freq"] : @mean_freq = nil %>
+<% @mean_inte_tab = @uploads_R.where.not(:mean_inte => nil) %>
+<% (@mean_inte_tab != nil) ? @mean_inte = @mean_inte_tab.order("recorded_at DESC").first["mean_inte"] : @mean_inte = nil %>
+<% @mean_inte_freq_tab = @uploads_R.where.not(:mean_inte_freq => nil) %>
+<% (@mean_inte_freq_tab != nil) ? @mean_inte_freq = @mean_inte_freq_tab.order("recorded_at DESC").first["mean_inte_freq"] : @mean_inte_freq = nil %>
+<% @mean_peak_tab = @uploads_R.where.not(:mean_peak => nil) %>
+<% (@mean_peak_tab != nil) ? @mean_peak = @mean_peak_tab.order("recorded_at DESC").first["mean_peak"] : @mean_peak = nil %>
 
 <% @latest_R = {
-        :updrs => @uploads_R.where.not(:updrs => nil).order("created_at DESC").first["updrs"],
-        :mean_freq => @uploads_R.where.not(:mean_freq => nil).order("created_at DESC").first["mean_freq"],
-        :mean_inte => @uploads_R.where.not(:mean_inte => nil).order("created_at DESC").first["mean_inte"],
-        :mean_inte_freq => @uploads_R.where.not(:mean_inte_freq => nil).order("created_at DESC").first["mean_inte_freq"],
-        :mean_peak => @uploads_R.where.not(:mean_peak => nil).order("created_at DESC").first["mean_peak"],
-    } 
+        :updrs => @updrs,
+        :mean_freq => @mean_freq,
+        :mean_inte => @mean_inte,
+        :mean_inte_freq => @mean_inte_freq,
+        :mean_peak => @mean_peak,
+    }  
 %>

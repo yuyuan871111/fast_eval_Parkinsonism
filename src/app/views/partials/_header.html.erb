@@ -2,11 +2,14 @@
     
     <a href=<%= root_path %> class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
         <!--<img style="height: 45px; diplay: inline" src=<%=image_path("ntulogo.png")%>> -->
-        <span class="fs-3"><b>FastEval Parkinsonism</b></span>
+        <span>
+            <b class="fs-3">FastEval Parkinsonism</b>
+            <p class="fst-italic fs-6">ver. 0.1.0</p>
+        </span>
     </a>
 
     <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-            <li><%= link_to "Dashboard", dashboard_index_path, class: "nav-link px-7 link-secondary fs-5", data: {turbo: "false"} %></li>
+        <li><%= link_to "Dashboard", dashboard_index_path, class: "nav-link px-7 link-secondary fs-5", data: {turbo: "false"} %></li>
         <li><%= link_to("Demo", demo_path, class: "nav-link px-7 link-dark fs-5") %></li>
         <li><%= link_to("Documents", documents_path,  class: "nav-link px-7 link-dark fs-5") %></a></li>
     </ul>

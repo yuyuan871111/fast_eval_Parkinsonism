@@ -2,7 +2,131 @@
   <div class="container py-4">
 
     <%= render "partials/header" %>
-    <h1>Documents: under contruction</h1>
+    <h1>Documents</h1>
+    <ul>
+      <li class="fs-5">Account management</li>
+      <li class="fs-5">Dashboard</li>
+      <li class="fs-5">UPDRS prediction - Deep learning model</li>
+      <li class="fs-5">Version update</li>
+      <li class="fs-5">Acknowledgement</li>
+    </ul>
+    <hr>
+    <h2>Account management</h2>
+    <br>
+    <h3> Sign-up </h3>
+    <div class="container">
+      <p class="fs-4">
+        To secure every user's data, every user should register an account with a vaild email and confirm the account via our automatic email delivery system.
+        Click the "Sign-up" button on the right-hand side of the header. User should fill out the signup forms, as shown in Figure 1.
+      </p>
+      <figure class="figure img-fluid text-center mx-auto d-block">
+        <img class="figure-img img-fluid rounded border border-light" style="width: 600px; max-width: 90%" src=<%=image_path("doc_signup.png")%> >
+        <figcaption class="figure-caption fs-4">Figure 1. Signup with email and self-defined password.</figcaption>
+      </figure>
+      <p class="fs-4">
+        After the sign-up procedure, you will receive the following message (Figure 2.). You then have to check your email and click the confirmation link to activate your account.
+      </p>
+      <figure class="figure img-fluid text-center mx-auto d-block">
+        <img class="figure-img img-fluid rounded border border-light" style="width: 600px; max-width: 90%" src=<%=image_path("doc_confirm.png")%> >
+        <figcaption class="figure-caption fs-4">Figure 2. Message after signup.</figcaption>
+      </figure>
+      <p class="fs-4">
+        After clicking the confirmation link, you are qualified to use.
+      </p>
+    </div>
+    <br>
+    <h3> Login </h3>
+    <div class="container"> 
+      <p class="fs-4">
+        Click the "Login" button, you could login to the dashboard (Figure 3.).
+      </p>
+      <figure class="figure img-fluid text-center mx-auto d-block">
+        <img class="figure-img img-fluid rounded border border-light" style="width: 600px; max-width: 90%" src=<%=image_path("doc_login.png")%> >
+        <figcaption class="figure-caption fs-4">Figure 3. Login page.</figcaption>
+      </figure>
+    </div>
+    <br>
+    <h3> Account modification </h3>
+    <div class="container"> 
+      <p class="fs-4">
+        Click the "account" button, you can modify your account's password (Figure 4.) or delete your account.
+      </p>
+      <figure class="figure img-fluid text-center mx-auto d-block">
+        <img class="figure-img img-fluid rounded border border-light" style="width: 600px; max-width: 90%" src=<%=image_path("doc_modifyaccount.png")%> >
+        <figcaption class="figure-caption fs-4">Figure 4. Account modification page.</figcaption>
+      </figure>
+    </div>
+    <br>
+    <h3> Others Q&A </h3>
+    <ul>
+      <li class="fs-4">
+        Forget password?<br>
+        Ans: click the "Forget your password?", the system will automatically sent you an email for resetting password.
+      </li>
+      <li class="fs-4">
+        Didn't receive confirmation letter?<br>
+        Ans: click the "Didn't receive confirmation instructions?", the system will automatically sent you an email for account confirmation. 
+      </li>
+    </ul>
+
+    <hr>
+    <h2>Dashboard</h2>
+    <div class="container">
+      <p class="fs-4">
+        To start with, select the feature type. For example, click the "Finger tapping" on the sidebar. The drop-down menu will be shown.
+        In Figure 4., there are 3 items: <b>Overview</b>, <b>Upload</b>, <b>Archive</b>. See details below.
+      </p>
+      <figure class="figure img-fluid text-center mx-auto d-block">
+        <img class="figure-img img-fluid rounded border border-light" style="width: 600px; max-width: 90%" src=<%=image_path("doc_dashboard_1.png")%> >
+        <figcaption class="figure-caption fs-4">Figure 5. Initial dashboard view.</figcaption>
+      </figure>
+    </div>
+    <br>
+    <h3>Overview</h3>
+    <div class="container">
+      <p class="fs-4">
+
+      </p>
+    </div>
+    <h3>Upload</h3>
+    <div class="container">
+      <p class="fs-4">
+
+      </p>
+    </div>
+    <h3>Archive</h3>
+    <div class="container">
+      <p class="fs-4">
+
+      </p>
+    </div>
+    <hr>
+    <h2>UPDRS prediction - Deep learning model</h2>
+    <div class="container">
+      <p class="fs-4">
+        
+      </p>
+      <figure class="figure img-fluid text-center mx-auto d-block">
+        <img class="figure-img img-fluid rounded border border-light" style="width: 600px; max-width: 90%" src=<%=image_path("doc_dashboard_1.png")%> >
+        <figcaption class="figure-caption fs-4">Figure . Initial dashboard view.</figcaption>
+      </figure>
+
+      
+    </div>
+    <hr>
+    <h2>Version update</h2>
+    <div class="container">
+      <li class="fs-4"> version 0.1.0 [2023/02/01]: first version of FastEval Parkinsonism (prototype: finger tapping). </li>
+    </div>
+    <hr>
+    
+    <h2>Acknowledgement</h2>
+    <div class="container">
+      <img class="figure-img img-fluid rounded" style="height: 6vh" src=<%=image_path("ntu.png")%> >
+      <img class="figure-img img-fluid rounded" style="height: 6vh" src=<%=image_path("ntuh.png")%> >
+      <img class="figure-img img-fluid rounded" style="height: 6vh" src=<%=image_path("nstc.png")%> >
+    </div>
+
     <%= render "partials/footer"%>
 
   </div>

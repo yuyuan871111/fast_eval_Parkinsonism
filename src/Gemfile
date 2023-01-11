@@ -54,6 +54,9 @@ gem "stimulus-rails"
 gem "jbuilder"
 gem "json"
 
+# svg display
+gem 'inline_svg'
+
 # Use Redis wiath sidekiq
 gem "sidekiq", "~> 7.0"
 

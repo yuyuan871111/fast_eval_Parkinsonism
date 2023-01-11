@@ -4,7 +4,9 @@
     <%= form.hidden_field :hand_pos, value: params[:hand_pos] %>
     <%= form.hidden_field :status, value: "uploaded" %>
     <br>
-
+    <%= form.label :recorded_at,  'Choose the time when you record it: '%>
+    <%= form.datetime_field :recorded_at, value: nil %>
+    <br>
     <%= form.label :video, 'Video upload here (max limit 50MB):', class: "form-label"  %>
     <div class="input-group mb-3">    
         <%= form.file_field :video, class: "btn btn-outline-secondary" %>

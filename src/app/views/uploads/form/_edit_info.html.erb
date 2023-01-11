@@ -2,10 +2,13 @@
   <div>
     <%= form.label :hand_LR, "Choose your video is [ left / right ] hand (current: #{upload.hand_LR}):" %>
     <%= form.select :hand_LR, ['not_selected', 'left', 'right'] %>
+    <br>
+    <%= form.label :recorded_at,  'Choose the time when you record it: '%>
+    <%= form.datetime_field :recorded_at %>
     <%= form.hidden_field :hand_pos, value: params[:hand_pos] %>
     <%= form.hidden_field :status, value: "uploaded" %>
   </div>
-  <p>
+  <p class="text-danger">
   Please note that the status would be <b>reset to 'uploaded'</b> and 
   your previous <b>predicted results for this video will be cleaned</b>.
   </p>

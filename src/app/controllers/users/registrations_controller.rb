@@ -11,7 +11,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # POST /resource
   def create
-    super
+    if check_already_email
+      flash[:alert] = "This email have been used, please change another one."
+      redirect_to users_sign_up_path
+    else
+      super
+    end
   end
 
   # GET /resource/edit
@@ -50,14 +55,18 @@ class Users::RegistrationsController < Devise::RegistrationsController
   #   devise_parameter_sanitizer.permit(:account_update, keys: [:attribute])
   # end
 
+  def check_already_email
+    User.where(:email => params[:user][:email]) != []
+  end
+
   def after_update_path_for(resource)
     edit_user_registration_path
   end
 
   # The path used after sign up.
-  # def after_sign_up_path_for(resource)
-  #   status_path
-  # end
+  def after_sign_up_path_for(resource)
+    status_path
+  end
 
   # The path used after sign up for inactive accounts.
   def after_inactive_sign_up_path_for(resource)

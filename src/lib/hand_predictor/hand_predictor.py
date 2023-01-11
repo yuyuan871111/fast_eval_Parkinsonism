@@ -17,6 +17,7 @@ def main_single(cfg):
     input_root_path = cfg['input_root_path']
     output_root_path = cfg['output_root_path']
     hand_LR = cfg['hand_LR']
+    hand_pos = cfg['hand_pos']
     wkdir_path = cfg['wkdir_path']
 
     video_path = f"{input_root_path}/{filename}.{ext}"
@@ -65,7 +66,8 @@ def main_single(cfg):
         wkdir_path=wkdir_path,
         test_data_path=output_root_path,
         test_map_path=f"{output_root_path}/{filename}_map.csv",
-        hand=hand_LR,
+        hand_LR=hand_LR,
+        hand_pos=hand_pos,
         random_rotat_3d=True,
         seed=42
     )
@@ -127,7 +129,12 @@ if __name__ == "__main__":
                         type=str,
                         default="Left",
                         choices=["Right", "Left"],
-                        help="Which hand to transform: [Left or Right]")
+                        help="Which hand would you like to transform: [Left or Right]")
+    parser.add_argument('--hand_pos',
+                        type=int,
+                        default=1,
+                        choices=[1, 2, 3],
+                        help="Which hand feature would you like to transform: [1: finger tapping, 2: open/close, 3: supination/pronation]")
     parser.add_argument('--input_root_path',
                         type=str,
                         default="./",

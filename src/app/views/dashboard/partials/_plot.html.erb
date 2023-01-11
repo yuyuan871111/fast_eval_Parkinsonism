@@ -30,8 +30,8 @@
       </div>
 
       <div class="carousel-item" data-bs-interval="10000">
-          <%@plot_L = @uploads_L.pluck(:created_at, :updrs)%>
-          <%@plot_R = @uploads_R.pluck(:created_at, :updrs)%>
+          <%@plot_L = @uploads_L.pluck(:recorded_at, :updrs)%>
+          <%@plot_R = @uploads_R.pluck(:recorded_at, :updrs)%>
           <%= line_chart [
               {:name=>"Left hand", :data=> @plot_L, library: {lineTension: 0, spanGaps: true}},
               {:name=>"Right hand", :data=> @plot_R, library: {lineTension: 0, spanGaps: true}}
@@ -39,8 +39,8 @@
       </div>
 
       <div class="carousel-item" data-bs-interval="10000">
-      <%@plot_L = @uploads_L.pluck(:created_at, :mean_freq)%>
-          <%@plot_R = @uploads_R.pluck(:created_at, :mean_freq)%>
+      <%@plot_L = @uploads_L.pluck(:recorded_at, :mean_freq)%>
+          <%@plot_R = @uploads_R.pluck(:recorded_at, :mean_freq)%>
           <%= line_chart [
               {:name=>"Left hand", :data=> @plot_L, library: {lineTension: 0, spanGaps: true}},
               {:name=>"Right hand", :data=> @plot_R, library: {lineTension: 0, spanGaps: true}}
@@ -48,8 +48,8 @@
       </div>
 
       <div class="carousel-item" data-bs-interval="10000">
-          <%@plot_L = @uploads_L.pluck(:created_at, :mean_inte_freq)%>
-          <%@plot_R = @uploads_R.pluck(:created_at, :mean_inte_freq)%>
+          <%@plot_L = @uploads_L.pluck(:recorded_at, :mean_inte_freq)%>
+          <%@plot_R = @uploads_R.pluck(:recorded_at, :mean_inte_freq)%>
           <%= line_chart [
               {:name=>"Left hand", :data=> @plot_L, library: {lineTension: 0, spanGaps: true}},
               {:name=>"Right hand", :data=> @plot_R, library: {lineTension: 0, spanGaps: true}}
@@ -57,8 +57,8 @@
       </div>
 
       <div class="carousel-item" data-bs-interval="10000">
-          <%@plot_L = @uploads_L.pluck(:created_at, :mean_inte)%>
-          <%@plot_R = @uploads_R.pluck(:created_at, :mean_inte)%>
+          <%@plot_L = @uploads_L.pluck(:recorded_at, :mean_inte)%>
+          <%@plot_R = @uploads_R.pluck(:recorded_at, :mean_inte)%>
           <%= line_chart [
               {:name=>"Left hand", :data=> @plot_L, library: {lineTension: 0, spanGaps: true}},
               {:name=>"Right hand", :data=> @plot_R, library: {lineTension: 0, spanGaps: true}}
@@ -66,8 +66,8 @@
       </div>
 
       <div class="carousel-item" data-bs-interval="10000">
-          <%@plot_L = @uploads_L.pluck(:created_at, :mean_peak)%>
-          <%@plot_R = @uploads_R.pluck(:created_at, :mean_peak)%>
+          <%@plot_L = @uploads_L.pluck(:recorded_at, :mean_peak)%>
+          <%@plot_R = @uploads_R.pluck(:recorded_at, :mean_peak)%>
           <%= line_chart [
               {:name=>"Left hand", :data=> @plot_L, library: {lineTension: 0, spanGaps: true}},
               {:name=>"Right hand", :data=> @plot_R, library: {lineTension: 0, spanGaps: true}}

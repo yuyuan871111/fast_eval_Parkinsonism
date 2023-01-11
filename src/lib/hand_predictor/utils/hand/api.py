@@ -139,7 +139,8 @@ def model_pred_severity(
     wkdir_path: str,
     test_data_path: str,
     test_map_path: str,
-    hand: str = "Left",
+    hand_LR: str = "Left",
+    hand_pos: int = 1,
     random_rotat_3d: bool = True,
     seed: int = 42,
 ):
@@ -149,9 +150,22 @@ def model_pred_severity(
         testing csvname [col 0]
         label [col 1] (if existed, or just set 0 to all rows)
         error frame ratio map [col 2]
-    `hand`: 'Left' or 'Right'
+    `hand_LR`: 'Left' or 'Right'
+    `hand_pos`: ('1': finger tapping, '2': open/close, '3': supination/pronation)
     '''
-    model_prefixs = [f'{hand}_FG_{idx+1}' for idx in range(3)]
+    # create model prefixs
+    if hand_pos == 1:
+        model_prefixs = [f'{hand_LR}_FG_{idx+1}' for idx in range(3)]
+    elif hand_pos == 2:
+        # TO DO: models required to be trained
+        raise NotImplementedError
+    elif hand_pos == 3:
+        # TO DO: models required to be trained
+        raise NotImplementedError
+    else:
+        raise NotImplementedError
+
+    # prediction for 0/1+, 1-/2+, 2-/3+
     dfs = []
     for each_model_prefix in model_prefixs:
         model_path = f'{wkdir_path}/utils/saved_models/DrGuo_3d_rotat_val_pick/{each_model_prefix}/best.pth'
@@ -172,6 +186,7 @@ def model_pred_severity(
         df.columns = [f"{each}_{each_model_prefix}" for each in df.columns]
         dfs.append(df)
     
+    # merge results 
     test_data_df_raw = pd.read_csv(test_map_path, header=None) # read
     df = pd.concat(dfs, axis=1)
     df = df.filter(regex="predict")
@@ -419,8 +434,8 @@ def hand_rotation(data_test, rotat_axis="xyz", rotat_angle=[0,90,0]):
 
 def csv2json(csv_input_path: str, json_output_path: str, header=None):
     '''
-    csv_input_path: the path of csv
-    json_output_path: the path of json output
+    `csv_input_path`: the path of csv
+    `json_output_path`: the path of json output
     '''
     data_input = pd.read_csv(csv_input_path, header=header)
     data_input.to_json(json_output_path, indent=2, orient='index')
@@ -428,7 +443,7 @@ def csv2json(csv_input_path: str, json_output_path: str, header=None):
 
 def read_json(json_input_path: str):
     '''
-    json_input_path: the path of json output
+    `json_input_path`: the path of json output
     '''
     data = pd.read_json(json_input_path, orient="index")
     data.columns = data.iloc[0].values
@@ -436,9 +451,10 @@ def read_json(json_input_path: str):
     data.reset_index(drop=True, inplace=True)
     return data
 
-def hand_parameters(data_input: pd.DataFrame):
+def hand_parameters(data_input: pd.DataFrame, hand_pos: int=1):
     '''
-    data_input: (timeframe, x0~x20, y0~20, z0~20)
+    `data_input`: (timeframe, x0~x20, y0~20, z0~20)
+    `hand_pos`: ('1': finger tapping, '2': open/close, '3': supination/pronation)
     return "results":
         distance-thumb-ratio: finger tapping
         frequency-interval: frequency interval of short-time Fourrier Transformation
@@ -462,7 +478,17 @@ def hand_parameters(data_input: pd.DataFrame):
     z = data_input.filter(regex="z_")
 
     # calcualte the distance between thumbs and index finger
-    d2 = finger_tapping_distance(x, y, z, kpt_method='mediapipe-pd')
+    if hand_pos == 1:
+        d2 = finger_tapping_distance(x, y, z, kpt_method='mediapipe-pd')
+    elif hand_pos == 2:
+        # TO DO: required to be calculated for some key parameters (e.g. area of open and close)
+        raise NotImplementedError
+    elif hand_pos == 3:
+        # TO DO: required to be calculated for some key parameters
+        raise NotImplementedError
+    else:
+        raise NotImplementedError
+    
     d = d2.pow(0.5)
     d = moving_average(d, 5) # average for each 5 frames (0.083s under 60fs)
 

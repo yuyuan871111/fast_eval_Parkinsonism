@@ -16,6 +16,7 @@ class PyHandJob
     filename = "#{video.blob.filename.base}"
     ext = "mp4"
     hand_LR = @upload.hand_LR.to_s.capitalize
+    hand_pos = @upload.hand_pos.to_s
     input_root_path = "#{Rails.root}/tmp/#{video.blob.key}"
     output_root_path = "#{input_root_path}/#{filename}"
     mode = "single"
@@ -40,6 +41,7 @@ class PyHandJob
         "--filename", filename, 
         "--ext", ext, 
         "--hand_LR", hand_LR, 
+        "--hand_pos", hand_pos,
         "--input_root_path", input_root_path, 
         "--output_root_path", output_root_path, 
         "--mode", mode)
