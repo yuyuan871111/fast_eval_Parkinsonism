@@ -7,7 +7,7 @@ class UploadsController < ApplicationController
         @upload = Upload.new
         hand_pos_name(params[:hand_pos])
         # check data usage
-        @record_ids = ActiveStorage::Attachment.where(record: current_user.uploads).where(name: "video").pluck(:record_id)
+        @record_ids = ActiveStorage::Attachment.where(record: current_user.uploads).pluck(:record_id)
         current_user.data_usage = ActiveStorage::Blob.joins(:attachments).where(active_storage_attachments: { record_id: @record_ids}).sum(:byte_size)
         current_user.save
     end

@@ -5,7 +5,26 @@
     <h1>Documents</h1>
     <ul>
       <li class="fs-5">Account management</li>
+      <ul>
+        <li>Sign-up</li>
+        <li>Login</li>
+        <li>Account modification</li>
+        <li>Other Q&As</li>
+      </ul>
       <li class="fs-5">Dashboard</li>
+      <ul>
+        <li>Overview</li>
+        <li>Upload</li>
+        <li>Archive</li>
+        <li>View video & results</li>
+        <ol>
+          <li>Quality control</li>
+          <li>Predicted-UPDRS score</li>
+          <li>Quantitative parameters (evaluating indices)</li>
+          <li>Compare between left and right side</li>
+          <li>Track over time</li>
+        </ol>
+      </ul>
       <li class="fs-5">UPDRS prediction - Deep learning model</li>
       <li class="fs-5">Version update</li>
       <li class="fs-5">Acknowledgement</li>
@@ -20,14 +39,14 @@
         Click the "Sign-up" button on the right-hand side of the header. User should fill out the signup forms, as shown in Figure 1.
       </p>
       <figure class="figure img-fluid text-center mx-auto d-block">
-        <img class="figure-img img-fluid rounded border border-light" style="width: 600px; max-width: 90%" src=<%=image_path("doc_signup.png")%> >
+        <img class="figure-img img-fluid rounded border border-light" style="width: 1000px; max-width: 90%" src=<%=image_path("doc_signup.png")%> >
         <figcaption class="figure-caption fs-4">Figure 1. Signup with email and self-defined password.</figcaption>
       </figure>
       <p class="fs-4">
         After the sign-up procedure, you will receive the following message (Figure 2.). You then have to check your email and click the confirmation link to activate your account.
       </p>
       <figure class="figure img-fluid text-center mx-auto d-block">
-        <img class="figure-img img-fluid rounded border border-light" style="width: 600px; max-width: 90%" src=<%=image_path("doc_confirm.png")%> >
+        <img class="figure-img img-fluid rounded border border-light" style="width: 1000px; max-width: 90%" src=<%=image_path("doc_confirm.png")%> >
         <figcaption class="figure-caption fs-4">Figure 2. Message after signup.</figcaption>
       </figure>
       <p class="fs-4">
@@ -41,7 +60,7 @@
         Click the "Login" button, you could login to the dashboard (Figure 3.).
       </p>
       <figure class="figure img-fluid text-center mx-auto d-block">
-        <img class="figure-img img-fluid rounded border border-light" style="width: 600px; max-width: 90%" src=<%=image_path("doc_login.png")%> >
+        <img class="figure-img img-fluid rounded border border-light" style="width: 1000px; max-width: 90%" src=<%=image_path("doc_login.png")%> >
         <figcaption class="figure-caption fs-4">Figure 3. Login page.</figcaption>
       </figure>
     </div>
@@ -52,12 +71,12 @@
         Click the "account" button, you can modify your account's password (Figure 4.) or delete your account.
       </p>
       <figure class="figure img-fluid text-center mx-auto d-block">
-        <img class="figure-img img-fluid rounded border border-light" style="width: 600px; max-width: 90%" src=<%=image_path("doc_modifyaccount.png")%> >
+        <img class="figure-img img-fluid rounded border border-light" style="width: 1000px; max-width: 90%" src=<%=image_path("doc_modifyaccount.png")%> >
         <figcaption class="figure-caption fs-4">Figure 4. Account modification page.</figcaption>
       </figure>
     </div>
     <br>
-    <h3> Others Q&A </h3>
+    <h3> Other Q&A </h3>
     <ul>
       <li class="fs-4">
         Forget password?<br>
@@ -74,41 +93,247 @@
     <div class="container">
       <p class="fs-4">
         To start with, select the feature type. For example, click the "Finger tapping" on the sidebar. The drop-down menu will be shown.
-        In Figure 4., there are 3 items: <b>Overview</b>, <b>Upload</b>, <b>Archive</b>. See details below.
+        In Figure 5., there are 3 items: <b>Overview</b>, <b>Upload</b>, <b>Archive</b>. See details below.
       </p>
       <figure class="figure img-fluid text-center mx-auto d-block">
-        <img class="figure-img img-fluid rounded border border-light" style="width: 600px; max-width: 90%" src=<%=image_path("doc_dashboard_1.png")%> >
-        <figcaption class="figure-caption fs-4">Figure 5. Initial dashboard view.</figcaption>
+        <img class="figure-img img-fluid rounded border border-light" style="width: 1000px; max-width: 90%" src=<%=image_path("doc_dashboard_1.png")%> >
+        <figcaption class="figure-caption fs-4">Figure 5. Dashboard view - initial.</figcaption>
       </figure>
     </div>
     <br>
     <h3>Overview</h3>
     <div class="container">
       <p class="fs-4">
-
+        When you click the "Overview" button, no data include in your dashboard. You should upload your files first (Please see the instructions in "Upload" session).
       </p>
+      <figure class="figure img-fluid text-center mx-auto d-block">
+        <img class="figure-img img-fluid rounded border border-light" style="width: 1000px; max-width: 90%" src=<%=image_path("doc_dashboard_2.png")%> >
+        <figcaption class="figure-caption fs-4">Figure 6. Dashboard view - empty.</figcaption>
+      </figure>
+      <p class="fs-4">
+        After you upload files, your files will be classified to different tables based on the side of hand. You can choose the following buttons to operate your files.
+      </p>
+      <ol class="list-group list-group-numbered">
+        <li class="list-group-item fs-5 border border-light"><b>View</b>: You can view your video by clicking this button.</li>
+        <li class="list-group-item fs-5 border border-light"><b>Edit</b>: You can edit the recording time and the side of hand by clicking this button.</li>
+        <li class="list-group-item fs-5 border border-light"><b>Run analysis</b>: You can run analayis by clicking this button. NOTE: If you do not select the side of hand, you cannot analyze your video.</li>
+        <li class="list-group-item fs-5 border border-light"><b>Delete</b>: You can delete your file by clicking this button.</li>
+      </ol>
+      <br>
+      <p class="fs-4">
+        Each video information will be shown in row (sorted by recording time), including <b>extension type</b>,  <b>duration</b>, <b>height</b>, <b>width</b>, <b>aspect ratio</b> of the video. 
+        The "Timeline" column records the timestamp you <b>record (self-defined)</b>, <b>create</b>, <b>submit</b>, and <b>update</b> the file. 
+      </p>
+      <figure class="figure img-fluid text-center mx-auto d-block">
+        <img class="figure-img img-fluid rounded border border-light" style="width: 1000px; max-width: 90%" src=<%=image_path("doc_dashboard_3.png")%> >
+        <figcaption class="figure-caption fs-4">Figure 7. Dashboard view - uploaded.</figcaption>
+      </figure>
     </div>
     <h3>Upload</h3>
     <div class="container">
       <p class="fs-4">
-
+        Users should be awared of several things when uploading files.
       </p>
+      <ol class="list-group list-group-numbered">
+        <li class="list-group-item fs-5 border border-light"><b>Data usage</b>: Every user can upload videos up to 6 GB (including results). If you want to add more data, please contact us. </li>
+        <li class="list-group-item fs-5 border border-light"><b>Side of hand</b>: To ensure the correctness of hand movement analysis, every user should select the side of hand correctly. If you do not select the side of hand, you could not allow to analyze the file. </li>
+        <li class="list-group-item fs-5 border border-light"><b>Date of recording</b>: You can select the date and time when you record the video. The overview table will sort descendingly based on this timestamp. If you do not select any specific time, the system will regard the time you upload the file as default. </li>
+        <li class="list-group-item fs-5 border border-light"><b>Upload video</b>: You can choose and upload file at the selection box and button, respectively. Each file should be less than 50 MB. The audio of your video will be automatically removed. Other files except for videos are not allowed to be uploaded. <b>Side-view videos with more than 5 seconds, 720p and 60fps are prefered. </b></li>
+      </ol>
+      <br>
+      <figure class="figure img-fluid text-center mx-auto d-block">
+        <img class="figure-img img-fluid rounded border border-light" style="width: 1000px; max-width: 90%" src=<%=image_path("doc_dashboard_4.png")%> >
+        <figcaption class="figure-caption fs-4">Figure 8. Upload view.</figcaption>
+      </figure>
     </div>
     <h3>Archive</h3>
     <div class="container">
       <p class="fs-4">
-
+        To organize your files, we offer a method for archiving your data. You can archive your file by single-clicking the "Archive" button and prevent yourself from accidental deletion (Figure 9.).
       </p>
+      <figure class="figure img-fluid text-center mx-auto d-block">
+        <img class="figure-img img-fluid rounded border border-light" style="width: 1000px; max-width: 90%" src=<%=image_path("doc_dashboard_5.png")%> >
+        <figcaption class="figure-caption fs-4">Figure 9. Example: the video have been analyzed.</figcaption>
+      </figure>
+      <p class="fs-4">
+        By clicking the "Archive" on the sidebar, you can access the archived data and unarchive them (Figure 10.).
+      </p>
+      <figure class="figure img-fluid text-center mx-auto d-block">
+        <img class="figure-img img-fluid rounded border border-light" style="width: 1000px; max-width: 90%" src=<%=image_path("doc_dashboard_6.png")%> >
+        <figcaption class="figure-caption fs-4">Figure 10. Archive view.</figcaption>
+      </figure>
+    </div>
+    <h3>View video & results</h3>
+    <div class="container">
+      <p class="fs-4">
+        If you have not run analysis for your video, you can view your raw video and check the side of hand (Figure 11.). You can download the original file on the right side of the navigation bar.
+      </p>
+      <figure class="figure img-fluid text-center mx-auto d-block">
+        <img class="figure-img img-fluid rounded border border-light" style="width: 1000px; max-width: 90%" src=<%=image_path("doc_dashboard_7.png")%> >
+        <figcaption class="figure-caption fs-4">Figure 11. Video view.</figcaption>
+      </figure>
+      <p class="fs-4">
+        If you have run analysis for your video, you can check your results (Figure 12.). 
+        All results, annotated MP4, raw hand keypoints, and image can be downloaded on the right side of the navigation bar.
+      </p>
+      <figure class="figure img-fluid text-center mx-auto d-block">
+        <img class="figure-img img-fluid rounded border border-light" style="width: 1000px; max-width: 90%" src=<%=image_path("doc_dashboard_8.png")%> >
+        <figcaption class="figure-caption fs-4">Figure 12. Results view.</figcaption>
+      </figure>
+    </div>
+    <h4>1. Quality control</h4>
+    <div class="container">
+      <p class="fs-5">
+        <b>Error frame ratio (frame error rate)</b> is the ratio between the frame failing to extract key points and the whole video.
+      </p>
+      <ul class="list-group">
+        <li class="list-group-item fs-5"><b class="text-success">high confidence</b>: Error frame ratio = 0 ~ 0.16 (Most key points can be extracted.)</li>
+        <li class="list-group-item fs-5"><b class="text-warning">moderate confidence</b>: Error frame ratio = 0.16 ~ 0.5 (More than half of key points can be extracted.)</li>
+        <li class="list-group-item fs-5"><b class="text-danger">low confidence</b>: Error frame ratio = 0.5 ~ 1.0 (Less than half of key points can be extracted.)</li>
+      </ul>
+    </div><br>
+    <h4>2. Predicted-UPDRS score</h4>
+    <div class="container">
+      <p class="fs-5">
+        Movement Disorder Society-sponsered Unified Parkinson’s Disease Rating Scale (<%= link_to "MDS-UPDRS", "https://www.movementdisorders.org/MDS/MDS-Rating-Scales/MDS-Unified-Parkinsons-Disease-Rating-Scale-MDS-UPDRS.htm"%>) covers various aspects of Parkinson’s disease including motor experiences of daily living.
+        The tasks in MDS-UPDRS part III focus on motor examination, including finger tapping (3.4), hand movements (open/close, 3.5), and pronation-supination movements of hands (3.6). 
+        Our model is derived from the MDS-UPDRS score. Take finger tapping for example, the MDS-UPDRS score is classified to five categories based on the severity of the movement, as shown below. 
+        However, the evaluation of score 4 is not included in our model because it is clear to detect and recognize. 
+      </p>
+      <p class="fs-5">
+        <b>Instructions to examiner (finger tapping)</b>: Each hand is tested separately. Demonstrate the task, but do not continue to
+        perform the task while the patient is being tested. Instruct the patient to tap the index finger on the
+        thumb 10 times as quickly AND as big as possible. Rate each side separately, evaluating speed,
+        amplitude, hesitations, halts, and decrementing amplitude.
+      </p>
+      <ul class="list-group">
+        <li class="list-group-item fs-5"><b>score 0 (Normal)</b>: No problems.</li>
+        <li class="list-group-item fs-5"><b>score 1 (Slight)</b>: Any of the following: a) the regular rhythm is broken with one or two interruptions or hesitations of the tapping movement; b) slight slowing; c) the amplitude decrements near the end of the 10 taps.</li>
+        <li class="list-group-item fs-5"><b>score 2 (Mild)</b>: Any of the following: a) 3 to 5 interruptions during tapping; b) mild slowing; c) the amplitude decrements midway in the 10-tap sequence.</li>
+        <li class="list-group-item fs-5"><b>score 3 (Moderate)</b>: Any of the following: a) more than 5 interruptions during tapping or at least one longer arrest (freeze) in ongoing movement; b) moderate slowing; c) the amplitude decrements starting after the 1st tap.</li>
+        <li class="list-group-item fs-5"><b>score 4 (Severe, not included in our model)</b>: Cannot or can only barely perform the task because of slowing, interruptions, or decrements.</li>
+      </ul>
+    </div>
+    <br>
+    <h4>3. Quantitative parameters (evaluating indices)</h4>
+    <div class="container">
+      <p class="fs-5">
+        In the finger-tapping task, we provided 4 quantitative parameters for cross-validation -- <b>Frequency</b>, <b>Frequency-Intensity (inte-freq)</b>, <b>Intensity</b>, and <b>Peak</b>.
+        In our workflow, after extracting key points by MediaPipe, we normalize each key point by subtracting the key point of the wrist and dividing by the median of the thumb's length over the video.
+        Then, the distance between the thumb and index fingertips is calculated so that <b>Peak (unit: actual-distance/thumb-length) </b> can be extracted and annotated, as shown in the middle graph of Figure 12.
+        <b>Frequency (unit: Hz) and Intensity (unit: arbitrary unit, A.U.) </b> is calculated based on a short-time Fourier transform, displayed in the top graph of Figure 12.
+        In addition, <b>the dot product of the frequency and intensity (inte-freq, unit: A.U./s)</b> is calculated to represent the speed and amplitude of the movement.
+        Compared to frequency or intensity merely, the dot product gives a more comprehensive view, considering the relationship between the times and action size of the hand movement. 
+        NOTE: The peak and intensity positively correlate (R<sup>2</sup> ~= 0.78). 
+      </p>
+      <p class="fs-5">
+        At the bottom of Figure 12., <b>the absolute difference in the frequency</b> is also calculated to detect <b>"Interruptions"</b> or <b>"Hesitations"</b>. 
+        If interruptions or hesitations happened, the frequency would significantly change. Thus, if the absolute difference in the frequency is high, it might be a time of interruptions or hesitations.
+        NOTE: the start and the end of the movement might also have a high absolute difference in frequency.
+      </p>
+      
+    </div>
+    <br>
+    <h4>4. Compare between left and right side</h4>
+    <div class="container">
+      <p class="fs-5">
+        To compare the left and right side of hand movement (e.g. finger tapping), we adopt a radar chart to illustration the difference in five dimensions (1 predicted-UPDRS score and 4 evaluating indices).
+        Therefore, user can clearly view its strength and weakness of each dimension.
+        In the radar graph, we linearly transform each indices to a 80-20 scale (80: best, 20: worst). The configurations of the linear transformation are from our collected dataset (n = 430), shown in the table below.
+      </p>
+      <figure class="figure img-fluid text-center mx-auto d-block">
+        <img class="figure-img img-fluid rounded border border-light" style="width: 400px; max-width: 90%" src=<%=image_path("doc_dashboard_9.png")%> >
+        <figcaption class="figure-caption fs-5">Figure 13. An example of a radar chart.</figcaption>
+      </figure>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-striped table-sm">
+        <thead>
+            <tr>
+            <th scope="col">Dimension</th>
+            <th scope="col">Score 80 (Normal)</th>
+            <th scope="col">80 ~ 60</th>
+            <th scope="col">Score 60 (Slight)</th>
+            <th scope="col">60 ~ 40</th>
+            <th scope="col">Score 40 (Mild)</th>
+            <th scope="col">40 ~ 20</th>
+            <th scope="col">Score 20 (Moderate or Severe)</th>
+            </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Predicted-UPDRS</td> 
+            <td>0</td> 
+            <td>0 ~ 1</td> 
+            <td>1</td> 
+            <td>1 ~ 2</td> 
+            <td>2</td> 
+            <td>2 ~ 3</td> 
+            <td>3 or more severe</td>
+          </tr>
+          <tr>
+            <td>Frequency (Hz)</td> 
+            <td>3.21 or more</td> 
+            <td>3.21 ~ 2.71</td> 
+            <td>2.71</td>
+            <td>2.71 ~ 2.20</td>
+            <td>2.20</td>
+            <td>2.20 ~ 1.70</td>
+            <td>1.70 or less</td>
+          </tr>
+          <tr>
+            <td>Frequency-Intensity (A.U./s)</td>
+            <td>0.267 or more</td>
+            <td>0.267 ~ 0.197</td>
+            <td>0.197</td>
+            <td>0.126 ~ 0.197</td>
+            <td>0.126</td>
+            <td>0.126 ~ 0.0561</td>
+            <td>0.0561 or less</td>
+          </tr>
+          <tr>
+            <td>Intensity (A.U.)</td>
+            <td>0.0820 or more</td>
+            <td>0.0820 ~ 0.0650</td>
+            <td>0.0650</td>
+            <td>0.0650 ~ 0.0479</td>
+            <td>0.0479</td>
+            <td>0.0479 ~ 0.0308</td>
+            <td>0.0308 or less</td>
+          </tr>
+          <tr>
+            <td>Peak (tip-distance/thumb-length)</td>
+            <td>0.531 or more</td>
+            <td>0.531 ~ 0.476</td>
+            <td>0.476</td>
+            <td>0.476 ~ 0.421</td>
+            <td>0.421</td>
+            <td>0.421 ~ 0.366</td>
+            <td>0.366 or less</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <br>
+    <h4>4. Track over time</h4>
+    <div class="container">
+      <p class="fs-5">
+        The evaluating index can be expressed over recording datetime. Figure 14. shows an example of the frequency over time.
+      </p>
+      <figure class="figure img-fluid text-center mx-auto d-block">
+        <img class="figure-img img-fluid rounded border border-light" style="width: 500px; max-width: 90%" src=<%=image_path("doc_dashboard_10.png")%> >
+        <figcaption class="figure-caption fs-5">Figure 14. An example of evaluating index over time.</figcaption>
+      </figure>
     </div>
     <hr>
     <h2>UPDRS prediction - Deep learning model</h2>
     <div class="container">
       <p class="fs-4">
-        
+        sdf
       </p>
       <figure class="figure img-fluid text-center mx-auto d-block">
-        <img class="figure-img img-fluid rounded border border-light" style="width: 600px; max-width: 90%" src=<%=image_path("doc_dashboard_1.png")%> >
-        <figcaption class="figure-caption fs-4">Figure . Initial dashboard view.</figcaption>
+        <img class="figure-img img-fluid rounded border border-light" style="width: 900px; max-width: 90%" src=<%=image_path("UPDRS_workflow.png")%> >
+        <figcaption class="figure-caption fs-4">Figure 15. Predicted-UPDRS workflow.</figcaption>
       </figure>
 
       

@@ -7,7 +7,7 @@ class User < ApplicationRecord
     self.role ||= :user
     self.admin ||= false
     self.data_usage ||= 0
-    self.data_usage_limit ||= 2147483648 # 2GB initial limit
+    self.data_usage_limit ||= 6442450944 # 6GB initial limit
   end
 
   # Set uploader

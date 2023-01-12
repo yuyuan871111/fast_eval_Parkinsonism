@@ -45,7 +45,7 @@ function linear_transform(scaler_name, data) {
 }
 
 var marksData = {
-  labels: ["predicted-UPDRS", "Frequency", "Frequency-Intensity", "Intensity", "Peak"],
+  labels: ["predicted-UPDRS", "Frequency", "Frequency-Intensity", "Intensity", "        Peak"],
   datasets: [{
     label: "Left hand",
     backgroundColor: "rgba(200,0,0,0.2)",
@@ -71,18 +71,17 @@ var radarChart = new Chart(marksCanvas, {
   type: 'radar',
   data: marksData,
    options: {
-        plugins: {
-            title: {
-                display: true,
-                text: 'The latest status of Left and Right hand'
-            }
-        },
         scales: {
             r: {
                 suggestedMin: 15,
                 suggestedMax: 80,
                 grid: {
                     color: ['#332D2D', '#DC4C64', '#FBFBFB', '#E4A11B', '#FBFBFB', '#54B4D3', '#FBFBFB', '#14A44D']
+                },
+                pointLabels: {
+                    font: {
+                        size: 15
+                    }
                 }
             }
         

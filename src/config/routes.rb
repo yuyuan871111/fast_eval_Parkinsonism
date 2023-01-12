@@ -42,7 +42,7 @@ Rails.application.routes.draw do
   get '/uploads/:id/archive'=> 'uploads#archive', :as => 'archive'
   get '/uploads/:id/unarchive'=> 'uploads#unarchive', :as => 'unarchive'
 
-  get '/test' => 'home#test', :as => 'test'
+  # get '/test' => 'home#test', :as => 'test'
 
   
     

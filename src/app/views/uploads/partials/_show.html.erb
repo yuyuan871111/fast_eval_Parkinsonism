@@ -16,9 +16,18 @@
                     <li><%= @upload.hand_LR %></li>
                     </ul>
                 <li> <br></li>
-                <li><b> Quality control: </b></li>
-                    <ul>
+                <li>
+                    <b> Quality control: </b>
                     <% err_frame_ratio = @upload.err_frame_ratio %>
+                    <% if err_frame_ratio >= 0.5 %> 
+                        <b class="text-danger"> low confidence </b>
+                    <% elsif err_frame_ratio >= 0.16 %>
+                        <b class="text-warning"> moderate confidence </b>
+                    <% else %>
+                        <b class="text-success"> high confidence </b>
+                    <% end %>
+                </li>
+                    <ul>
                     <li>error frame ratio: <%= (err_frame_ratio != nil) ? err_frame_ratio.round(3) : "nil" %></li>
                     </ul>
                 <li> <br></li>
@@ -56,7 +65,7 @@
         </div>
         <br>
         <div class="col-md-5 d-flex justify-content-center"> 
-            <b><br>
+            <b class="fs-5"><br>
             Note: The video is assigned to 
             <p class="badge bg-primary"> <%= @upload.hand_LR %> </p>
             hand, please check whether it is correct or edit 

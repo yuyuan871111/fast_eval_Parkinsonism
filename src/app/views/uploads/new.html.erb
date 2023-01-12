@@ -12,13 +12,13 @@
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
           <h1 class="h2"><%= @hand_pos %></h1>
 
-            <% if @hand_pos != "Please select the feature type." %>
-              <%= link_to "Back to overview", dashboard_index_path(hand_pos: params[:hand_pos]), class: "btn btn-sm btn-outline-secondary", data: {turbo: false}  %>
-            <% end %>
+          <% if @hand_pos != "Please select the feature type." %>
+            <%= link_to "Back to overview", dashboard_index_path(hand_pos: params[:hand_pos]), class: "btn btn-sm btn-outline-secondary", data: {turbo: false}  %>
+          <% end %>
 
         </div>
         <% if @hand_pos != "Please select the feature type." %>
-          <b> <%= "Data usage: #{number_to_human_size(current_user.data_usage)}/#{number_to_human_size(current_user.data_usage_limit)}" %> </b>
+          <b class="fs-5"> <%= "Data usage: #{number_to_human_size(current_user.data_usage)}/#{number_to_human_size(current_user.data_usage_limit)}" %> </b>
           <br><br>
           <%= render "uploads/form/upload" %>
         <% end %>

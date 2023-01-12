@@ -1,14 +1,14 @@
 <%= form_with model: upload do |form| %>
   <div>
-    <%= form.label :hand_LR, "Choose your video is [ left / right ] hand (current: #{upload.hand_LR}):" %>
+    <%= form.label :hand_LR, "Choose your video is [ left / right ] hand (current: #{upload.hand_LR}):", class: "fs-5 mb-3" %>
     <%= form.select :hand_LR, ['not_selected', 'left', 'right'] %>
     <br>
-    <%= form.label :recorded_at,  'Choose the time when you record it: '%>
+    <%= form.label :recorded_at,  'Choose the time when you record it: ', class: "fs-5 mb-3" %>
     <%= form.datetime_field :recorded_at %>
     <%= form.hidden_field :hand_pos, value: params[:hand_pos] %>
     <%= form.hidden_field :status, value: "uploaded" %>
   </div>
-  <p class="text-danger">
+  <p class="text-danger fs-5">
   Please note that the status would be <b>reset to 'uploaded'</b> and 
   your previous <b>predicted results for this video will be cleaned</b>.
   </p>

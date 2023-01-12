@@ -1,13 +1,17 @@
 <%= form_for(@upload) do |form| %>
-    <%= form.label :hand_LR, 'Choose your video is [ left / right ] hand:' %>
+    <p class="text-secondary fs-5 mb-3">        
+        NOTE: For the best prediction, we recommend you upload the video with <b>more than 5 seconds, 720p and 60fps</b>. 
+        Furthermore, due to the training data for our deep-learning model, <b>side-view</b> videos are better for prediction even though our system can deal with nearly all angles of view.
+    </p>
+    <%= form.label :hand_LR, 'Choose your video is [ left / right ] hand:', class: "fs-5 mb-3" %>
     <%= form.select :hand_LR, ['not_selected', 'left', 'right'], {}, {class: "form-select-sm mb-3"}%>
     <%= form.hidden_field :hand_pos, value: params[:hand_pos] %>
     <%= form.hidden_field :status, value: "uploaded" %>
     <br>
-    <%= form.label :recorded_at,  'Choose the time when you record it: '%>
+    <%= form.label :recorded_at,  'Choose the time when you record it: ', class: "fs-5 mb-3" %>
     <%= form.datetime_field :recorded_at, value: nil %>
     <br>
-    <%= form.label :video, 'Video upload here (max limit 50MB):', class: "form-label"  %>
+    <%= form.label :video, 'Video upload here (max limit 50MB):', class: "form-label fs-5 mb-3"  %>
     <div class="input-group mb-3">    
         <%= form.file_field :video, class: "btn btn-outline-secondary" %>
         <%= form.submit "Upload", class: "input-group-text" %>
