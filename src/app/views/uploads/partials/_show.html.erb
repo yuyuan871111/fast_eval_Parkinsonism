@@ -9,52 +9,7 @@
             <%= image_tag(url_for(@upload.results.blobs[3]), height: "450vh") if @upload.results.blobs[3] != nil %>
         </div>
         <div class="col-3 d-flex justify-content-center">
-            <ul class="list-unstyled">
-                <li> <br></li>
-                <li><b> Evaluating hand: </b></li>
-                    <ul>
-                    <li><%= @upload.hand_LR %></li>
-                    </ul>
-                <li> <br></li>
-                <li>
-                    <b> Quality control: </b>
-                    <% err_frame_ratio = @upload.err_frame_ratio %>
-                    <% if err_frame_ratio >= 0.5 %> 
-                        <b class="text-danger"> low confidence </b>
-                    <% elsif err_frame_ratio >= 0.16 %>
-                        <b class="text-warning"> moderate confidence </b>
-                    <% else %>
-                        <b class="text-success"> high confidence </b>
-                    <% end %>
-                </li>
-                    <ul>
-                    <li>error frame ratio: <%= (err_frame_ratio != nil) ? err_frame_ratio.round(3) : "nil" %></li>
-                    </ul>
-                <li> <br></li>
-                <li><b> Deep learning model: </b></li>
-                    <ul>
-                    <li>predicted UPDRS: <%= @upload.updrs ? @upload.updrs : "out of applicability domain" %></li>
-                    </ul>
-                <li> <br></li>
-                <li><b> Evaluating indices: </b></li>
-                    <ul>
-                    <% mean_freq = @upload.mean_freq %>
-                    <% std_freq = @upload.std_freq %>
-                    <% mean_inte = @upload.mean_inte %>
-                    <% std_inte = @upload.std_inte %>
-                    <% mean_inte_freq = @upload.mean_inte_freq %>
-                    <% std_inte_freq = @upload.std_inte_freq %>
-                    <% mean_peak = @upload.mean_peak %>
-                    <% std_peak = @upload.std_peak %>
-                    <li>(TOP) frequency: <%= (mean_freq != nil) ? "#{mean_freq.round(1)} ± #{std_freq.round(1)} (Hz)" : "nil" %></li>
-                    <li>(TOP) intensity: <%= (mean_inte != nil) ? "#{mean_inte.round(3)} ± #{mean_inte.round(3)} (A.U.)" : "nil" %> </li>
-                    <li>(TOP) inte-freq: <%= (mean_inte_freq != nil) ? "#{mean_inte_freq.round(3)} ± #{std_inte_freq.round(3)} (A.U./s)" : "nil" %> </li>
-                    <li>(MIDDLE) peak: <%= (mean_peak != nil) ? "#{mean_peak.round(2)} ± #{std_peak.round(2)}" : "nil" %> <br> 
-                        <%= "(distance/thumb-length)" if (mean_peak != nil) %>
-                    </li>
-                    <li>(BOTTOM) absolute difference of frequency: potentially detect "interrupt" or "hesitate" if the peak is high.</li>
-                    </ul>
-            </ul>
+            <%= render "uploads/partials/params_col", upload: @upload %>
         </div>
     </div>
 <% else %>

@@ -1,9 +1,70 @@
 <main>
-    <div class="container py-4">
+  <div class="container py-4">
 
-        <%= render "partials/header" %>
-        <h1>Demo: under contruction</h1>
-        <%= render "partials/footer"%>
-
+    <%= render "partials/header" %>
+    <h1>Demo</h1>
+    <ul>
+      <li>Left hand</li>
+      <li>Right hand</li>
+      <li>Radar chart (comparison of left and right hand)</li>
+    </ul>
+    <hr>
+    <h2>Left hand</h2>
+    <div class="container">
+      <div class="container overflow-auto">
+        <div class="row" style="min-width:900px">
+            <div class="col-4 d-flex justify-content-center">
+                <%= video_tag("/demo/demo_left_normal_annot.mp4", class: "rounded", height: "450vh", :controls => true,  muted: true)%>
+            </div>
+            <div class="col-5 d-flex justify-content-center">
+                <%= image_tag("/demo/demo_left_normal_merge.png", height: "450vh") %>
+            </div>
+            <div class="col-3 d-flex justify-content-center fs-5">
+                <%= render "uploads/partials/params_col", upload: @demo_L %>
+            </div>
+        </div>
+      </div>
     </div>
+    
+    <br>
+    <h2>Right hand</h2>
+    <div class="container">
+      <div class="container overflow-auto">
+        <div class="row" style="min-width:900px">
+            <div class="col-4 d-flex justify-content-center">
+                <%= video_tag("/demo/demo_right_impaired_annot.mp4", class: "rounded", height: "450vh", :controls => true,  muted: true)%>
+            </div>
+            <div class="col-5 d-flex justify-content-center">
+                <%= image_tag("/demo/demo_right_impaired_merge.png", height: "450vh") %>
+            </div>
+            <div class="col-3 d-flex justify-content-center fs-5">
+                <%= render "uploads/partials/params_col", upload: @demo_R %>
+            </div>
+        </div>
+      </div>
+    </div>
+    <br>
+    <h2>Radar chart (comparison of left and right hand)</h2>
+    <p class="text-center fs-4">Table. Linear transformation of evaluating indices to 80-20 scale.
+    <%= render "home/partials/transform_table" %>
+    <br>
+    <div class="row justify-content-center">
+      <div class="chart-container" style="width: 80vh">
+        <canvas id="marksChart"></canvas>
+        <!-- radar chart source -->
+        <%= render "dashboard/partials/radar_plot", select_L: @demo_L, select_R: @demo_R %>
+        <p class="text-center fs-4">
+          Scale: 
+          <b class="badge bg-success text-wrap">good:80</b> - 
+          <b class="badge bg-info text-wrap">slight:60</b> -
+          <b class="badge bg-warning text-wrap">mild:40</b> - 
+          <b class="badge bg-danger text-wrap">moderate or severe:20</b> 
+        </p>
+      </div>
+    </div>
+    
+    
+    <%= render "partials/footer"%>
+
+  </div>
 </main>

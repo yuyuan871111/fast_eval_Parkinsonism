@@ -25,7 +25,7 @@
           <li>Track over time</li>
         </ol>
       </ul>
-      <li class="fs-5">UPDRS prediction - Deep learning model</li>
+      <li class="fs-5">UPDRS prediction by deep learning models</li>
       <li class="fs-5">Version update</li>
       <li class="fs-5">Acknowledgement</li>
     </ul>
@@ -246,74 +246,7 @@
         <figcaption class="figure-caption fs-5">Figure 13. An example of a radar chart.</figcaption>
       </figure>
     </div>
-    <div class="table-responsive">
-      <table class="table table-striped table-sm">
-        <thead>
-            <tr>
-            <th scope="col">Dimension</th>
-            <th scope="col">Score 80 (Normal)</th>
-            <th scope="col">80 ~ 60</th>
-            <th scope="col">Score 60 (Slight)</th>
-            <th scope="col">60 ~ 40</th>
-            <th scope="col">Score 40 (Mild)</th>
-            <th scope="col">40 ~ 20</th>
-            <th scope="col">Score 20 (Moderate or Severe)</th>
-            </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Predicted-UPDRS</td> 
-            <td>0</td> 
-            <td>0 ~ 1</td> 
-            <td>1</td> 
-            <td>1 ~ 2</td> 
-            <td>2</td> 
-            <td>2 ~ 3</td> 
-            <td>3 or more severe</td>
-          </tr>
-          <tr>
-            <td>Frequency (Hz)</td> 
-            <td>3.21 or more</td> 
-            <td>3.21 ~ 2.71</td> 
-            <td>2.71</td>
-            <td>2.71 ~ 2.20</td>
-            <td>2.20</td>
-            <td>2.20 ~ 1.70</td>
-            <td>1.70 or less</td>
-          </tr>
-          <tr>
-            <td>Frequency-Intensity (A.U./s)</td>
-            <td>0.267 or more</td>
-            <td>0.267 ~ 0.197</td>
-            <td>0.197</td>
-            <td>0.126 ~ 0.197</td>
-            <td>0.126</td>
-            <td>0.126 ~ 0.0561</td>
-            <td>0.0561 or less</td>
-          </tr>
-          <tr>
-            <td>Intensity (A.U.)</td>
-            <td>0.0820 or more</td>
-            <td>0.0820 ~ 0.0650</td>
-            <td>0.0650</td>
-            <td>0.0650 ~ 0.0479</td>
-            <td>0.0479</td>
-            <td>0.0479 ~ 0.0308</td>
-            <td>0.0308 or less</td>
-          </tr>
-          <tr>
-            <td>Peak (tip-distance/thumb-length)</td>
-            <td>0.531 or more</td>
-            <td>0.531 ~ 0.476</td>
-            <td>0.476</td>
-            <td>0.476 ~ 0.421</td>
-            <td>0.421</td>
-            <td>0.421 ~ 0.366</td>
-            <td>0.366 or less</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <%= render "home/partials/transform_table" %>
     <br>
     <h4>4. Track over time</h4>
     <div class="container">
@@ -326,10 +259,19 @@
       </figure>
     </div>
     <hr>
-    <h2>UPDRS prediction - Deep learning model</h2>
+    <h2>UPDRS prediction by deep learning models</h2>
     <div class="container">
       <p class="fs-4">
-        sdf
+        Figure 15. demonstrates how we predict the UPDRS score for a given video. 
+        First, you can upload your video via website interface. At the same time, the side of hand is chosen. 
+        Before model prediction, hand key points are extracted from the hand video by <a href="https://google.github.io/mediapipe/"> MediaPipe</a>.
+        Error frame ratio (can be regarded as the quality of the video) is calculated from the raw key points. The hand key points then are transformed to normalized key points.
+        In our predicting module, there are three deep leraning (DL)-based binary classifiers for each side of hand. These three DL-based classifiers in one side of hand represent three difference hyperplanes of the severity.
+        For example, the DL-based classifier 2 is the hyperplane for "score 1 and below" and "score 2 and above". If the score is 1 and below, the DL-based classifier will give a result of 0 (negative), and vice versa.
+        After three classifications, all 1 (positive) and 0 (negative) results will be added to the predicted-UPDRS score.
+      </p>
+      <p class="fs-4">
+        NOTE: Because of the clearness of the severity type between score 3 and score 4, our predicting module are not included the hyperplane for "score 3 and below" and "score 4".
       </p>
       <figure class="figure img-fluid text-center mx-auto d-block">
         <img class="figure-img img-fluid rounded border border-light" style="width: 900px; max-width: 90%" src=<%=image_path("UPDRS_workflow.png")%> >
