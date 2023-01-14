@@ -266,6 +266,7 @@
         First, you can upload your video via website interface. At the same time, the side of hand is chosen. 
         Before model prediction, hand key points are extracted from the hand video by <a href="https://google.github.io/mediapipe/"> MediaPipe</a>.
         Error frame ratio (can be regarded as the quality of the video) is calculated from the raw key points. The hand key points then are transformed to normalized key points.
+        If the error frame ratio is no less than 0.5, the model cannot predict the result. Because we have excluded the low confidence data when training our models.
         In our predicting module, there are three deep leraning (DL)-based binary classifiers for each side of hand. These three DL-based classifiers in one side of hand represent three difference hyperplanes of the severity.
         For example, the DL-based classifier 2 is the hyperplane for "score 1 and below" and "score 2 and above". If the score is 1 and below, the DL-based classifier will give a result of 0 (negative), and vice versa.
         After three classifications, all 1 (positive) and 0 (negative) results will be added to the predicted-UPDRS score.
