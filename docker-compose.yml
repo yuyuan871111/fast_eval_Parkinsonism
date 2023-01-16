@@ -9,7 +9,7 @@ services:
       - .env
     volumes:
       - ./src:/home/local/app
-      - type: tmpfs
+      - type: tmpfs???
         target: /home/local/app/tmp/pids/
       - bundler_gems: /home/local/bundle/
     ports:

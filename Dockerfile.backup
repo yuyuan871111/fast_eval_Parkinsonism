@@ -51,7 +51,7 @@ RUN ${CONDA_PATH} update conda && ${CONDA_PATH} env create -f environment.yml
 
 # Clean cache and Entry with conda mediapipe env
 RUN rails tmp:cache:clear && rails db:migrate
-SHELL ["conda", "run", "-n", "mediapipe", "/bin/bash", "-c"]
+# SHELL ["conda", "run", "-n", "mediapipe", "/bin/bash", "-c"]
 # CMD ["foreman", "s"]
-# ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", "mediapipe"]
 EXPOSE 3000
+ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", "mediapipe"]

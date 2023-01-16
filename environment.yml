@@ -2,6 +2,7 @@ name: mediapipe
 channels:
   - pytorch
   - nvidia
+  - conda-forge
   - defaults
 dependencies:
   - _libgcc_mutex=0.1=main
@@ -11,8 +12,8 @@ dependencies:
   - blas=1.0=mkl
   - brotlipy=0.7.0=py38h27cfd23_1003
   - bzip2=1.0.8=h7b6447c_0
-  - ca-certificates=2022.10.11=h06a4308_0
-  - certifi=2022.9.24=py38h06a4308_0
+  - ca-certificates=2022.12.7=ha878542_0
+  - certifi=2022.12.7=pyhd8ed1ab_0
   - cffi=1.15.1=py38h74dc2b5_0
   - charset-normalizer=2.0.4=pyhd3eb1b0_0
   - cryptography=38.0.1=py38h9ce1e76_0
@@ -110,19 +111,22 @@ dependencies:
   - nest-asyncio=1.5.5=py38h06a4308_0
   - nettle=3.7.3=hbbd107a_1
   - nsight-compute=2022.3.0.22=0
-  - numpy-base=1.23.3=py38h31eccc5_1
+  - numpy=1.23.4=py38h14f4228_0
+  - numpy-base=1.23.4=py38h31eccc5_0
   - openh264=2.1.1=h4ff587b_0
-  - openssl=1.1.1q=h7f8727e_0
+  - openssl=1.1.1s=h7f8727e_0
   - packaging=21.3=pyhd3eb1b0_0
   - parso=0.8.3=pyhd3eb1b0_0
   - pexpect=4.8.0=pyhd3eb1b0_3
   - pickleshare=0.7.5=pyhd3eb1b0_1003
+  - pillow=9.3.0=py38hace64e9_1
   - pip=22.2.2=py38h06a4308_0
   - prompt-toolkit=3.0.20=pyhd3eb1b0_0
   - psutil=5.9.0=py38h5eee18b_0
   - ptyprocess=0.7.0=pyhd3eb1b0_2
   - pure_eval=0.2.2=pyhd3eb1b0_0
   - pycparser=2.21=pyhd3eb1b0_0
+  - pygments=2.13.0=pyhd8ed1ab_0
   - pyopenssl=22.0.0=pyhd3eb1b0_0
   - pyparsing=3.0.9=py38h06a4308_0
   - pysocks=1.7.1=py38h06a4308_0
@@ -167,13 +171,10 @@ dependencies:
     - matplotlib==3.6.0
     - mediapipe==0.8.11
     - natsort==8.2.0
-    - numpy==1.23.4
     - opencv-contrib-python==4.6.0.66
     - pandas==1.5.1
     - pdbpp==0.10.3
-    - pillow==9.3.0
     - protobuf==3.20.3
-    - pygments==2.13.0
     - pyrepl==0.9.0
     - pytz==2022.6
     - scikit-learn==1.1.3

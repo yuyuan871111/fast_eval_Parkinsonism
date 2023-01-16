@@ -3,7 +3,7 @@
 ## Fast Installation by docker
 ```bash
 git clone <github-link>
-docker build "yuy/fasteval_parkinsonism:v0.1.0" .
+docker build -t "yuy/fasteval_parkinsonism:v0.1.0" .
 docker run -it -v <original path>:<inside conatainer path> yuy/fasteval_parkinsonism:v0.1.0 /bin/bash
 ```
 
