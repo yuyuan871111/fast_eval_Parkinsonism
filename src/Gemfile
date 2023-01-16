@@ -24,6 +24,9 @@ gem 'jquery-rails'
 # bye bugs
 gem 'byebug'
 
+# foreman
+gem 'foreman', '~> 0.87.2'
+
 # Use Devise to control: login/signup
 gem 'devise'
 

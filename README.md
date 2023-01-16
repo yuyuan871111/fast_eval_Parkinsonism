@@ -1,6 +1,16 @@
 # FastEval Parkinsonism
 ![cover_image](./imgs/cover.png)
-## Installation
+## Fast Installation by docker
+```bash
+git clone <github-link>
+docker build "yuy/fasteval_parkinsonism:v0.1.0" .
+docker run -it -v <original path>:<inside conatainer path> yuy/fasteval_parkinsonism:v0.1.0 /bin/bash
+```
+
+## Show
+Open your browser and use the `https://localhost:13323`
+
+## Manual Installation
 ### Docker for ruby
 ```bash
 # pull
@@ -60,11 +70,16 @@ apt-get install python3-opencv
 ## start 
 ```bash
 cd src
+
 # activate redis
-redis-server
+# redis-server  ## packed into foreman
 # activate sidekiq
-bundle exec sidekiq
+# bundle exec sidekiq ## packed into foreman
 # activate webserver
-bin/rails s -p 3000
+# bin/rails s -p 14009 ## packed into foreman
+
+# use formeman to start redis, sidekiq, webserver simutaneously
+foreman s # or `foreman start`
+
 ```
-Open your browser and use the `https://localhost:3000`
+
