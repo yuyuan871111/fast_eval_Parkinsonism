@@ -62,6 +62,5 @@ USER $SETUSER_
 
 ENV CONDA_PKG_ $CONDA_PKG
 SHELL ["/bin/bash", "-c"]
-ENTRYPOINT source $CONDA_PKG_/bin/activate && /bin/bash
-
-# RUN foreman s
+EXPOSE 3000
+ENTRYPOINT source $CONDA_PKG_/bin/activate && foreman s
