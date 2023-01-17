@@ -8,7 +8,7 @@ docker run -it -v <original path>:<inside conatainer path> yuy/fasteval_parkinso
 ```
 
 ## Show
-Open your browser and use the `https://localhost:13323`
+Open your browser and use the `https://localhost:3000`
 
 ## Manual Installation
 ### Docker for ruby
@@ -76,7 +76,7 @@ cd src
 # activate sidekiq
 # bundle exec sidekiq ## packed into foreman
 # activate webserver
-# bin/rails s -p 14009 ## packed into foreman
+# bin/rails s -p  ## packed into foreman
 
 # use formeman to start redis, sidekiq, webserver simutaneously
 foreman s # or `foreman start`
