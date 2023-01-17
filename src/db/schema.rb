@@ -73,7 +73,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_11_084936) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string "unconfirmed_email"
-    t.boolean "admin"
     t.integer "role"
     t.integer "data_usage"
     t.integer "data_usage_limit"

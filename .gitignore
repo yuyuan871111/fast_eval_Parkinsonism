@@ -165,6 +165,9 @@ src/lib/hand_predictor/utils/saved_models/DrGuo_3d_valpick_enhanced_feat/Right_F
 src/lib/hand_predictor/utils/saved_models/DrGuo_3d_valpick_enhanced_feat/Right_FG_2/Kfold*
 src/lib/hand_predictor/utils/saved_models/DrGuo_3d_valpick_enhanced_feat/Right_FG_3/Kfold*
 
+redis
+sqlite
+
 private
 
 # website backup
