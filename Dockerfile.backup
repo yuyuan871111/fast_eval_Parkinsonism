@@ -44,7 +44,7 @@ RUN apt-get install -y lsb-release \
     && curl -fsSL https://packages.redis.io/gpg | gpg --dearmor -o /usr/share/keyrings/redis-archive-keyring.gpg \
     && echo "deb [signed-by=/usr/share/keyrings/redis-archive-keyring.gpg] https://packages.redis.io/deb $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/redis.list \
     && apt-get -y update \
-    #&& apt-get install -y redis \
+    && apt-get install -y redis \
     && rm -rf /var/lib/apt/lists/*
 
 # Set wkdir & Install required packages
@@ -64,5 +64,6 @@ USER $SETUSER_
 ENV CONDA_PKG_ $CONDA_PKG
 SHELL ["/bin/bash", "-c"]
 # RUN source $CONDA_PKG_/bin/activate
+RUN source $CONDA_PKG_/bin/activate
 EXPOSE 13006
-ENTRYPOINT source $CONDA_PKG_/bin/activate && foreman s -f Procfile.backup
+ENTRYPOINT foreman s -f Procfile.backup

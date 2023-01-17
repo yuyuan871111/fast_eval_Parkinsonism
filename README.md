@@ -4,7 +4,9 @@
 ```bash
 git clone <github-link>
 # e.g. git clone git@github.com:CMDM-Lab/fasteval_parkinsonism.git
-docker-compose up --build
+docker-compose up --build # for building
+docker-compose down # for stop or ctrl+C
+docker-compose up # for reactivate
 ```
 ## Show
 Open your browser and use the `https://localhost:13006`
