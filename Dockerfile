@@ -58,7 +58,7 @@ RUN useradd -m $SETUSER_ \
 USER $SETUSER_
 
 # Clean cache and Entry with conda mediapipe env
-RUN rails tmp:cache:clear && rails db:reset
+# RUN rails tmp:cache:clear && rails db:reset
 
 ENV CONDA_PKG_ $CONDA_PKG
 SHELL ["/bin/bash", "-c"]
