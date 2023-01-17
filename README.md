@@ -12,8 +12,8 @@ Open your browser and use the `https://localhost:13006`
 ## \[Alternative\] Fast Installation by docker
 ```bash
 git clone <github-link>
-docker build -t "yuy/fasteval_parkinsonism:v0.1.0" -f Dockerfile.backup
-docker run -p 13006:13006 -v <original path>:<inside conatainer path> yuy/fasteval_parkinsonism:v0.1.0
+docker build -t "yuy/fasteval_parkinsonism:v0.1.0" -f Dockerfile.backup .
+docker run -p 13006:13006 yuy/fasteval_parkinsonism:v0.1.0
 ```
 
 ## \[Alternative\] Manual Installation
