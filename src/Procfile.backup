@@ -1,0 +1,3 @@
+web: ./bin/rails s -p 13006
+redis: redis-server
+sidekiq: bundle exec sidekiq

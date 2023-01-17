@@ -1,16 +1,22 @@
 # FastEval Parkinsonism
 ![cover_image](./imgs/cover.png)
-## Fast Installation by docker
+## Fast Installation by docker-compose
 ```bash
 git clone <github-link>
-docker build -t "yuy/fasteval_parkinsonism:v0.1.0" .
-docker run -it -v <original path>:<inside conatainer path> yuy/fasteval_parkinsonism:v0.1.0 /bin/bash
+# e.g. git clone git@github.com:CMDM-Lab/fasteval_parkinsonism.git
+docker-compose up --build
+```
+## Show
+Open your browser and use the `https://localhost:13006`
+
+## \[Alternative\] Fast Installation by docker
+```bash
+git clone <github-link>
+docker build -t "yuy/fasteval_parkinsonism:v0.1.0" -f Dockerfile.backup
+docker run -p 13006:13006 -v <original path>:<inside conatainer path> yuy/fasteval_parkinsonism:v0.1.0
 ```
 
-## Show
-Open your browser and use the `https://localhost:3000`
-
-## Manual Installation
+## \[Alternative\] Manual Installation
 ### Docker for ruby
 ```bash
 # pull
@@ -46,7 +52,7 @@ apt install zip
 # lsb-release, redis (sidekiq)
 apt install lsb-release
 curl -fsSL https://packages.redis.io/gpg | gpg --dearmor -o /usr/share/keyrings/redis-archive-keyring.gpg
-# echo "deb [signed-by=/usr/share/keyrings/redis-archive-keyring.gpg] https://packages.redis.io/deb $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/redis.list
+echo "deb [signed-by=/usr/share/keyrings/redis-archive-keyring.gpg] https://packages.redis.io/deb $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/redis.list
 apt-get update
 apt-get install redis
 #run: redis-server

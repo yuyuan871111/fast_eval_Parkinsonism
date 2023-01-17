@@ -1,10 +1,10 @@
 Rails.application.routes.draw do
   
   authenticate :user, lambda { |u| u.admin? } do
-    # preview at http://localhost:3000/admin
+    # preview at http://localhost:13006/admin (modify in environments/development.rb)
     mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
     
-    # monitor jobs at http://localhost:3000/sidekiq
+    # monitor jobs at http://localhost:13006/sidekiq
     require 'sidekiq/web'
     mount Sidekiq::Web => '/sidekiq'
   end
@@ -22,7 +22,7 @@ Rails.application.routes.draw do
     get '/users/sign_up' => 'users/registrations#new'
   end
 
-  # preview at http://localhost:3000/letter_opener
+  # preview at http://localhost:13006/letter_opener (modify port in environments/development.rb)
   if Rails.env.development?
     mount LetterOpenerWeb::Engine, at: "/letter_opener"
   end
