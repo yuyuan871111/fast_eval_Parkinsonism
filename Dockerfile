@@ -44,12 +44,13 @@ RUN apt-get install -y lsb-release \
     && curl -fsSL https://packages.redis.io/gpg | gpg --dearmor -o /usr/share/keyrings/redis-archive-keyring.gpg \
     && echo "deb [signed-by=/usr/share/keyrings/redis-archive-keyring.gpg] https://packages.redis.io/deb $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/redis.list \
     && apt-get -y update \
-    && apt-get install -y redis \
+    #&& apt-get install -y redis \
     && rm -rf /var/lib/apt/lists/*
 
 # Set wkdir & Install required packages
 COPY ./src/ $APP_ROOT
 RUN gem install rails && bundle install
+RUN rails db:create && rails db:migrate
 
 # Set user permission
 ENV SETUSER_ $SETUSER
@@ -62,5 +63,6 @@ USER $SETUSER_
 
 ENV CONDA_PKG_ $CONDA_PKG
 SHELL ["/bin/bash", "-c"]
-EXPOSE 3000
-ENTRYPOINT source $CONDA_PKG_/bin/activate && foreman s
+RUN source $CONDA_PKG_/bin/activate
+EXPOSE 13006
+#ENTRYPOINT source $CONDA_PKG_/bin/activate

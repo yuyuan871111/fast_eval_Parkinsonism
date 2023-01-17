@@ -1,22 +1,33 @@
 version: '3.2'
 services:
+  redis:
+    image: 'redis:7.0.7-alpine'
+    command: redis-server
+    volumes:
+      - ./redis:/data
+    networks:
+      - network
   web:
     build: 
       context: .
       dockerfile: Dockerfile
-    command: foreman start -p 3000
+    command: foreman start -p 13006
+    user: '1001'
+    cap_drop:
+      - ALL
+    #cap_add:
     env_file:
       - .env
     volumes:
-      - ./src:/home/local/app
-      - type: tmpfs???
-        target: /home/local/app/tmp/pids/
-      - bundler_gems: /home/local/bundle/
+      - ./src:/myuser/local/app
+      - type: tmpfs
+        target: /myuser/local/app/tmp/pids/
+      #- bundler_gems: /home/local/bundle/
     ports:
-      - "3000:3000"
+      - "13006:13006"
     networks:
       - network
-volumes:
-  bundler_gems:
+#volumes:
+  #bundler_gems:
 networks:
   network:
