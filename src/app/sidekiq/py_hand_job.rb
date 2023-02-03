@@ -90,7 +90,11 @@ class PyHandJob
 
       @upload.update(status: 'done')
     
-    rescue 
+    rescue => e
+      Rails.logger.debug "[Hand_prediction error]:start-------"
+      Rails.logger.debug e.message
+      Rails.logger.error e.backtrace.join("\n")
+      Rails.logger.debug "[Hand_prediction error]:end---------"
       @upload.update(status: 'fail')
     
     end
