@@ -37,10 +37,10 @@ Rails.application.configure do
   config.active_storage.service = :local
 
   # Defined default url options
-  config.action_controller.default_url_options = { host: 'localhost', port: 13006 }
+  config.action_controller.default_url_options = { host: 'https://fastevalp.cmdm.tw'}
   
   # Preview mails by letter_opener_web
-  config.action_mailer.default_url_options = { host: 'localhost:13006'}
+  config.action_mailer.default_url_options = { host: 'https://fastevalp.cmdm.tw'}
   config.action_mailer.delivery_method = :letter_opener_web 
 
   # SMTP setting for mailcatcher gem.
