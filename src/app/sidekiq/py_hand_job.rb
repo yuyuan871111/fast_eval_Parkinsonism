@@ -22,6 +22,7 @@ class PyHandJob
     mode = "single"
     orig_video_tmpfile = "#{input_root_path}/#{filename}.#{ext}"
     py_script_path = "#{wkdir_path}/hand_predictor.py"
+    conda_pkg_path = "#{Rails.root}/../conda_pkg/bin"
 
     # clean previous results (consider the retrying process in sidekiq)
     @upload.results.purge
@@ -35,7 +36,8 @@ class PyHandJob
 
     begin
       # run analysis
-      system("python", py_script_path, 
+      system("source", "#{conda_pkg_path}/activate")
+      system("#{conda_pkg_path}/python", py_script_path, 
         "--wkdir_path", wkdir_path,
         "--seed", seed,
         "--filename", filename, 
