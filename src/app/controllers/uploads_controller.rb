@@ -35,6 +35,13 @@ class UploadsController < ApplicationController
         if user_files_accessible_check
             @upload = Upload.find(params[:id])
             hand_pos_name(@upload.hand_pos)
+            @empty_upload = {
+                "updrs" => nil,
+                "mean_freq" => nil,
+                "mean_inte" => nil,
+                "mean_inte_freq" => nil,
+                "mean_peak" => nil
+            }
         else
             flash[:notice] = "You are not allowed to view this file."
             redirect_to status_path

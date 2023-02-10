@@ -12,6 +12,25 @@
             <%= render "uploads/partials/params_col", upload: @upload %>
         </div>
     </div>
+    <br>
+    <div class="row justify-content-center" style="width:900px height:500px">
+        <div class="chart-container" style="width: 80vh">
+            <canvas id="marksChart"></canvas>
+            <!-- radar chart source -->
+            <% if @upload[:hand_LR] == "left" %>
+                <%= render "dashboard/partials/radar_plot", select_L: @upload, select_R: @empty_upload %>
+            <% else %>
+                <%= render "dashboard/partials/radar_plot", select_L: @empty_upload, select_R: @upload %>
+            <% end %>
+            <p class="text-center">
+                Scale: 
+                <b class="badge bg-success text-wrap">good:80</b> - 
+                <b class="badge bg-info text-wrap">slight:60</b> -
+                <b class="badge bg-warning text-wrap">mild:40</b> - 
+                <b class="badge bg-danger text-wrap">moderate or severe:20</b> 
+            </p>
+        </div>
+    </div>
 <% else %>
     <div class="row" style="min-width:400px">
         <div class="col-md-5 d-flex justify-content-center">
