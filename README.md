@@ -87,7 +87,7 @@ cd src
 # bin/rails s -p  ## packed into foreman
 
 # use formeman to start redis, sidekiq, webserver simutaneously
-foreman s # or `foreman start`
+foreman s -f Procfile.backup # or `foreman start -f Procfile.backup `
 
 ```
 

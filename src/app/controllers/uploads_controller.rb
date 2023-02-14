@@ -22,6 +22,7 @@ class UploadsController < ApplicationController
             @upload = current_user.uploads.create(upload_params)
             # byebug
             if @upload.save
+                @upload.video.blob.update!(filename: "user#{current_user.id}_record#{@upload.id}.#{@upload.video.blob.filename.extension}") 
                 flash[:notice] = "Successfully uploaded '#{@upload.video.filename}'."
                 VideoToMp4Job.perform_async(@upload.id)
             else

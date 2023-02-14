@@ -22,13 +22,13 @@
           <%= render "dashboard/partials/plot"%>
           <br>
           <h2 class="h3">Left hand</h2>
-          <%= render "dashboard/partials/table", uploads: @uploads_L, archive: @archive %>
+          <%= render "dashboard/partials/simpletable", uploads: @uploads_L, archive: @archive %>
           <br>
           <h2 class="h3">Right hand</h2>
-          <%= render "dashboard/partials/table", uploads: @uploads_R, archive: @archive %>
+          <%= render "dashboard/partials/simpletable", uploads: @uploads_R, archive: @archive %>
           <br>
           <h2 class="h3">Not Selected</h2>
-          <%= render "dashboard/partials/table", uploads: @uploads_ns, archive: @archive %>
+          <%= render "dashboard/partials/simpletable", uploads: @uploads_ns, archive: @archive %>
           <p> Note: Please edit your info to choose which hand you want to analyze. </p>
         <% end %>
 

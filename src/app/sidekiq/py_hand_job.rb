@@ -36,7 +36,15 @@ class PyHandJob
 
     begin
       # run analysis
-      system("source", "#{conda_pkg_path}/activate")
+      if File.directory?(conda_pkg_path)
+        system("source", "#{conda_pkg_path}/activate")
+      else
+        Rails.logger.debug "[Hand_prediction warn]:start-------"
+        conda_pkg_path = "/root/miniconda3/envs/mediapipe/bin"
+        Rails.logger.debug "Use local path: #{conda_pkg_path}"
+        Rails.logger.debug "[Hand_prediction warn]:end---------"
+      end
+
       system("#{conda_pkg_path}/python", py_script_path, 
         "--wkdir_path", wkdir_path,
         "--seed", seed,

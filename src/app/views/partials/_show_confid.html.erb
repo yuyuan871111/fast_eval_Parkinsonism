@@ -1,0 +1,7 @@
+<% if err_frame_ratio >= 0.5 %> 
+    <b class="text-danger"> low confidence </b>
+<% elsif err_frame_ratio >= 0.16 %>
+    <b class="text-warning"> moderate confidence </b>
+<% else %>
+    <b class="text-success"> high confidence </b>
+<% end %>
