@@ -3,10 +3,10 @@
         <thead>
             <tr>
             <th scope="col">Name</th>
-            <th scope="col">Results</th>
+            <th scope="col">Recorded at</th>
             <th scope="col">Predicted UPDRS</th>
             <th scope="col">Confidence of prediction</th>
-            <th scope="col">Recorded at</th>
+            <th scope="col">Status</th>
             </tr>
         </thead>
         <tbody>
@@ -60,7 +60,19 @@
                         <td>
                         
                         <% if upload.status == 'done' %>
-                            <p> <%= upload.updrs ? upload.updrs : "Out of applicability domain" %></p>
+                            <% if upload.updrs %>
+                                <% if upload.updrs == 0 %>
+                                    <b class="badge bg-success text-wrap fs-1"><%= upload.updrs %></b>
+                                <% elsif upload.updrs == 1 %>
+                                    <b class="badge bg-info text-wrap fs-1"><%= upload.updrs %></b>
+                                <% elsif upload.updrs == 2 %>
+                                    <b class="badge bg-warning text-wrap fs-1"><%= upload.updrs %></b>
+                                <% elsif upload.updrs == 3 %>
+                                    <b class="badge bg-danger text-wrap fs-1"><%= "#{upload.updrs}+" %></b>
+                                <% end %>
+                            <% else %>    
+                                <p> Out of applicability domain. </p>
+                            <% end %>
                         <% else %>
                             <p> Click "Run analysis" to get results. </p>
                         <% end %>

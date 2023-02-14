@@ -54,11 +54,7 @@
         <!-- radar chart source -->
         <%= render "dashboard/partials/radar_plot", select_L: @demo_L, select_R: @demo_R %>
         <p class="text-center fs-4">
-          Scale: 
-          <b class="badge bg-success text-wrap">good:80</b> - 
-          <b class="badge bg-info text-wrap">slight:60</b> -
-          <b class="badge bg-warning text-wrap">mild:40</b> - 
-          <b class="badge bg-danger text-wrap">moderate or severe:20</b> 
+          <%= render "partials/80_20_scale" %>
         </p>
       </div>
     </div>

@@ -21,6 +21,9 @@ gem 'sassc-rails', '>= 2.1.2' # Use Sass to process CSS
 gem 'jquery-rails'
 #gem 'webpacker', '~> 5.0'
 
+# Use Font Awesome
+gem "font-awesome-sass", "~> 6.3.0"
+
 # bye bugs
 gem 'byebug'
 

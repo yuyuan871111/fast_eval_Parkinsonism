@@ -22,11 +22,7 @@
           <canvas id="marksChart"></canvas>
         </div>
         <p class="text-center fs-4">
-          Scale: 
-          <b class="badge bg-success text-wrap">good:80</b> - 
-          <b class="badge bg-info text-wrap">slight:60</b> -
-          <b class="badge bg-warning text-wrap">mild:40</b> - 
-          <b class="badge bg-danger text-wrap">moderate or severe:20</b> 
+          <%= render "partials/80_20_scale" %>
         </p>
       </div>
 
@@ -36,7 +32,7 @@
           <%= line_chart [
               {:name=>"Left hand", :data=> @plot_L, library: {lineTension: 0, spanGaps: true}},
               {:name=>"Right hand", :data=> @plot_R, library: {lineTension: 0, spanGaps: true}}
-          ], xtitle: "Time", ytitle: "UPDRS", min: -0.5, title: "Predicted UPDRS" %>
+          ], xtitle: "Time", ytitle: "UPDRS", min: -0.5, max: 3, title: "Predicted UPDRS" %>
       </div>
 
       <div class="carousel-item" data-bs-interval="10000">
