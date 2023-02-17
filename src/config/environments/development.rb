@@ -1,4 +1,7 @@
 require "active_support/core_ext/integer/time"
+# host link:
+# host_link = "localhost"
+host_link = "fastevalp.cmdm.tw"
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
@@ -37,10 +40,10 @@ Rails.application.configure do
   config.active_storage.service = :local
 
   # Defined default url options
-  config.action_controller.default_url_options = { host: 'https://fastevalp.cmdm.tw'}
+  config.action_controller.default_url_options = { host: "https://#{host_link}"}
   
   # Preview mails by letter_opener_web
-  config.action_mailer.default_url_options = { host: 'https://fastevalp.cmdm.tw'}
+  config.action_mailer.default_url_options = { host: "https://#{host_link}"}
   config.action_mailer.delivery_method = :letter_opener_web 
 
   # SMTP setting for mailcatcher gem.
@@ -82,5 +85,5 @@ Rails.application.configure do
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
   config.hosts << "db.cmdm.tw"
-  config.hosts << "fastevalp.cmdm.tw"
+  config.hosts << "#{host_link}"
 end
