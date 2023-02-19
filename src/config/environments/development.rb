@@ -1,6 +1,6 @@
 require "active_support/core_ext/integer/time"
 # host link:
-# host_link = "localhost"
+# host_link = "localhost:13006"
 host_link = "fastevalp.cmdm.tw"
 
 Rails.application.configure do
@@ -40,21 +40,18 @@ Rails.application.configure do
   config.active_storage.service = :local
 
   # Defined default url options
-  config.action_controller.default_url_options = { host: "https://#{host_link}"}
+  config.action_controller.default_url_options = { host: "#{host_link}"}
   
   # Preview mails by letter_opener_web
-  config.action_mailer.default_url_options = { host: "https://#{host_link}"}
+  config.action_mailer.default_url_options = { host: "#{host_link}"}
   config.action_mailer.delivery_method = :letter_opener_web 
-
-  # SMTP setting for mailcatcher gem.
-  # config.action_mailer.delivery_method = :smtp
-  # config.action_mailer.smtp_settings = {
-  #   address: '127.0.0.1',
-  #   port: 1025
-  # }
   
+  # By SMTP mailer (SendGrid)
+  # config.action_mailer.delivery_method = :smtp
+  # config.action_mailer.smtp_settings = config_for(:email).symbolize_keys
+
   # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = true #false
 
   config.action_mailer.perform_caching = false
 
