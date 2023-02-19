@@ -1,4 +1,7 @@
 require "active_support/core_ext/integer/time"
+# host link:
+# host_link = "localhost"
+host_link = "fastevalp.cmdm.tw"
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
@@ -67,6 +70,13 @@ Rails.application.configure do
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false
+  
+  # Mailer config
+  config.action_controller.default_url_options = { host: "#{host_link}"}
+  config.action_mailer.default_url_options = { host: "#{host_link}"}
+  # By SMTP mailer (SendGrid)
+  # config.action_mailer.delivery_method = :smtp
+  # config.action_mailer.smtp_settings = config_for(:email).symbolize_keys
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
