@@ -1,16 +1,16 @@
 development:
-  address: "smtp.sendgrid.net"
+  address: "smtp-relay.gmail.com"
   port: 587
-  domain: "fasteval_parkinsonism@cmdm.csie.ntu.edu.tw"
+  domain: "cmdm.csie.ntu.edu.tw"
   authentication: "plain"
-  user_name: "apikey" # This is the string literal 'apikey', NOT the ID of your API key
-  password: "<SENDGRID_API_KEY>" # This is the secret sendgrid API key which was issued during API key creation
+  user_name: "fasteval_parkinsonism@cmdm.csie.ntu.edu.tw" 
+  password: "<account pwd>"
   enable_starttls_auto: true
 production:
-  address: "smtp.sendgrid.net"
+  address: "smtp-relay.gmail.com"
   port: 587
-  domain: "fasteval_parkinsonism@cmdm.csie.ntu.edu.tw"
+  domain: "cmdm.csie.ntu.edu.tw"
   authentication: "plain"
-  user_name: "apikey"
-  password: "<SENDGRID_API_KEY>"
+  user_name: "fasteval_parkinsonism@cmdm.csie.ntu.edu.tw" 
+  password: "<account pwd>"
   enable_starttls_auto: true
