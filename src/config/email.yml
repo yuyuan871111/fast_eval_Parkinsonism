@@ -1,16 +1,16 @@
 development:
-  address: "smtp-relay.gmail.com"
+  address: "<%= ENV.fetch("EMAIL_SMTP") %>"
   port: 587
-  domain: "cmdm.csie.ntu.edu.tw"
+  domain: "<%= ENV.fetch("EMAIL_DOMAIN") %>"
   authentication: "plain"
-  user_name: "fasteval_parkinsonism@cmdm.csie.ntu.edu.tw" 
-  password: "<account pwd>"
+  user_name: "<%= ENV.fetch("EMAIL_ADDR") %>" 
+  password: "<%= ENV.fetch("EMAIL_PASSWD") %>"
   enable_starttls_auto: true
 production:
-  address: "smtp-relay.gmail.com"
+  address: "<%= ENV.fetch("EMAIL_SMTP") %>"
   port: 587
-  domain: "cmdm.csie.ntu.edu.tw"
+  domain: "<%= ENV.fetch("EMAIL_DOMAIN") %>"
   authentication: "plain"
-  user_name: "fasteval_parkinsonism@cmdm.csie.ntu.edu.tw" 
-  password: "<account pwd>"
+  user_name: "<%= ENV.fetch("EMAIL_ADDR") %>" 
+  password: "<%= ENV.fetch("EMAIL_PASSWD") %>"
   enable_starttls_auto: true
