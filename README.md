@@ -1,6 +1,6 @@
 # FastEval Parkinsonism
 ![cover_image](./imgs/cover.png)
-## Fast Installation by docker-compose
+## Fast Installation at local by docker-compose
 ```bash
 git clone <github-link>
 # e.g. git clone git@github.com:CMDM-Lab/fasteval_parkinsonism.git
@@ -11,14 +11,34 @@ docker-compose up # for reactivate
 ## Show
 Open your browser and use the `https://localhost:13006`
 
-## \[Alternative\] Fast Installation by docker
+## Hand Predictor API
+Read the document for indenpendently usage ([Hand Predictor API](./src/lib/hand_predictor/README.md)).
+
+***
+# Other informations
+## \[Alternative 1\] Fast Installation by docker
 ```bash
 git clone <github-link>
 docker build -t "yuy/fasteval_parkinsonism:v0.1.0" -f Dockerfile.backup .
 docker run -p 13006:13006 yuy/fasteval_parkinsonism:v0.1.0
 ```
+### Start 
+```bash
+cd src
 
-## \[Alternative\] Manual Installation
+# activate redis
+# redis-server  ## packed into foreman
+# activate sidekiq
+# bundle exec sidekiq ## packed into foreman
+# activate webserver
+# bin/rails s -p  ## packed into foreman
+
+# use formeman to start redis, sidekiq, webserver simutaneously
+foreman s -f Procfile.backup # or `foreman start -f Procfile.backup `
+
+```
+
+## \[Alternative 2\] Manual Installation
 ### Docker for ruby
 ```bash
 # pull
@@ -75,7 +95,7 @@ conda activate mediapipe
 apt-get install python3-opencv
 ```
 
-## start 
+### Start 
 ```bash
 cd src
 
