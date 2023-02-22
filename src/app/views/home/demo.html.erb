@@ -12,14 +12,14 @@
     <h2>Left hand</h2>
     <div class="container">
       <div class="container overflow-auto">
-        <div class="row" style="min-width:900px">
+        <div class="row" style="min-width:1200px">
             <div class="col-4 d-flex justify-content-center">
-                <%= video_tag("/demo/demo_left_normal_annot.mp4", class: "rounded", height: "450vh", :controls => true,  muted: true)%>
+                <%= video_tag("/demo/demo_left_normal_annot.mp4", class: "rounded", height: "600vh", :controls => true,  muted: true)%>
             </div>
             <div class="col-5 d-flex justify-content-center">
-                <%= image_tag("/demo/demo_left_normal_merge.png", height: "450vh") %>
+                <%= image_tag("/demo/demo_left_normal_merge.png", height: "600vh") %>
             </div>
-            <div class="col-3 d-flex justify-content-center fs-5">
+            <div class="col-3 d-flex justify-content-center">
                 <%= render "uploads/partials/params_col", upload: @demo_L %>
             </div>
         </div>
@@ -30,14 +30,14 @@
     <h2>Right hand</h2>
     <div class="container">
       <div class="container overflow-auto">
-        <div class="row" style="min-width:900px">
+        <div class="row" style="min-width:1200px">
             <div class="col-4 d-flex justify-content-center">
-                <%= video_tag("/demo/demo_right_impaired_annot.mp4", class: "rounded", height: "450vh", :controls => true,  muted: true)%>
+                <%= video_tag("/demo/demo_right_impaired_annot.mp4", class: "rounded", height: "600vh", :controls => true,  muted: true)%>
             </div>
             <div class="col-5 d-flex justify-content-center">
-                <%= image_tag("/demo/demo_right_impaired_merge.png", height: "450vh") %>
+                <%= image_tag("/demo/demo_right_impaired_merge.png", height: "600vh") %>
             </div>
-            <div class="col-3 d-flex justify-content-center fs-5">
+            <div class="col-3 d-flex justify-content-center">
                 <%= render "uploads/partials/params_col", upload: @demo_R %>
             </div>
         </div>
