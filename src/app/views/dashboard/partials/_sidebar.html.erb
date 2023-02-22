@@ -4,60 +4,62 @@
       <span class="fs-3 fw-semibold ps-2"> Feature type </span>
   </a>
   
-  <div class="position-sticky pt-3 sidebar-sticky">
+  <div class="position-sticky pt-3 sidebar-sticky mb-2">
     <ul class="list-unstyled ps-0 nav flex-column">
       
       <li class="mb-1">
-          <a class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed fs-4" data-bs-toggle="collapse" data-bs-target="#hand_ft-collapse" aria-expanded="false" aria-controls="hand_ft-collapse">
-            Finger tapping
-          </a>
-          <div class="collapse" id="hand_ft-collapse">
-            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                <li>
-                  <%= link_to "Overview", dashboard_index_path(:hand_pos => '1'), class: "p-2 fs-4 link-dark d-inline-flex text-decoration-none rounded", data: {turbo: false} %>
-                </li>
-                <li>
-                  <%= link_to "Uploads", new_upload_path(current_user.id, :hand_pos => '1'), class: "p-2 fs-4 link-dark d-inline-flex text-decoration-none rounded", data: {turbo: false} %>
-                </li>
-                <li>
-                  <%= link_to "Archive", dashboard_archive_path(:hand_pos => '1'), class: "p-2 fs-4 link-dark d-inline-flex text-decoration-none rounded", data: {turbo: false} %>
-                </li>
-            </ul>
-          </div>
-
-          <a class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed fs-4" data-bs-toggle="collapse" data-bs-target="#hand_oc-collapse" aria-expanded="false"  aria-controls="hand_oc-collapse">
-            Open/close hand (dev)
-          </a>
-          <div class="collapse" id="hand_oc-collapse">
-            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                <li>
-                  <% link_to "Overview", dashboard_index_path(:hand_pos => '2'), class: "p-2 fs-4 link-dark d-inline-flex text-decoration-none rounded", data: {turbo: false} %>
-                </li>
-                <li>
-                  <% link_to "Uploads", new_upload_path(current_user.id, :hand_pos => '2'), class: "p-2 fs-4 link-dark d-inline-flex text-decoration-none rounded", data: {turbo: false} %>
-                </li>
-                <li>
-                  <% link_to "Reports (dev)", dashboard_index_path(:hand_pos => '2'), class: "p-2 fs-4 link-dark d-inline-flex text-decoration-none rounded", data: {turbo: false} %>
-                </li>
-            </ul>
-          </div>
-
-          <a class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed fs-4" data-bs-toggle="collapse" data-bs-target="#hand_ps-collapse" aria-expanded="false" aria-controls="hand_ps-collapse">
-            Pro/supination (dev)
-          </a>
-          <div class="collapse" id="hand_ps-collapse">
-            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                <li>
-                  <% link_to "Overview", dashboard_index_path(:hand_pos => '3'), class: "p-2 fs-4 link-dark d-inline-flex text-decoration-none rounded", data: {turbo: false} %>
-                </li>
-                <li>
-                  <% link_to "Uploads", new_upload_path(current_user.id, :hand_pos => '3'), class: "p-2 fs-4 link-dark d-inline-flex text-decoration-none rounded", data: {turbo: false} %>
-                </li>
-                <li>
-                  <% link_to "Reports (dev)", dashboard_index_path(:hand_pos => '3'), class: "p-2 fs-4 link-dark d-inline-flex text-decoration-none rounded", data: {turbo: false} %>
-                </li>
-            </ul>
-          </div>
+        <button class="btn-toggle d-inline-flex align-items-center rounded border-0 collapsed fs-4 mb-1" data-bs-toggle="collapse" data-bs-target="#hand_ft-collapse" aria-expanded="false" aria-controls="hand_ft-collapse">
+          Finger tapping
+        </button>
+        <div class="collapse" id="hand_ft-collapse">
+          <ul class="btn-toggle-nav list-unstyled fw-normal mb-3 small">
+              <li>
+                <%= link_to "Overview", dashboard_index_path(:hand_pos => '1'), class: "px-2 fs-5 link-dark d-inline-flex text-decoration-none rounded my-1", data: {turbo: false} %>
+              </li>
+              <li>
+                <%= link_to "Uploads", new_upload_path(current_user.id, :hand_pos => '1'), class: "px-2 fs-5 link-dark d-inline-flex text-decoration-none rounded my-1", data: {turbo: false} %>
+              </li>
+              <li>
+                <%= link_to "Archive", dashboard_archive_path(:hand_pos => '1'), class: "px-2 fs-5 link-dark d-inline-flex text-decoration-none rounded my-1", data: {turbo: false} %>
+              </li>
+          </ul>
+        </div>
+      </li>
+      <li class="mb-1">
+        <button class="btn-toggle d-inline-flex align-items-center rounded border-0 collapsed fs-4 mb-1" data-bs-toggle="collapse" data-bs-target="#hand_oc-collapse" aria-expanded="false"  aria-controls="hand_oc-collapse">
+          Open/close hand (dev)
+        </button>
+        <div class="collapse" id="hand_oc-collapse">
+          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+              <li>
+                <% link_to "Overview", dashboard_index_path(:hand_pos => '2'), class: "px-2 fs-5 link-dark d-inline-flex text-decoration-none rounded my-1", data: {turbo: false} %>
+              </li>
+              <li>
+                <% link_to "Uploads", new_upload_path(current_user.id, :hand_pos => '2'), class: "px-2 fs-5 link-dark d-inline-flex text-decoration-none rounded my-1", data: {turbo: false} %>
+              </li>
+              <li>
+                <% link_to "Archive", dashboard_index_path(:hand_pos => '2'), class: "px-2 fs-5 link-dark d-inline-flex text-decoration-none rounded my-1", data: {turbo: false} %>
+              </li>
+          </ul>
+        </div>
+      </li>
+      <li class="mb-1">
+        <button class="btn-toggle d-inline-flex align-items-center rounded border-0 collapsed fs-4 mb-1" data-bs-toggle="collapse" data-bs-target="#hand_ps-collapse" aria-expanded="false" aria-controls="hand_ps-collapse">
+          Pro/supination (dev)
+        </button>
+        <div class="collapse" id="hand_ps-collapse">
+          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+              <li>
+                <% link_to "Overview", dashboard_index_path(:hand_pos => '3'), class: "px-2 fs-5 link-dark d-inline-flex text-decoration-none rounded my-1", data: {turbo: false} %>
+              </li>
+              <li>
+                <% link_to "Uploads", new_upload_path(current_user.id, :hand_pos => '3'), class: "px-2 fs-5 link-dark d-inline-flex text-decoration-none rounded my-1", data: {turbo: false} %>
+              </li>
+              <li>
+                <% link_to "Archive", dashboard_index_path(:hand_pos => '3'), class: "px-2 fs-5 link-dark d-inline-flex text-decoration-none rounded my-1", data: {turbo: false} %>
+              </li>
+          </ul>
+        </div>
       </li>  
     </ul>
   </div>

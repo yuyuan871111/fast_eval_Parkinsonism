@@ -1,9 +1,9 @@
 <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
     
-    <a href=<%= root_path %> class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
+    <a href=<%= root_path %> class="d-flex align-items-center col-md-3 mb-md-0 text-dark text-decoration-none mx-3">
         <span>
-            <b class="fs-3">FastEval Parkinsonism</b>
-            <p class="fst-italic fs-6">ver. 0.1.0</p>
+            <b class="fs-3">FastEval Parkinsonism</b> 
+            <p class="fst-italic text-secondary">ver. 0.1.0</p>
         </span>
     </a>
 
@@ -13,7 +13,7 @@
         <li><%= link_to("Documents", documents_path,  class: "nav-link px-7 link-dark fs-5") %></a></li>
     </ul>
 
-    <div class="col-md-3 text-end">
+    <div class="col-md-3 text-end me-3">
         <% if user_signed_in? %>
             <%= link_to("Account", edit_user_registration_path, class: "btn btn-outline-primary me-2 fs-5") %>
             <%= link_to("Logout", destroy_user_session_path, :method => :delete, class: "btn btn-primary fs-5") %>

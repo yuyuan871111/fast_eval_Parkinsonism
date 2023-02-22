@@ -1,17 +1,17 @@
-<div class="table-responsive">
-    <table class="table table-striped table-sm">
+<div class="table-responsive border rounded">
+    <table class="table table-striped table-hover">
         <thead>
             <tr>
             <th scope="col">Name</th>
-            <th scope="col">Recorded at</th>
-            <th scope="col">Predicted UPDRS</th>
-            <th scope="col">Confidence of prediction</th>
+            <th scope="col">Recorded&nbsp;at&nbsp;&nbsp;</th>
+            <th scope="col">Predicted&nbsp;UPDRS</th>
+            <th scope="col">Confidence&nbsp;of&nbsp;prediction</th>
             <th scope="col">Status</th>
             </tr>
         </thead>
         <tbody>
             <% @counter = 0 %>
-            <% uploads.order('recorded_at DESC').each do |upload| %>
+            <% uploads.order("recorded_at DESC").each do |upload| %>
                 <% if upload.archived == archive %>
                     <tr>
                         <% #byebug %>
@@ -21,30 +21,30 @@
                         <p> <%= upload.video.filename.base %> </p>
                         <div class="btn-group" role="group">
                             <!-- View button -->
-                            <%= link_to 'View', upload_path(:id => upload.id), :hand_pos => upload.hand_pos, data: {turbo: false}, class: "btn btn-success" %>    
+                            <%= link_to "View", upload_path(:id => upload.id), :hand_pos => upload.hand_pos, data: {turbo: false}, class: "btn btn-success" %>    
                             
                             <% if archive == true %>
                                 <!-- Unarchived button -->
-                                <%= link_to 'Unarchived', unarchive_path(:id => upload.id), :title => 'Unarchived',  data: {turbo: false}, class: "btn btn-secondary" %>
+                                <%= link_to "Unarchived", unarchive_path(:id => upload.id), :title => "Unarchived",  data: {turbo: false}, class: "btn btn-secondary" %>
                             
                             <% else %>
-                                <% if (upload.status == 'queuing') ^ (upload.status != 'running') %>
+                                <% if (upload.status == "queuing") ^ (upload.status != "running") %>
                                     <br>
-                                    <%= link_to 'Edit info', edit_upload_path(:id => upload.id), :title => 'Edit info', data: {turbo: false}, class: "btn btn-info" %>
+                                    <%= link_to "Edit\u00A0info", edit_upload_path(:id => upload.id), :title => "Edit info", data: {turbo: false}, class: "btn btn-info" %>
                                     <br>
 
-                                    <% if upload.hand_LR != 'not_selected' %>
-                                        <% if upload.status == 'uploaded' %>
+                                    <% if upload.hand_LR != "not_selected" %>
+                                        <% if upload.status == "uploaded" %>
                                             <!-- Run analysis button -->
-                                            <%= link_to 'Run analysis', do_run_path(:id => upload.id), :title => 'Run analysis', data: {turbo: false}, class: "btn btn-warning" %>
+                                            <%= link_to "Run\u00A0analysis", do_run_path(:id => upload.id), :title => "Run analysis", data: {turbo: false}, class: "btn btn-warning" %>
                                             <br>
-                                        <% elsif upload.status == 'done' %>
+                                        <% elsif upload.status == "done" %>
                                             <!-- Archived button -->
-                                            <%= link_to 'Archived', archive_path(:id => upload.id), :title => 'Archived',  data: {turbo: false}, class: "btn btn-secondary" %>
+                                            <%= link_to "Archived", archive_path(:id => upload.id), :title => "Archived",  data: {turbo: false}, class: "btn btn-secondary" %>
                                         <% end %>
                                     <% end %>
                                     <!-- Delete button -->
-                                    <%= link_to 'Delete', upload_path(:id => upload.id), data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}, :title => 'Delete', class: "btn btn-danger" %>
+                                    <%= link_to "Delete", upload_path(:id => upload.id), data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}, :title => "Delete", class: "btn btn-danger" %>
                                 <% end %>
                             <% end %>
                         </div>
@@ -57,9 +57,9 @@
                         </td>
 
                         <!-- UPDRS -->
-                        <td>
+                        <td class="align-middle">
                         
-                        <% if upload.status == 'done' %>
+                        <% if upload.status == "done" %>
                             <% if upload.updrs %>
                                 <% if upload.updrs == 0 %>
                                     <b class="badge bg-success text-wrap fs-1"><%= upload.updrs %></b>
@@ -82,7 +82,7 @@
                         <!-- Confidence of prediction -->
                         <td>
                         
-                        <% if upload.status == 'done' %>               
+                        <% if upload.status == "done" %>               
                             <% @err_frame_ratio = upload.err_frame_ratio %>
                             <%= render "partials/show_confid", err_frame_ratio: @err_frame_ratio %>
                         <% else %>
@@ -94,7 +94,7 @@
                         <!-- Status -->
                         <td>
                         <%= upload.status %>
-                        <% if upload.status == 'fail' %>
+                        <% if upload.status == "fail" %>
                             <p>(Please email to <br> us to report the fail.)</p>
                         <% end %>
                         </td>
@@ -106,9 +106,11 @@
             <% end %>
         </tbody>
     </table>
+    <p class="ps-2 my-0">
     <% if @counter == 0 %>
         <%= "Total files: #{@counter}, please upload your file first." %>
     <% else %>
         <%= "Total files: #{@counter}." %>
     <% end %>
+    </p>
 </div>

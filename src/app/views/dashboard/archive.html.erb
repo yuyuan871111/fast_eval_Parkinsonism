@@ -18,6 +18,7 @@
         </div>
 
         <% if @hand_pos != "Please select the feature type." %>
+          <p> Note: Unarchiving your file can make the file available to edit. </p>
           <h2 class="h3">Left hand</h2>
           <%= render "dashboard/partials/table", uploads: @uploads_L, archive: @archive %>
           <br>
@@ -26,7 +27,6 @@
           <br>
           <h2 class="h3">Not Selected</h2>
           <%= render "dashboard/partials/table", uploads: @uploads_ns, archive: @archive %>
-          <p> Note: Please unarchive to make your file available to edit. </p>
         <% end %>
 
       </div>
