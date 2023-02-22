@@ -5,11 +5,21 @@
 git clone <github-link>
 # e.g. git clone git@github.com:CMDM-Lab/fasteval_parkinsonism.git
 docker-compose up --build # for building
-docker-compose down # for stop or ctrl+C
-docker-compose up # for reactivate
 ```
+
+## Start
+```
+docker-compose up # start server or reactivate server
+```
+
 ## Show
 Open your browser and use the `https://localhost:13006`
+
+## Stop
+```
+docker-compose down # stop server
+# or use `ctrl+C`
+```
 
 ## Hand Predictor API
 Read the document for indenpendently usage ([Hand Predictor API](./src/lib/hand_predictor/README.md)).
