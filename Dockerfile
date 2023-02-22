@@ -20,10 +20,16 @@ RUN /venv/bin/conda-unpack
 # Create the base OS image (Ruby)
 FROM ruby:3.1.2 AS base
 
+# Define build arguments
+ARG USER_ID=1001
+ARG GROUP_ID=1001
+
 # SET ENV/ARG/WKDIR PATH
 ARG SETUSER="myuser"
-ARG APP_ROOT="/${SETUSER}/local/app"
-ARG CONDA_PKG="/${SETUSER}/local/conda_pkg"
+ARG APP_ROOT="/home/${SETUSER}/local/app"
+ARG CONDA_PKG="/home/${SETUSER}/local/conda_pkg"
+RUN addgroup --gid ${GROUP_ID} ${SETUSER}
+RUN adduser --disabled-password --gecos '' --uid ${USER_ID} --gid ${GROUP_ID} ${SETUSER}
 RUN mkdir -p $APP_ROOT && mkdir -p CONDA_PKG
 WORKDIR $APP_ROOT
 
@@ -37,7 +43,17 @@ RUN apt-get -y update \
     && apt-get install -y wget \
     && apt-get install -y sqlite3 \
     && apt-get install -y zip \
-    && apt-get install -y python3-opencv
+    && apt-get install -y python3-opencv nano
+
+RUN apt-get update && apt-get install -y \
+    curl \
+    build-essential \
+    graphviz \
+    libmariadb-dev &&\
+    curl -sL https://deb.nodesource.com/setup_18.x | bash - && \
+    curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
+    echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
+    apt-get update && apt-get install -y nodejs yarn
 
 # Redis installation
 RUN apt-get install -y lsb-release \
@@ -49,13 +65,16 @@ RUN apt-get install -y lsb-release \
 
 # Set wkdir & Install required packages
 COPY ./src/ $APP_ROOT
+ENV RAILS_ENV production
+RUN yarn install
 RUN gem install rails && bundle install
-RUN rails db:create && rails db:migrate
+RUN rails db:create db:migrate assets:precompile
 
 # Set user permission
 ENV SETUSER_ $SETUSER
-RUN useradd -m $SETUSER_ \
-    && chown -R $SETUSER_:$SETUSER_ $APP_ROOT
+#RUN useradd -m $SETUSER_ \
+#    && chown -R $SETUSER_:$SETUSER_ $APP_ROOT
+RUN chown -R ${USER_ID}:${GROUP_ID} $APP_ROOT
 USER $SETUSER_
 
 # Clean cache and Entry with conda mediapipe env
