@@ -167,8 +167,9 @@ src/lib/hand_predictor/utils/saved_models/DrGuo_3d_valpick_enhanced_feat/Right_F
 
 redis
 sqlite
-
+src/node_modules
 private
 
 # website backup
 src_backup
+src/app/assets/builds/application.css
