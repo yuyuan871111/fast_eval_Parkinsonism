@@ -25,7 +25,6 @@ Built by docker-compose, docker, or manual with conda, redis, sidekiq, ...
 * `tmp`: temporary file.  
 * `Gemfile`: defined gem packages.  
 * `Procfile`: all-in-one start and stop for docker-compose env.  
-* `Procfile`: all-in-one start and stop for docker-compose env.  
 * `Procfile.backup`: all-in-one start and stop for docker env.  
 
 ## Database creation
