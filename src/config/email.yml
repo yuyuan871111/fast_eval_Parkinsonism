@@ -1,16 +1,15 @@
+#use rails credentials:edit to manage name & password
+#ref: https://dev.to/vvo/secrets-environment-variables-config-files-the-ruby-on-rails-case-433f
+default: &default
+  address: "<%= ENV.fetch("EMAIL_SMTP")%>"
+  port: 587
+  domain: "<%= ENV.fetch("EMAIL_DOMAIN")%>"
+  authentication: "plain"
+  user_name: "<%= ENV.fetch("EMAIL_ADDR")%>"
+  password: "<%= ENV.fetch("EMAIL_PASSWD")%>"
+  enable_starttls_auto: true
 development:
-  address: "<%= ENV.fetch("EMAIL_SMTP") %>"
-  port: 587
-  domain: "<%= ENV.fetch("EMAIL_DOMAIN") %>"
-  authentication: "plain"
-  user_name: "<%= ENV.fetch("EMAIL_ADDR") %>" 
-  password: "<%= ENV.fetch("EMAIL_PASSWD") %>"
-  enable_starttls_auto: true
+  <<: *default
+
 production:
-  address: "<%= ENV.fetch("EMAIL_SMTP") %>"
-  port: 587
-  domain: "<%= ENV.fetch("EMAIL_DOMAIN") %>"
-  authentication: "plain"
-  user_name: "<%= ENV.fetch("EMAIL_ADDR") %>" 
-  password: "<%= ENV.fetch("EMAIL_PASSWD") %>"
-  enable_starttls_auto: true
+  <<: *default

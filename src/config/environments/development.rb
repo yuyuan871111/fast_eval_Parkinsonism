@@ -1,7 +1,7 @@
 require "active_support/core_ext/integer/time"
 # host link:
-# host_link = "localhost:13006"
-host_link = "fastevalp.cmdm.tw"
+host_link = "localhost:13006"
+# host_link = "fastevalp.cmdm.tw"
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
@@ -44,11 +44,11 @@ Rails.application.configure do
   
   # Preview mails by letter_opener_web
   config.action_mailer.default_url_options = { host: "#{host_link}"}
-  # config.action_mailer.delivery_method = :letter_opener_web 
+  config.action_mailer.delivery_method = :letter_opener_web 
   
   # By SMTP mailer (SendGrid)
-  config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = config_for(:email).symbolize_keys
+  # config.action_mailer.delivery_method = :smtp
+  # config.action_mailer.smtp_settings = config_for(:email).symbolize_keys
 
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = true #false

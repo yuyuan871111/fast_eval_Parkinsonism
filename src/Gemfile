@@ -16,7 +16,7 @@ gem "sqlite3", "~> 1.4"
 gem "puma", "~> 5.0"
 
 # Use Boostrap-sass, javascript
-gem 'bootstrap-sass', '~> 3.4.1'
+#gem 'bootstrap-sass', '~> 3.4.1'
 gem 'sassc-rails', '>= 2.1.2' # Use Sass to process CSS
 gem 'jquery-rails'
 # gem 'webpacker', '~> 5.0'
@@ -37,7 +37,7 @@ gem 'devise'
 gem 'cancancan'
 gem 'rails_admin', '~> 3.0'
 gem "cssbundling-rails"
-
+gem 'dotenv-rails', groups: [:development, :test]
 # Carrierwave: Uploader (replaced by Active Storage)
 # gem 'carrierwave', '>= 2.2.3', '< 3.0'
 
