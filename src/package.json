@@ -1,0 +1,16 @@
+{
+  "name": "FastEvalParkinsonism",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Yu-Yuan Yang",
+  "license": "MIT",
+  "dependencies": {
+    "@popperjs/core": "^2.11.6",
+    "bootstrap": "^5.2.3",
+    "bootstrap-icons": "^1.10.3",
+    "sass": "^1.58.3"
+  },
+  "scripts": {
+    "build:css": "sass ./app/assets/stylesheets/application.bootstrap.scss:./app/assets/builds/application.css --no-source-map --load-path=node_modules"
+  }
+}

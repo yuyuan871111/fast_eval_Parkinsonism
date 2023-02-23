@@ -19,9 +19,9 @@ services:
     env_file:
       - .env
     volumes:
-      - ./src:/myuser/local/app
-      - type: tmpfs
-        target: /myuser/local/app/tmp/pids/
+      - ./src:/home/myuser/local/app
+      #- type: tmpfs
+      #  target: /home/myuser/local/app/tmp/pids/
       #- bundler_gems: /home/local/bundle/
     ports:
       - "13006:13006"
