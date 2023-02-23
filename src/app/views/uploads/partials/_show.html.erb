@@ -1,7 +1,8 @@
-<div class="overflow-auto">
-<br>
+
 <% if @upload.status == 'done' %>
-    <div class="row" style="width:900px">
+    <div class="overflow-auto">
+    <br>
+    <div class="row" style="width:1000px">
         <div class="col-4 d-flex justify-content-center">
             <%= video_tag(url_for(@upload.results.blobs[1]), class: "rounded", height: "450vh", :controls => true,  muted: true, :autoplay => true)%>
         </div>
@@ -12,9 +13,11 @@
             <%= render "uploads/partials/params_col", upload: @upload %>
         </div>
     </div>
+    <p>Note: If the video cannot be played, please download and play it locally.</p>
+    </div>
     <br>
-    <div class="row justify-content-center" style="width:900px height:500px">
-        <div class="chart-container" style="width: 80vh">
+    <div class="row justify-content-center" style="width:900px height:400px">
+        <div class="chart-container" style="width: 60vh">
             <canvas id="marksChart"></canvas>
             <!-- radar chart source -->
             <% if @upload[:hand_LR] == "left" %>
@@ -28,10 +31,10 @@
         </div>
     </div>
 <% else %>
+    <div class="overflow-auto">
     <div class="row" style="min-width:400px">
         <div class="col-md-5 d-flex justify-content-center">
             <%= video_tag(url_for(@upload.video), class: "rounded", height: "450vh", :controls => true,  muted: true, :autoplay => true)%>
-            
         </div>
         <br>
         <div class="col-md-5 d-flex justify-content-center"> 
@@ -43,12 +46,8 @@
             . </b>
         </div>
     </div>
-<% end %>
-    <br>
     <p>Note: If the video cannot be played, please download and play it locally.</p>
-
-</div>
-<br>
-
+    </div>
+<% end %>
 
 <%# byebug %>
