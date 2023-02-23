@@ -1,17 +1,17 @@
 <div class="table-responsive">
-    <table class="table table-striped table-sm">
+    <table class="table table-striped table-hover">
         <thead>
             <tr>
             <th scope="col">Name</th>
             <th scope="col">Status</th>
-            <th scope="col">Video info</th>
+            <th scope="col">Video&nbsp;info</th>
             <th scope="col">Results</th>
-            <th scope="col">Timeline</th>
+            <th scope="col">Timeline<%= "\u00A0"*70 %></th>
             </tr>
         </thead>
         <tbody>
             <% @counter = 0 %>
-            <% uploads.order('recorded_at DESC').each do |upload| %>
+            <% uploads.order("recorded_at DESC").each do |upload| %>
                 <% if upload.archived == archive %>
                     <tr>
                         <% #byebug %>
@@ -21,30 +21,30 @@
                         <p> <%= upload.video.filename.base %> </p>
                         <div class="btn-group" role="group">
                             <!-- View button -->
-                            <%= link_to 'View', upload_path(:id => upload.id), :hand_pos => upload.hand_pos, data: {turbo: false}, class: "btn btn-success" %>    
+                            <%= link_to "View", upload_path(:id => upload.id), :hand_pos => upload.hand_pos, data: {turbo: false}, class: "btn btn-success" %>    
                             
                             <% if archive == true %>
                                 <!-- Unarchived button -->
-                                <%= link_to 'Unarchived', unarchive_path(:id => upload.id), :title => 'Unarchived',  data: {turbo: false}, class: "btn btn-secondary" %>
+                                <%= link_to "Unarchived", unarchive_path(:id => upload.id), :title => "Unarchived",  data: {turbo: false}, class: "btn btn-secondary" %>
                             
                             <% else %>
-                                <% if (upload.status == 'queuing') ^ (upload.status != 'running') %>
+                                <% if (upload.status == "queuing") ^ (upload.status != "running") %>
                                     <br>
-                                    <%= link_to 'Edit info', edit_upload_path(:id => upload.id), :title => 'Edit info', data: {turbo: false}, class: "btn btn-info" %>
+                                    <%= link_to "Edit\u00A0info", edit_upload_path(:id => upload.id), :title => "Edit info", data: {turbo: false}, class: "btn btn-info" %>
                                     <br>
 
-                                    <% if upload.hand_LR != 'not_selected' %>
-                                        <% if upload.status == 'uploaded' %>
+                                    <% if upload.hand_LR != "not_selected" %>
+                                        <% if upload.status == "uploaded" %>
                                             <!-- Run analysis button -->
-                                            <%= link_to 'Run analysis', do_run_path(:id => upload.id), :title => 'Run analysis', data: {turbo: false}, class: "btn btn-warning" %>
+                                            <%= link_to "Run analysis", do_run_path(:id => upload.id), :title => "Run analysis", data: {turbo: false}, class: "btn btn-warning" %>
                                             <br>
-                                        <% elsif upload.status == 'done' %>
+                                        <% elsif upload.status == "done" %>
                                             <!-- Archived button -->
-                                            <%= link_to 'Archived', archive_path(:id => upload.id), :title => 'Archived',  data: {turbo: false}, class: "btn btn-secondary" %>
+                                            <%= link_to "Archived", archive_path(:id => upload.id), :title => "Archived",  data: {turbo: false}, class: "btn btn-secondary" %>
                                         <% end %>
                                     <% end %>
                                     <!-- Delete button -->
-                                    <%= link_to 'Delete', upload_path(:id => upload.id), data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}, :title => 'Delete', class: "btn btn-danger" %>
+                                    <%= link_to "Delete", upload_path(:id => upload.id), data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}, :title => "Delete", class: "btn btn-danger" %>
                                 <% end %>
                             <% end %>
                         </div>
@@ -53,7 +53,7 @@
                         <!-- Status -->
                         <td>
                         <%= upload.status %>
-                        <% if upload.status == 'fail' %>
+                        <% if upload.status == "fail" %>
                             <p>(Please email to <br> us to report the fail.)</p>
                         <% end %>
                         </td>
@@ -66,19 +66,19 @@
                             <% height=upload.video.blob.metadata.fetch(:height, 0).round(0) %>
                             <% width=upload.video.blob.metadata.fetch(:width, 0).round(0) %>
                             <% aspect_ratio=upload.video.blob.metadata.fetch(:display_aspect_ratio, [0,0]) %>
-                            <li>content type: <%= upload.video.content_type %> </li>
-                            <% if angle != 0 %><li>angle: <%= angle %> degree</li><% end %>
-                            <% if duration != 0 %><li>duration: <%= duration %> sec. </li><% end %>
-                            <% if height != 0 %><li>height: <%= height %> pixels </li><% end %>
-                            <% if width != 0 %><li>width: <%= width %> pixels </li><% end %>
-                            <% if aspect_ratio != [0,0] %><li>aspect ratio: <%= aspect_ratio %></li><% end %>
+                            <li>content&nbsp;type:&nbsp;<%= upload.video.content_type %> </li>
+                            <% if angle != 0 %><li>angle:&nbsp;<%= angle %>&nbsp;degree</li><% end %>
+                            <% if duration != 0 %><li>duration:&nbsp;<%= duration %>&nbsp;sec. </li><% end %>
+                            <% if height != 0 %><li>height:&nbsp;<%= height %>&nbsp;pixels </li><% end %>
+                            <% if width != 0 %><li>width:&nbsp;<%= width %>&nbsp;pixels </li><% end %>
+                            <% if aspect_ratio != [0,0] %><li>aspect&nbsp;ratio:&nbsp;<%= aspect_ratio %></li><% end %>
                         </ul>
                         </td>
 
                         <!-- Results -->
                         <td>
                         
-                        <% if upload.status == 'done' %>
+                        <% if upload.status == "done" %>
                             <ul>                    
                             <% err_frame_ratio = upload.err_frame_ratio %>
                             <% mean_freq = upload.mean_freq %>
@@ -89,12 +89,12 @@
                             <% std_inte_freq = upload.std_inte_freq %>
                             <% mean_peak = upload.mean_peak %>
                             <% std_peak = upload.std_peak %>
-                            <li>error frame ratio: <%= (err_frame_ratio != nil) ? err_frame_ratio.round(3) : "nil" %></li>
-                            <li>predicted UPDRS: <%= upload.updrs ? upload.updrs : "out of applicability domain" %></li>
-                            <li>mean frequency: <%= (mean_freq != nil) ? "#{mean_freq.round(1)} ± #{std_freq.round(1)} (Hz)" : "nil" %></li>
-                            <li>mean intensity: <%= (mean_inte != nil) ? "#{mean_inte.round(3)} ± #{mean_inte.round(3)} (A.U.)" : "nil" %> </li>
-                            <li>mean inte-freq: <%= (mean_inte_freq != nil) ? "#{mean_inte_freq.round(3)} ± #{std_inte_freq.round(3)} (A.U./s)" : "nil" %> </li>
-                            <li>mean peak: <%= (mean_peak != nil) ? "#{mean_peak.round(2)} ± #{std_peak.round(2)}" : "nil" %> <br> 
+                            <li>error&nbsp;frame&nbsp;ratio:&nbsp;<%= (err_frame_ratio != nil) ? err_frame_ratio.round(3) : "nil" %></li>
+                            <li>predicted&nbsp;UPDRS:&nbsp;<%= upload.updrs ? upload.updrs : "out of applicability domain" %></li>
+                            <li>mean&nbsp;frequency:&nbsp;<%= (mean_freq != nil) ? "#{mean_freq.round(1)}\u00A0±\u00A0#{std_freq.round(1)}\u00A0(Hz)" : "nil" %></li>
+                            <li>mean&nbsp;intensity:&nbsp;<%= (mean_inte != nil) ? "#{mean_inte.round(3)}\u00A0±\u00A0#{mean_inte.round(3)}\u00A0(A.U.)" : "nil" %> </li>
+                            <li>mean&nbsp;inte&#8209;freq:&nbsp;<%= (mean_inte_freq != nil) ? "#{mean_inte_freq.round(3)}\u00A0±\u00A0#{std_inte_freq.round(3)}\u00A0(A.U./s)" : "nil" %> </li>
+                            <li>mean&nbsp;peak:&nbsp;<%= (mean_peak != nil) ? "#{mean_peak.round(2)}\u00A0±\u00A0#{std_peak.round(2)}" : "nil" %> <br> 
                                 <%= "(distance/thumb-length)" if (mean_peak != nil) %>
                             </li>
                             </ul>
@@ -106,10 +106,10 @@
 
                         <!-- Timeline -->
                         <td>
-                        <p> Recorded at: <%= upload.recorded_at %> </p>
-                        <p> Created at: <%= upload.created_at %> </p>
-                        <p> <%= "Submitted to run at: #{upload.submitted_at}" if upload.submitted_at? %> </p>
-                        <p> Updated at: <%= upload.updated_at %> </p>
+                        <p> Recorded&nbsp;at: <%= upload.recorded_at %> </p>
+                        <p> Created&nbsp;at: <%= upload.created_at %> </p>
+                        <p> <%= "Submitted\u00A0to\u00A0run\u00A0at: #{upload.submitted_at}" if upload.submitted_at? %> </p>
+                        <p> Updated&nbsp;at: <%= upload.updated_at %> </p>
                         </td>
 
                     </tr>

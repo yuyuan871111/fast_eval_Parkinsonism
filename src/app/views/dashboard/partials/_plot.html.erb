@@ -19,9 +19,13 @@
         <div> 
           <%= render "dashboard/partials/latest_status" %>
           <p class="text-center fs-3">The latest status of Left and Right hand</p>
-          <canvas id="marksChart"></canvas>
+          <div class="row justify-content-center" style="width:900px height:400px">
+          <div class="chart-container" style="width: 80vh">
+            <canvas id="marksChart"></canvas>
+          </div>
+          </div>
         </div>
-        <p class="text-center fs-4">
+        <p class="text-center fs-5">
           <%= render "partials/80_20_scale" %>
         </p>
       </div>
@@ -32,7 +36,7 @@
           <%= line_chart [
               {:name=>"Left hand", :data=> @plot_L, library: {lineTension: 0, spanGaps: true}},
               {:name=>"Right hand", :data=> @plot_R, library: {lineTension: 0, spanGaps: true}}
-          ], xtitle: "Time", ytitle: "UPDRS", min: -0.5, max: 3, title: "Predicted UPDRS" %>
+          ], xtitle: "Time", ytitle: "UPDRS", min: -0.5, max: 4, title: "Predicted UPDRS" %>
       </div>
 
       <div class="carousel-item" data-bs-interval="10000">

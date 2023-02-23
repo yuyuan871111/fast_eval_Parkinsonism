@@ -16,7 +16,7 @@ gem "sqlite3", "~> 1.4"
 gem "puma", "~> 5.0"
 
 # Use Boostrap-sass, javascript
-gem 'bootstrap-sass', '~> 3.4.1'
+#gem 'bootstrap-sass', '~> 3.4.1'
 gem 'sassc-rails', '>= 2.1.2' # Use Sass to process CSS
 gem 'jquery-rails'
 # gem 'webpacker', '~> 5.0'
