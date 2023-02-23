@@ -22,7 +22,10 @@ docker-compose down # stop server
 ```
 
 ## Hand Predictor API
-Read the document for indenpendently usage ([Hand Predictor API](./src/lib/hand_predictor/README.md)).
+Read the document for indenpendently usage ([Hand Predictor API](./src/lib/hand_predictor)).
+
+## Website development  
+Read the document for indenpendently usage ([Website development](./src)).  
 
 
 ## Other informations
