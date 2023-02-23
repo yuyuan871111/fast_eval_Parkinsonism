@@ -111,11 +111,13 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
+    dotenv (2.8.1)
+    dotenv-rails (2.8.1)
+      dotenv (= 2.8.1)
+      railties (>= 3.2)
     erubi (1.11.0)
     execjs (2.8.1)
     ffi (1.15.5)
-    font-awesome-sass (6.3.0)
-      sassc (~> 2.0)
     foreman (0.87.2)
     globalid (1.0.0)
       activesupport (>= 5.0)
@@ -305,7 +307,7 @@ DEPENDENCIES
   cssbundling-rails
   debug
   devise
-  font-awesome-sass (~> 6.3.0)
+  dotenv-rails
   foreman (~> 0.87.2)
   groupdate
   importmap-rails
