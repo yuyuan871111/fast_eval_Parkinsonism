@@ -1,12 +1,12 @@
 #use rails credentials:edit to manage name & password
 #ref: https://dev.to/vvo/secrets-environment-variables-config-files-the-ruby-on-rails-case-433f
 default: &default
-  address: "<%= ENV.fetch("EMAIL_SMTP") { smtp-relay.gmail.com }%>"
+  address: "<%= ENV.fetch('EMAIL_SMTP') { 'smtp-relay.gmail.com' }%>"
   port: 587
-  domain: "<%= ENV.fetch("EMAIL_DOMAIN") { cmdm.csie.ntu.edu.tw }%>"
+  domain: "<%= ENV.fetch('EMAIL_DOMAIN') { 'cmdm.csie.ntu.edu.tw' }%>"
   authentication: "plain"
-  user_name: "<%= ENV.fetch("EMAIL_ADDR") { fasteval_parkinsonism@cmdm.csie.ntu.edu.tw }%>"
-  password: "<%= ENV.fetch("EMAIL_PASSWD") { your_passwd }%>"
+  user_name: "<%= ENV.fetch('EMAIL_ADDR') { 'fasteval_parkinsonism@cmdm.csie.ntu.edu.tw' }%>"
+  password: "<%= ENV.fetch('EMAIL_PASSWD') { Rails.application.credentials.email.email_passwd || 'your_passwd' }%>"
   enable_starttls_auto: true
 development:
   <<: *default
