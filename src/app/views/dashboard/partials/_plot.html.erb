@@ -6,10 +6,11 @@
   <% render "dashboard/partials/latest_status" %>
   
   <!-- feature tags -->
-  <p>
-  <%= @latest_L %>
-  </p>
-
+  <b class="text-secondary fs-5">Latest status tags: 
+    <%= render "dashboard/partials/feature_tags" %>
+  </b>
+  
+ <!-- carousel - time-dependent plot, radar plot-->
   <div id="carouselExampleIndicators" class="carousel carousel-dark slide" data-bs-ride="carousel">
     
     <div class="carousel-indicators mx-auto position-static top-0">

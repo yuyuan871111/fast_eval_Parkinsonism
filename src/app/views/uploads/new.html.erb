@@ -23,8 +23,8 @@
           <%= render "uploads/form/upload" %>
         <% end %>
         <% if flash[:notice] %>
-          <p> <%= flash[:notice] %> </p>
-          <p> If you succuessfully upload the video, please go back to the <b>overview</b> page to operate your videos and run analysis.</p>
+          <p class="text-primary"> <%= flash[:notice] %> </p>
+          <p class="text-primary"> If you succuessfully upload the video, please go back to the <b>overview</b> page to operate your videos and run analysis.</p>
           <%= link_to "Back to overview", dashboard_index_path(hand_pos: params[:hand_pos]), class: "btn btn-sm btn-outline-secondary", data: {turbo: false}  %>
         <% end %>
       
