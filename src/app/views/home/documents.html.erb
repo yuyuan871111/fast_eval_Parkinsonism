@@ -2,37 +2,45 @@
   <div class="container py-4">
 
     <%= render "partials/header" %>
+    <!-- float top button -->
+    <a href="#" class="float">
+      <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-arrow-bar-up my-float" viewBox="0 0 16 16">
+      <path fill-rule="evenodd" d="M8 10a.5.5 0 0 0 .5-.5V3.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 3.707V9.5a.5.5 0 0 0 .5.5zm-7 2.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13a.5.5 0 0 1-.5-.5z"/>
+      </svg>
+    </a>
+    
+    <!-- Documents -->
     <h1>Documents</h1>
     <ul>
-      <li class="fs-5">Account management</li>
+      <li class="fs-5"><a target="_top" href="#Account_management">Account management</a></li>
       <ul>
-        <li>Sign-up</li>
-        <li>Login</li>
-        <li>Account modification</li>
-        <li>Other Q&As</li>
+        <li><a target="_top" href="#Sign-up">Sign-up</a></li>
+        <li><a target="_top" href="#Login">Login</a></li>
+        <li><a target="_top" href="#Account_modification">Account modification</a></li>
+        <li><a target="_top" href="#Other_Q&As">Other Q&As</a></li>
       </ul>
-      <li class="fs-5">Dashboard</li>
+      <li class="fs-5"><a target="_top" href="#Dashboard">Dashboard</a></li>
       <ul>
-        <li>Overview</li>
-        <li>Upload</li>
-        <li>Archive</li>
-        <li>View video & results</li>
+        <li><a target="_top" href="#Overview">Overview</a></li>
+        <li><a target="_top" href="#Upload">Upload</a></li>
+        <li><a target="_top" href="#Archive">Archive</a></li>
+        <li><a target="_top" href="#View">View video & results</a></li>
         <ol>
-          <li>Quality control</li>
-          <li>Predicted-UPDRS score</li>
-          <li>Quantitative parameters (evaluating indices)</li>
-          <li>Compare between left and right side</li>
-          <li>Track over time</li>
+          <li><a target="_top" href="#Quality_control">Quality control</a></li>
+          <li><a target="_top" href="#Predicted-UPDRS_score">Predicted-UPDRS score</a></li>
+          <li><a target="_top" href="#Quantitative_parameters">Quantitative parameters (evaluating indices)</a></li>
+          <li><a target="_top" href="#Comparison">Compare between left and right side</a></li>
+          <li><a target="_top" href="#Track_over_time">Track over time</a></li>
         </ol>
       </ul>
-      <li class="fs-5">UPDRS prediction by deep learning models</li>
-      <li class="fs-5">Version update</li>
-      <li class="fs-5">Acknowledgement</li>
+      <li class="fs-5"><a target="_top" href="#UPDRS_prediction_chart">UPDRS prediction by deep learning models</a></li>
+      <li class="fs-5"><a target="_top" href="#Version_update">Version update</a></li>
+      <li class="fs-5"><a target="_top" href="#Acknowledgement">Acknowledgement</a></li>
     </ul>
     <hr>
-    <h2>Account management</h2>
+    <h2 id="Account_management">Account management</h2>
     <br>
-    <h3> Sign-up </h3>
+    <h3 id="Sign-up"> Sign-up </h3>
     <div class="container">
       <p class="fs-4">
         To secure every user's data, every user should register an account with a valid email and confirm the account via our automatic email delivery system.
@@ -54,7 +62,7 @@
       </p>
     </div>
     <br>
-    <h3> Login </h3>
+    <h3 id="Login"> Login </h3>
     <div class="container"> 
       <p class="fs-4">
         Click the "Login" button, you could login to the dashboard (Figure 3.).
@@ -65,7 +73,7 @@
       </figure>
     </div>
     <br>
-    <h3> Account modification </h3>
+    <h3 id="Account_modification"> Account modification </h3>
     <div class="container"> 
       <p class="fs-4">
         Click the "account" button, you can modify your account's password (Figure 4.) or delete your account.
@@ -76,7 +84,7 @@
       </figure>
     </div>
     <br>
-    <h3> Other Q&A </h3>
+    <h3 id="Other_Q&As"> Other Q&As </h3>
     <ul>
       <li class="fs-4">
         Forget password?<br>
@@ -89,7 +97,7 @@
     </ul>
 
     <hr>
-    <h2>Dashboard</h2>
+    <h2 id="Dashboard">Dashboard</h2>
     <div class="container">
       <p class="fs-4">
         To start with, select the feature type. For example, click the "Finger tapping" on the sidebar. The drop-down menu will be shown.
@@ -101,7 +109,7 @@
       </figure>
     </div>
     <br>
-    <h3>Overview</h3>
+    <h3 id="Overview">Overview</h3>
     <div class="container">
       <p class="fs-4">
         When you click the "Overview" button, no data include in your dashboard. You should upload your files first (Please see the instructions in "Upload" session).
@@ -129,7 +137,7 @@
         <figcaption class="figure-caption fs-4">Figure 7. Dashboard view - uploaded.</figcaption>
       </figure>
     </div>
-    <h3>Upload</h3>
+    <h3 id="Upload">Upload</h3>
     <div class="container">
       <p class="fs-4">
         Users should be awared of several things when uploading files.
@@ -146,7 +154,7 @@
         <figcaption class="figure-caption fs-4">Figure 8. Upload view.</figcaption>
       </figure>
     </div>
-    <h3>Archive</h3>
+    <h3 id="Archive">Archive</h3>
     <div class="container">
       <p class="fs-4">
         To organize your files, we offer a method for archiving your data. You can archive your file by single-clicking the "Archive" button and prevent yourself from accidental deletion (Figure 9.).
@@ -163,7 +171,7 @@
         <figcaption class="figure-caption fs-4">Figure 10. Archive view.</figcaption>
       </figure>
     </div>
-    <h3>View video & results</h3>
+    <h3 id="View">View video & results</h3>
     <div class="container">
       <p class="fs-4">
         If you have not run analysis for your video, you can view your raw video and check the side of hand (Figure 11.). You can download the original file on the right side of the navigation bar.
@@ -181,7 +189,7 @@
         <figcaption class="figure-caption fs-4">Figure 12. Results view.</figcaption>
       </figure>
     </div>
-    <h4>1. Quality control</h4>
+    <h4 id="Quality_control">1. Quality control</h4>
     <div class="container">
       <p class="fs-5">
         <b>Error frame ratio (frame error rate)</b> is the ratio between the frame failing to extract key points and the whole video.
@@ -192,7 +200,7 @@
         <li class="list-group-item fs-5"><b class="text-danger">low confidence</b>: Error frame ratio = 0.5 ~ 1.0 (Less than half of key points can be extracted.)</li>
       </ul>
     </div><br>
-    <h4>2. Predicted-UPDRS score</h4>
+    <h4 id="Predicted-UPDRS_score">2. Predicted-UPDRS score</h4>
     <div class="container">
       <p class="fs-5">
         Movement Disorder Society-sponsered Unified Parkinson’s Disease Rating Scale (<%= link_to "MDS-UPDRS", "https://www.movementdisorders.org/MDS/MDS-Rating-Scales/MDS-Unified-Parkinsons-Disease-Rating-Scale-MDS-UPDRS.htm"%>) covers various aspects of Parkinson’s disease including motor experiences of daily living.
@@ -207,15 +215,15 @@
         amplitude, hesitations, halts, and decrementing amplitude.
       </p>
       <ul class="list-group">
-        <li class="list-group-item fs-5"><b>score 0 (Normal)</b>: No problems.</li>
-        <li class="list-group-item fs-5"><b>score 1 (Slight)</b>: Any of the following: a) the regular rhythm is broken with one or two interruptions or hesitations of the tapping movement; b) slight slowing; c) the amplitude decrements near the end of the 10 taps.</li>
-        <li class="list-group-item fs-5"><b>score 2 (Mild)</b>: Any of the following: a) 3 to 5 interruptions during tapping; b) mild slowing; c) the amplitude decrements midway in the 10-tap sequence.</li>
-        <li class="list-group-item fs-5"><b>score 3 (Moderate)</b>: Any of the following: a) more than 5 interruptions during tapping or at least one longer arrest (freeze) in ongoing movement; b) moderate slowing; c) the amplitude decrements starting after the 1st tap.</li>
-        <li class="list-group-item fs-5"><b>score 4 (Severe, not included in our model)</b>: Cannot or can only barely perform the task because of slowing, interruptions, or decrements.</li>
+        <li class="list-group-item fs-5"><b class="text-success">score 0 (Normal, healthy)</b>: No problems.</li>
+        <li class="list-group-item fs-5"><b class="text-info">score 1 (Slight, be aware of the decay of functionality)</b>: Any of the following: a) the regular rhythm is broken with one or two interruptions or hesitations of the tapping movement; b) slight slowing; c) the amplitude decrements near the end of the 10 taps.</li>
+        <li class="list-group-item fs-5"><b class="text-warning">score 2 (Mild, highly recommend to see a doctor if it affects daily life)</b>: Any of the following: a) 3 to 5 interruptions during tapping; b) mild slowing; c) the amplitude decrements midway in the 10-tap sequence.</li>
+        <li class="list-group-item fs-5"><b class="text-danger">score 3 (Moderate, must to see a doctor immediately)</b>: Any of the following: a) more than 5 interruptions during tapping or at least one longer arrest (freeze) in ongoing movement; b) moderate slowing; c) the amplitude decrements starting after the 1st tap.</li>
+        <li class="list-group-item fs-5"><b class="text-danger">score 4 (Severe, must to see a doctor immediately but not included in our model)</b>: Cannot or can only barely perform the task because of slowing, interruptions, or decrements.</li>
       </ul>
     </div>
     <br>
-    <h4>3. Quantitative parameters (evaluating indices)</h4>
+    <h4 id="Quantitative_parameters">3. Quantitative parameters (evaluating indices)</h4>
     <div class="container">
       <p class="fs-5">
         In the finger-tapping task, we provided 4 quantitative parameters for cross-validation -- <b>Frequency</b>, <b>Frequency-Intensity (inte-freq)</b>, <b>Intensity</b>, and <b>Peak</b>.
@@ -234,7 +242,7 @@
       
     </div>
     <br>
-    <h4>4. Compare between left and right side</h4>
+    <h4 id="Comparison">4. Compare between left and right side</h4>
     <div class="container">
       <p class="fs-5">
         To compare the left and right side of hand movement (e.g. finger tapping), we adopt a radar chart to illustration the difference in five dimensions (1 predicted-UPDRS score and 4 evaluating indices).
@@ -248,7 +256,7 @@
     </div>
     <%= render "home/partials/transform_table" %>
     <br>
-    <h4>4. Track over time</h4>
+    <h4 id="Track_over_time">5. Track over time</h4>
     <div class="container">
       <p class="fs-5">
         The evaluating index can be expressed over recording datetime. Figure 14. shows an example of the frequency over time.
@@ -259,7 +267,7 @@
       </figure>
     </div>
     <hr>
-    <h2>UPDRS prediction by deep learning models</h2>
+    <h2 id="UPDRS_prediction_chart">UPDRS prediction by deep learning models</h2>
     <div class="container">
       <p class="fs-4">
         Figure 15. demonstrates how we predict the UPDRS score for a given video. 
@@ -282,13 +290,14 @@
       
     </div>
     <hr>
-    <h2>Version update</h2>
+    <h2 id="Version_update">Version update</h2>
     <div class="container">
+      <li class="fs-4"> version 0.1.1 [2023/03/16]: update description and feature tags for finger tapping. </li>
       <li class="fs-4"> version 0.1.0 [2023/02/01]: first version of FastEval Parkinsonism (prototype: finger tapping). </li>
     </div>
     <hr>
     
-    <h2>Acknowledgement</h2>
+    <h2 id="Acknowledgement">Acknowledgement</h2>
     <div class="container">
       <img class="figure-img img-fluid rounded" style="height: 6vh" src=<%=image_path("ntu.png")%> >
       <img class="figure-img img-fluid rounded" style="height: 6vh" src=<%=image_path("ntuh.png")%> >

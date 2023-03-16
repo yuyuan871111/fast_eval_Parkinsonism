@@ -4,8 +4,22 @@
             <tr>
             <th scope="col">Name</th>
             <th scope="col">Recorded&nbsp;at&nbsp;&nbsp;</th>
-            <th scope="col">Predicted&nbsp;UPDRS</th>
-            <th scope="col">Confidence&nbsp;of&nbsp;prediction</th>
+            <th scope="col">
+                Predicted&nbsp;UPDRS
+                <%= link_to documents_path(anchor: "Predicted-UPDRS_score"), data: {turbo: false}, class: "text-dark" do %>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle-fill" viewBox="0 0 16 16">
+                <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+                </svg>
+                <% end %>
+            </th>
+            <th scope="col">
+                Confidence&nbsp;of&nbsp;prediction
+                <%= link_to documents_path(anchor: "Quality_control"), data: {turbo: false}, class: "text-dark" do %>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle-fill" viewBox="0 0 16 16">
+                <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+                </svg>
+                <% end %>
+            </th>
             <th scope="col">Status</th>
             </tr>
         </thead>
@@ -17,19 +31,24 @@
                         <% #byebug %>
                         <% @counter += 1 %>
                         <!-- Name -->
-                        <td>
+                        <td class="align-middle">
                         <p> <%= upload.video.filename.base %> </p>
                         <div class="btn-group" role="group">
                             <!-- View button -->
                             <%= link_to "View", upload_path(:id => upload.id), :hand_pos => upload.hand_pos, data: {turbo: false}, class: "btn btn-success" %>    
                             
                             <% if archive == true %>
-                                <!-- Unarchived button -->
-                                <%= link_to "Unarchived", unarchive_path(:id => upload.id), :title => "Unarchived",  data: {turbo: false}, class: "btn btn-secondary" %>
+                                <!-- Unarchive button -->
+                                <%= link_to "Unarchive", unarchive_path(:id => upload.id), :title => "Unarchive", data: {turbo: false}, class: "btn btn-secondary" %>
                             
                             <% else %>
-                                <% if (upload.status == "queuing") ^ (upload.status != "running") %>
+                                <% if (upload.status == "queuing") ^ (upload.status == "running") %>
                                     <br>
+                                    <!-- Refresh status button -->
+                                    <%= link_to "Refresh\u00A0status", dashboard_index_path(:hand_pos => upload.hand_pos), :title => "Refresh button", data: {turbo: false}, class: "btn btn-info" %>
+                                <% else %>
+                                    <br>
+                                    <!-- Edit info button -->
                                     <%= link_to "Edit\u00A0info", edit_upload_path(:id => upload.id), :title => "Edit info", data: {turbo: false}, class: "btn btn-info" %>
                                     <br>
 
@@ -39,8 +58,9 @@
                                             <%= link_to "Run\u00A0analysis", do_run_path(:id => upload.id), :title => "Run analysis", data: {turbo: false}, class: "btn btn-warning" %>
                                             <br>
                                         <% elsif upload.status == "done" %>
-                                            <!-- Archived button -->
-                                            <%= link_to "Archived", archive_path(:id => upload.id), :title => "Archived",  data: {turbo: false}, class: "btn btn-secondary" %>
+                                            <!-- Archive button -->
+                                            <%= link_to "Archive", archive_path(:id => upload.id), :title => "Archive",  data: {turbo: false}, class: "btn btn-secondary" %>
+                                            <br>
                                         <% end %>
                                     <% end %>
                                     <!-- Delete button -->
@@ -52,7 +72,7 @@
                         
                         
                         <!-- Recorded at -->
-                        <td>
+                        <td class="align-middle">
                         <p> <%= upload.recorded_at %> </p>
                         </td>
 
@@ -74,25 +94,25 @@
                                 <p> Out of applicability </br> domain. </p>
                             <% end %>
                         <% else %>
-                            <p> Click "Run analysis" to get results. </p>
+                            <p> Click "Run analysis" or "Refresh status" to get results. </p>
                         <% end %>
                         
-                        </td>
+                        </td class="align-middle">
 
                         <!-- Confidence of prediction -->
-                        <td>
+                        <td class="align-middle">
                         
                         <% if upload.status == "done" %>               
                             <% @err_frame_ratio = upload.err_frame_ratio %>
                             <%= render "partials/show_confid", err_frame_ratio: @err_frame_ratio %>
                         <% else %>
-                            <p> Click "Run analysis" to get results. </p>
+                            <p> Click "Run analysis" or "Refresh status" to get results. </p>
                         <% end %>
                         
                         </td>
                         
                         <!-- Status -->
-                        <td>
+                        <td class="align-middle">
                         <%= upload.status %>
                         <% if upload.status == "fail" %>
                             <p>(Please email to <br> us to report the fail.)</p>
