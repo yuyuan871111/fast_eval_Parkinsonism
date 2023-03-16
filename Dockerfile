@@ -65,7 +65,7 @@ RUN apt-get install -y lsb-release \
 
 # Set wkdir & Install required packages
 COPY ./src/ $APP_ROOT
-ENV RAILS_ENV production
+#ENV RAILS_ENV production
 RUN yarn install
 RUN gem install rails && bundle install
 RUN rails db:create db:migrate assets:precompile

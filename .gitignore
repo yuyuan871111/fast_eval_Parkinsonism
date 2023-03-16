@@ -176,3 +176,4 @@ src_backup
 src/bin/dev
 src/app/assets/builds/.keep
 src/app/assets/builds/application.css
+src/config/credentials.yml.enc
