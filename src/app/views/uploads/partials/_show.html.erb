@@ -20,10 +20,18 @@
         <div class="chart-container" style="width: 60vh">
             <canvas id="marksChart"></canvas>
             <!-- radar chart source -->
+            <% render "partials/linear_transform" %>
+            <% @upload_score = {
+                :updrs_score => linear_transform("UPDRS", @upload[:updrs]),
+                :mean_freq_score => linear_transform("frequency", @upload[:mean_freq]),
+                :mean_inte_freq_score => linear_transform("inte_freq", @upload[:mean_inte_freq]),
+                :mean_inte_score => linear_transform("intensity", @upload[:mean_inte]),
+                :mean_peak_score => linear_transform("peak", @upload[:mean_peak])
+            } %>
             <% if @upload[:hand_LR] == "left" %>
-                <%= render "dashboard/partials/radar_plot", select_L: @upload, select_R: @empty_upload %>
+                <%= render "dashboard/partials/radar_plot", select_L: @upload_score, select_R: @empty_upload %>
             <% else %>
-                <%= render "dashboard/partials/radar_plot", select_L: @empty_upload, select_R: @upload %>
+                <%= render "dashboard/partials/radar_plot", select_L: @empty_upload, select_R: @upload_score %>
             <% end %>
             <p class="text-center">
                 <%= render "partials/80_20_scale" %>

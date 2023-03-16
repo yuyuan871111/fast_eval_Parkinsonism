@@ -2,6 +2,15 @@
   <p> Please upload video first. </p>
 
 <% elsif (@uploads_L.where(status: "done") != []) && (@uploads_R.where(status: "done") != []) %>
+  <!-- latest status -->
+  <% render "dashboard/partials/latest_status" %>
+  
+  <!-- feature tags -->
+  <b class="text-secondary fs-5">Latest status tags: 
+    <%= render "dashboard/partials/feature_tags" %>
+  </b>
+  
+ <!-- carousel - time-dependent plot, radar plot-->
   <div id="carouselExampleIndicators" class="carousel carousel-dark slide" data-bs-ride="carousel">
     
     <div class="carousel-indicators mx-auto position-static top-0">
@@ -17,7 +26,6 @@
 
       <div class="carousel-item active" data-bs-interval="10000">
         <div> 
-          <%= render "dashboard/partials/latest_status" %>
           <p class="text-center fs-3">The latest status of Left and Right hand</p>
           <div class="row justify-content-center" style="width:900px height:400px">
           <div class="chart-container" style="width: 80vh">

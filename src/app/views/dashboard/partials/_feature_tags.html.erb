@@ -1,0 +1,114 @@
+<!-- left overall -->
+<% if (@latest_L[:updrs_score] == nil) | (@latest_L[:mean_inte_freq_score] == nil) %>
+    <% #pass %>
+<% else %>
+    <% @latest_overall_score_L = (@latest_L[:updrs_score]+@latest_L[:mean_inte_freq_score])/2 %>
+    <% if (@latest_L[:updrs_score] <= 30) & (@latest_L[:mean_inte_freq_score] <= 30) %>
+        <b class="badge bg-danger text-wrap">overall - left (moderate or severe)</b> 
+    <% elsif (@latest_L[:updrs_score] <= 50) & (@latest_L[:mean_inte_freq_score] <= 50) %>
+        <b class="badge bg-warning text-wrap">overall - left (mild)</b> 
+    <% elsif (@latest_L[:updrs_score] <= 70) & (@latest_L[:mean_inte_freq_score] <= 70) %>
+        <b class="badge bg-info text-wrap">overall - left (slight)</b> 
+    <% else %>
+        <b class="badge bg-success text-wrap">overall - left (normal)</b> 
+    <% end %>
+<% end %>
+
+<!-- right overall -->
+<% if (@latest_R[:updrs_score] == nil) | (@latest_R[:mean_inte_freq_score] == nil) %>
+    <% #pass %>
+<% else %>
+    <% @latest_overall_score_R = (@latest_R[:updrs_score]+@latest_R[:mean_inte_freq_score])/2 %>
+    <% if (@latest_R[:updrs_score] <= 30) & (@latest_R[:mean_inte_freq_score] <= 30) %>
+        <b class="badge bg-danger text-wrap">overall - right (moderate or severe)</b> 
+    <% elsif (@latest_R[:updrs_score] <= 50) & (@latest_R[:mean_inte_freq_score] <= 50) %>
+        <b class="badge bg-warning text-wrap">overall - right (mild)</b> 
+    <% elsif (@latest_R[:updrs_score] <= 70) & (@latest_R[:mean_inte_freq_score] <= 70) %>
+        <b class="badge bg-info text-wrap">overall - right (slight)</b> 
+    <% else %>
+        <b class="badge bg-success text-wrap">overall - right (normal)</b> 
+    <% end %>
+<% end %>
+
+<!-- asymmetrical/symmetrical symptoms -->
+<% if (@latest_overall_score_R == nil) | (@latest_overall_score_L == nil) %>
+    <% #pass %>
+
+<% else %>
+    <% @latest_overall_score = (@latest_overall_score_R + @latest_overall_score_L)/2 %>
+    <% @latest_overall_score_diff = (@latest_overall_score_R - @latest_overall_score_L) %>
+
+    <% if @latest_overall_score_diff < 20 %>
+        <!-- symmetrical symptoms -->
+        <% if @latest_overall_score <= 30 %>
+            <b class="badge bg-danger text-wrap">symmetrical - probable atypical parkinsonism (moderate or severe)</b> 
+        <% elsif @latest_overall_score <= 50  %>
+            <b class="badge bg-danger text-wrap">symmetrical - probable atypical parkinsonism (mild)</b> 
+        <% elsif @latest_overall_score <= 70  %>
+            <b class="badge bg-info text-wrap">symmetrical - probable atypical parkinsonism (slight)</b> 
+        <% end %>
+    
+    <% elsif @latest_overall_score_diff >= 0 %>
+        <!-- asymmetrical symptoms - left dominant -->
+        <% if @latest_overall_score_diff >= 60 %>
+            <b class="badge bg-danger text-wrap">left dominant (moderate or severe)</b> 
+        <% elsif @latest_overall_score_diff >= 40  %>
+            <b class="badge bg-warning text-wrap">left dominant (mild)</b> 
+        <% elsif @latest_overall_score_diff >= 20  %>
+            <b class="badge bg-info text-wrap">left dominant (slight)</b> 
+        <% end %>
+    <% else %>
+        <!-- asymmetrical symptoms - right dominant -->
+        <% if @latest_overall_score_diff <= -60 %>
+            <b class="badge bg-danger text-wrap">right dominant (moderate or severe)</b> 
+        <% elsif @latest_overall_score_diff <= -40  %>
+            <b class="badge bg-warning text-wrap">right dominant (mild)</b> 
+        <% elsif @latest_overall_score_diff <= -20  %>
+            <b class="badge bg-info text-wrap">right dominant (slight)</b> 
+        <% end %>
+    <% end %>
+<% end %>
+
+<!-- left slowing -->
+<% if (@latest_L[:mean_freq_score] == nil) %>
+    <% #pass %>
+<% elsif (@latest_L[:mean_freq_score] <= 30) %>
+    <b class="badge bg-danger text-wrap">slowing - left (moderate or severe)</b> 
+<% elsif (@latest_L[:mean_freq_score] <= 50) %>
+    <b class="badge bg-warning text-wrap">slowing - left (mild)</b> 
+<% elsif (@latest_L[:mean_freq_score] <= 70) %>
+    <b class="badge bg-info text-wrap">slowing - left (slight)</b> 
+<% end %>
+
+<!-- right slowing -->
+<% if (@latest_R[:mean_freq_score] == nil) %>
+    <% #pass %>
+<% elsif (@latest_R[:mean_freq_score] <= 30) %>
+    <b class="badge bg-danger text-wrap">slowing - right (moderate or severe)</b> 
+<% elsif (@latest_R[:mean_freq_score] <= 50) %>
+    <b class="badge bg-warning text-wrap">slowing - right (mild)</b> 
+<% elsif (@latest_R[:mean_freq_score] <= 70) %>
+    <b class="badge bg-info text-wrap">slowing - right (slight)</b> 
+<% end %>
+
+<!-- left small amplitude -->
+<% if (@latest_L[:mean_peak_score] == nil) | (@latest_L[:mean_inte_score] == nil) %>
+    <% #pass %>
+<% elsif (@latest_L[:mean_peak_score] <= 30) & (@latest_L[:mean_inte_score] <= 20) %>
+    <b class="badge bg-danger text-wrap">small amplitude - left (moderate or severe)</b> 
+<% elsif (@latest_L[:mean_peak_score] <= 50) & (@latest_L[:mean_inte_score] <= 40) %>
+    <b class="badge bg-warning text-wrap">small amplitude - left (mild)</b> 
+<% elsif (@latest_L[:mean_peak_score] <= 70) & (@latest_L[:mean_inte_score] <= 60) %>
+    <b class="badge bg-info text-wrap">small amplitude - left (slight)</b> 
+<% end %>
+
+<!-- right small amplitude -->
+<% if (@latest_R[:mean_peak_score] == nil) | (@latest_R[:mean_inte_score] == nil) %>
+    <% #pass %>
+<% elsif (@latest_R[:mean_peak_score] <= 30) & (@latest_R[:mean_inte_score] <= 20) %>
+    <b class="badge bg-danger text-wrap">small amplitude - right (moderate or severe)</b> 
+<% elsif (@latest_R[:mean_peak_score] <= 50) & (@latest_R[:mean_inte_score] <= 40) %>
+    <b class="badge bg-warning text-wrap">small amplitude - right (mild)</b> 
+<% elsif (@latest_R[:mean_peak_score] <= 70) & (@latest_R[:mean_inte_score] <= 60) %>
+    <b class="badge bg-info text-wrap">small amplitude - right (slight)</b> 
+<% end %>

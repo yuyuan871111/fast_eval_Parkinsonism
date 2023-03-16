@@ -24,12 +24,17 @@
                             <%= link_to "View", upload_path(:id => upload.id), :hand_pos => upload.hand_pos, data: {turbo: false}, class: "btn btn-success" %>    
                             
                             <% if archive == true %>
-                                <!-- Unarchived button -->
-                                <%= link_to "Unarchived", unarchive_path(:id => upload.id), :title => "Unarchived",  data: {turbo: false}, class: "btn btn-secondary" %>
+                                <!-- Unarchive button -->
+                                <%= link_to "Unarchive", unarchive_path(:id => upload.id), :title => "Unarchive",  data: {turbo: false}, class: "btn btn-secondary" %>
                             
                             <% else %>
-                                <% if (upload.status == "queuing") ^ (upload.status != "running") %>
+                                <% if (upload.status == "queuing") ^ (upload.status == "running") %>
                                     <br>
+                                    <!-- Refresh status button -->
+                                    <%= link_to "Refresh\u00A0status", dashboard_index_path(:hand_pos => upload.hand_pos), :title => "Refresh button", data: {turbo: false}, class: "btn btn-info" %>
+                                <% else %>
+                                    <br>
+                                    <!-- Edit info button -->
                                     <%= link_to "Edit\u00A0info", edit_upload_path(:id => upload.id), :title => "Edit info", data: {turbo: false}, class: "btn btn-info" %>
                                     <br>
 
@@ -39,8 +44,9 @@
                                             <%= link_to "Run analysis", do_run_path(:id => upload.id), :title => "Run analysis", data: {turbo: false}, class: "btn btn-warning" %>
                                             <br>
                                         <% elsif upload.status == "done" %>
-                                            <!-- Archived button -->
-                                            <%= link_to "Archived", archive_path(:id => upload.id), :title => "Archived",  data: {turbo: false}, class: "btn btn-secondary" %>
+                                            <!-- Archive button -->
+                                            <%= link_to "Archive", archive_path(:id => upload.id), :title => "Archive",  data: {turbo: false}, class: "btn btn-secondary" %>
+                                            <br>
                                         <% end %>
                                     <% end %>
                                     <!-- Delete button -->
@@ -99,7 +105,7 @@
                             </li>
                             </ul>
                         <% else %>
-                            <p> Click "Run analysis" to get results. </p>
+                            <p> Click "Run analysis" or "Refresh status" to get results. </p>
                         <% end %>
                         
                         </td>

@@ -1,6 +1,11 @@
 <%= form_for(@upload) do |form| %>
+    <p class="text-primary fs-4 mb-3">        
+        <b>Instruction</b>: Tap the index finger on the thumb <b>as quickly AND as big as possible for about 10 seconds</b>. 
+        The system will automatedly evaluate the speed, amplitude, hesitations, halts, decrementing amplitude, and bradykinesia.
+    </p>
+    <img class="figure-img img-fluid rounded border border-light" style="max-height: 300px; max-width: 90%" src=<%=image_path("finger_tapping.jpg")%> >
     <p class="text-secondary fs-5 mb-3">        
-        NOTE: For the best prediction, we recommend you upload the video with <b>more than 5 seconds, 720p and 60fps</b>. 
+        <b>NOTE</b>: For the best prediction, we recommend you upload the video with more than the resolution of <b>720p</b> and the video sampling rate of <b>60fps</b>. 
         Furthermore, due to the training data for our deep-learning model, <b>side-view</b> videos are better for prediction even though our system can deal with nearly all angles of view.
     </p>
     <%= form.label :hand_LR, 'Choose your video is [ left / right ] hand:', class: "fs-5 mb-3" %>

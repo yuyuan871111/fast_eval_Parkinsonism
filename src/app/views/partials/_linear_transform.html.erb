@@ -1,0 +1,41 @@
+<% 
+def linear_transform(scaler_name, data)
+    # scaler_name: peak, intensity, frequency, inte_freq
+    scaler = {
+        "peak" => {
+            :max => 0.531, # R: 0.531; L: 0.525
+            :min => 0.366  # R: 0.366; L: 0.397
+        },
+        "intensity" => {
+            :max => 0.0820, # R: 0.0757; L: 0.0820
+            :min => 0.0308  # R: 0.0308; L: 0.0478 
+        },
+        "frequency" => {
+            :max => 3.21,  # R: 3.21; L: 3.21
+            :min => 1.70   # R: 1.70; L: 1.77
+        },
+        "inte_freq" => {
+            :max => 0.267,  # R: 0.238; L: 0.267
+            :min => 0.0561  # R: 0.0561; L: 0.0930
+        },
+        "score" => {
+            :max => 80,
+            :min => 20
+        },
+        "UPDRS" => {
+            :max => 0,
+            :min => 3
+        }
+    } 
+    score = scaler["score"][:min] + (scaler["score"][:max] - scaler["score"][:min])/(scaler[scaler_name][:max] - scaler[scaler_name][:min]) * (data - scaler[scaler_name][:min])
+    
+    if (score >= scaler["score"][:max])
+        return scaler["score"][:max]
+    elsif (score <= scaler["score"][:min])
+        return scaler["score"][:min]
+    else
+        return score
+    end
+
+end 
+%>
