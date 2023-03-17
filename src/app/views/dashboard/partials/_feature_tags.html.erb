@@ -43,7 +43,7 @@
         <% if @latest_overall_score <= 30 %>
             <b class="badge bg-danger text-wrap">symmetrical - probable atypical parkinsonism (moderate or severe)</b> 
         <% elsif @latest_overall_score <= 50  %>
-            <b class="badge bg-danger text-wrap">symmetrical - probable atypical parkinsonism (mild)</b> 
+            <b class="badge bg-warning text-wrap">symmetrical - probable atypical parkinsonism (mild)</b> 
         <% elsif @latest_overall_score <= 70  %>
             <b class="badge bg-info text-wrap">symmetrical - probable atypical parkinsonism (slight)</b> 
         <% end %>
@@ -94,21 +94,21 @@
 <!-- left small amplitude -->
 <% if (@latest_L[:mean_peak_score] == nil) | (@latest_L[:mean_inte_score] == nil) %>
     <% #pass %>
-<% elsif (@latest_L[:mean_peak_score] <= 30) & (@latest_L[:mean_inte_score] <= 20) %>
+<% elsif (@latest_L[:mean_peak_score] <= 30) & (@latest_L[:mean_inte_score] <= 30) %>
     <b class="badge bg-danger text-wrap">small amplitude - left (moderate or severe)</b> 
-<% elsif (@latest_L[:mean_peak_score] <= 50) & (@latest_L[:mean_inte_score] <= 40) %>
+<% elsif (@latest_L[:mean_peak_score] <= 50) & (@latest_L[:mean_inte_score] <= 50) %>
     <b class="badge bg-warning text-wrap">small amplitude - left (mild)</b> 
-<% elsif (@latest_L[:mean_peak_score] <= 70) & (@latest_L[:mean_inte_score] <= 60) %>
+<% elsif (@latest_L[:mean_peak_score] <= 70) & (@latest_L[:mean_inte_score] <= 70) %>
     <b class="badge bg-info text-wrap">small amplitude - left (slight)</b> 
 <% end %>
 
 <!-- right small amplitude -->
 <% if (@latest_R[:mean_peak_score] == nil) | (@latest_R[:mean_inte_score] == nil) %>
     <% #pass %>
-<% elsif (@latest_R[:mean_peak_score] <= 30) & (@latest_R[:mean_inte_score] <= 20) %>
+<% elsif (@latest_R[:mean_peak_score] <= 30) & (@latest_R[:mean_inte_score] <= 30) %>
     <b class="badge bg-danger text-wrap">small amplitude - right (moderate or severe)</b> 
-<% elsif (@latest_R[:mean_peak_score] <= 50) & (@latest_R[:mean_inte_score] <= 40) %>
+<% elsif (@latest_R[:mean_peak_score] <= 50) & (@latest_R[:mean_inte_score] <= 50) %>
     <b class="badge bg-warning text-wrap">small amplitude - right (mild)</b> 
-<% elsif (@latest_R[:mean_peak_score] <= 70) & (@latest_R[:mean_inte_score] <= 60) %>
+<% elsif (@latest_R[:mean_peak_score] <= 70) & (@latest_R[:mean_inte_score] <= 70) %>
     <b class="badge bg-info text-wrap">small amplitude - right (slight)</b> 
 <% end %>
