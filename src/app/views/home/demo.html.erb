@@ -52,6 +52,24 @@
       <div class="chart-container" style="width: 80vh">
         <canvas id="marksChart"></canvas>
         <!-- radar chart source -->
+        <% render "partials/linear_transform" %>
+        <% 
+        @demo_L = {
+            :updrs_score => linear_transform("UPDRS", @demo_L[:updrs]),
+            :mean_freq_score => linear_transform("frequency", @demo_L[:mean_freq]),
+            :mean_inte_freq_score => linear_transform("inte_freq", @demo_L[:mean_inte_freq]),
+            :mean_inte_score => linear_transform("intensity", @demo_L[:mean_inte]),
+            :mean_peak_score => linear_transform("peak", @demo_L[:mean_peak])
+        } 
+
+        @demo_R = {
+            :updrs_score => linear_transform("UPDRS", @demo_R[:updrs]),
+            :mean_freq_score => linear_transform("frequency", @demo_R[:mean_freq]),
+            :mean_inte_freq_score => linear_transform("inte_freq", @demo_R[:mean_inte_freq]),
+            :mean_inte_score => linear_transform("intensity", @demo_R[:mean_inte]),
+            :mean_peak_score => linear_transform("peak", @demo_R[:mean_peak])
+        } 
+        %>
         <%= render "dashboard/partials/radar_plot", select_L: @demo_L, select_R: @demo_R %>
         <p class="text-center fs-4">
           <%= render "partials/80_20_scale" %>
