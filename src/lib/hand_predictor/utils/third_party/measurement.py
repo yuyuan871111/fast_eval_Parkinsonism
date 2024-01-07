@@ -1,23 +1,25 @@
 # copy-paste from DeepCarc: https://github.com/TingLi2016/DeepCarc
-from sklearn.metrics import precision_score, f1_score, matthews_corrcoef
-from sklearn.metrics import accuracy_score, recall_score, confusion_matrix, roc_auc_score
+from sklearn.metrics import (accuracy_score, confusion_matrix, f1_score,
+                             matthews_corrcoef, precision_score, recall_score,
+                             roc_auc_score)
+
 
 def measurements(
-    y_true, 
-    y_pred, 
-    y_pred_prob = None, 
-    with_auc: bool = True, 
+    y_true,
+    y_pred,
+    y_pred_prob=None,
+    with_auc: bool = True,
     printout: bool = False
-    ):  
+):
 
     acc = accuracy_score(y_true, y_pred)
     sensitivity = recall_score(y_true, y_pred)
     TN, FP, FN, TP = confusion_matrix(y_true, y_pred).ravel()
-    specificity = TN/(TN+FP)
+    specificity = TN / (TN + FP)
     precision = precision_score(y_true, y_pred)
     f1 = f1_score(y_true, y_pred)
     mcc = matthews_corrcoef(y_true, y_pred)
-    npv = TN/(TN+FN)       
+    npv = TN / (TN + FN)
 
     if printout:
         print(f"acc: {acc:.2f}")

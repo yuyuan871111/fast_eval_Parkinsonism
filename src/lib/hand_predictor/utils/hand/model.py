@@ -1,5 +1,8 @@
-import torch, pdb
-import torch.nn as nn, numpy as np
+# import pdb
+
+import numpy as np
+import torch
+import torch.nn as nn
 
 
 class SampleCNNGA(nn.Module):
@@ -48,14 +51,14 @@ class SampleCNNGA(nn.Module):
         out = self.conv3(out)
         out = self.conv4(out)
         out = self.conv5(out)
-        #out = self.conv6(out)
+        # out = self.conv6(out)
 
         out = self.avgpooling(out)
 
         out = out.view(x.shape[0], out.size(1) * out.size(2))
         logit = self.fc(out)
 
-        #logit = self.activation(logit)
+        # logit = self.activation(logit)
 
         return logit
 
@@ -102,7 +105,7 @@ class PoseConvBlock(nn.Module):
         self.pool = nn.MaxPool1d(2)
 
     def forward(self, x):
-        #residual = x
+        # residual = x
         x = self.conv1(x)  # (batch, channels, d) -> (batch, 12, d)
         x = self.batchnorm1(x)
         x = self.relu1(x)
@@ -115,7 +118,7 @@ class PoseConvBlock(nn.Module):
         x = self.batchnorm3(x)
         x = self.relu3(x)
 
-        #x = x + residual
+        # x = x + residual
         x = self.pool(x)  # (batch, 12, d/2) -> (batch, 12, d/4)
         return x
 
@@ -150,7 +153,7 @@ class HandConvNet(nn.Module):
         self.cnnblock3 = PoseConvBlock(input_channels=middle_channels * 4,
                                        middle_channels=middle_channels * 8,
                                        dilation_list=[64, 128, 256])
-        
+
         self.dropout = nn.Dropout(0.5)
         self.linear_class = nn.Sequential(
             nn.Linear(self.middle_channels * 8, self.middle_channels * 4), nn.ReLU(),
@@ -171,7 +174,7 @@ class HandConvNet(nn.Module):
 
     def latentspace(self, x, type="FC"):
         '''
-        type: 
+        type:
             'FC': for fully connected layer: shape=(batch, hidden layers)
             'CNN-raw': for CNN raw output: shape=(batch, hidden layers, length)
         '''
@@ -179,7 +182,7 @@ class HandConvNet(nn.Module):
         x = self.cnnblock1(x)
         x = self.cnnblock2(x)
         output = self.cnnblock3(x)
-        
+
         if type == "FC":
             output = self.dropout(output)
             output = self.adtavgpool(output)
@@ -188,8 +191,9 @@ class HandConvNet(nn.Module):
             pass
         else:
             raise NotImplementedError
-        
+
         return output
+
 
 class HandConvNet_o(nn.Module):
     def __init__(self,
@@ -218,10 +222,10 @@ class HandConvNet_o(nn.Module):
         self.cnnblock2 = PoseConvBlock(input_channels=middle_channels * 2,
                                        middle_channels=middle_channels * 4,
                                        dilation_list=[8, 16, 32])
-        
+
         self.dropout = nn.Dropout(0.4)
         self.linear_class = nn.Sequential(
-            nn.Linear(self.middle_channels * 4, self.middle_channels * 2), 
+            nn.Linear(self.middle_channels * 4, self.middle_channels * 2),
             nn.Linear(self.middle_channels * 2, output_class))
         self.adtavgpool = nn.AdaptiveAvgPool1d(1)
 
@@ -237,14 +241,14 @@ class HandConvNet_o(nn.Module):
 
     def latentspace(self, x, type="FC"):
         '''
-        type: 
+        type:
             'FC': for fully connected layer: shape=(batch, hidden layers)
             'CNN-raw': for CNN raw output: shape=(batch, hidden layers, length)
         '''
         x = self.extcnn(x)
         x = self.cnnblock1(x)
         output = self.cnnblock2(x)
-        
+
         if type == "FC":
             output = self.dropout(output)
             output = self.adtavgpool(output)
@@ -253,8 +257,9 @@ class HandConvNet_o(nn.Module):
             pass
         else:
             raise NotImplementedError
-        
+
         return output
+
 
 class HandRNNConvNet(nn.Module):
     def __init__(self,
@@ -289,9 +294,9 @@ class HandRNNConvNet(nn.Module):
                                        middle_channels=middle_channels * 8,
                                        dilation_list=[64, 128, 256])
         self.cnnblocktemp = PoseConvBlock(input_channels=middle_channels,
-                                       middle_channels=middle_channels * 4,
-                                       dilation_list=[1, 4, 32])
-        
+                                          middle_channels=middle_channels * 4,
+                                          dilation_list=[1, 4, 32])
+
         self.dropout = nn.Dropout(0.5)
         self.batchnorm1d = nn.BatchNorm1d(middle_channels * 8)
         self.last_leakyrelu = nn.ReLU()
@@ -304,13 +309,12 @@ class HandRNNConvNet(nn.Module):
 
         # GRU setting
         self.rnnblock = nn.GRU(batch_first=True,
-                                input_size=input_channels,
-                                hidden_size=middle_channels,
-                                num_layers=self.num_rnn_layers,
-                                bias=True, dropout=0.5)
-        
-        self.gru_linear = nn.Linear(self.middle_channels, self.middle_channels*8)
+                               input_size=input_channels,
+                               hidden_size=middle_channels,
+                               num_layers=self.num_rnn_layers,
+                               bias=True, dropout=0.5)
 
+        self.gru_linear = nn.Linear(self.middle_channels, self.middle_channels * 8)
 
     def forward(self, x):
         # print(x.shape)
@@ -347,7 +351,7 @@ class HandRNNConvNet(nn.Module):
         # print(cnn_output.shape)
         # raise
         gru_output = self.batchnorm1d(gru_output)
-        
+
         output = gru_output.add(cnn_output)
         output = self.linear_class(output)
         return output
@@ -372,31 +376,30 @@ class HandRNNConvNet(nn.Module):
         gru_output = self.adtavgpool(gru_output)
         gru_output = gru_output.view(-1, self.middle_channels * 8)
         gru_output = self.batchnorm1d(gru_output)
-        
+
         output = gru_output.add(cnn_output)
 
         return output
-    
-    
+
     '''Initializes hidden state'''
     def init_hidden(self, batch_size):
 
         # Creates initial hidden state for GRU of zeroes
-        hidden = torch.ones(self.num_rnn_layers, 
-                            batch_size, 
+        hidden = torch.ones(self.num_rnn_layers,
+                            batch_size,
                             self.middle_channels).cuda(self.device)
 
         return hidden
 
+
 # Multichannel CNN-GRU model.
 # A Multichannel CNN-GRU Model for Human Activity Recognition
 # doi: 10.1109/ACCESS.2022.3185112
-
 class CNNChannel(nn.Module):
     def __init__(self,
                  input_channels=32,
                  middle_channels=64,
-                 filter_size = 3):
+                 filter_size=3):
         super(CNNChannel, self).__init__()
         self.conv1 = nn.Conv1d(input_channels,
                                middle_channels,
@@ -408,7 +411,7 @@ class CNNChannel(nn.Module):
         self.relu1 = nn.ReLU()
 
         self.conv2 = nn.Conv1d(middle_channels,
-                               middle_channels*2,
+                               middle_channels * 2,
                                kernel_size=filter_size,
                                stride=1,
                                padding='same',
@@ -417,7 +420,7 @@ class CNNChannel(nn.Module):
         self.pool = nn.MaxPool1d(2)
 
     def forward(self, x):
-        #residual = x
+        # residual = x
         x = self.conv1(x)  # (batch, channels, d) -> (batch, 12, d)
         x = self.relu1(x)
         x = self.batchnorm1(x)
@@ -425,7 +428,7 @@ class CNNChannel(nn.Module):
         x = self.conv2(x)  # (batch, 12, d) -> (batch, 12, d)
         x = self.relu2(x)
 
-        #x = x + residual
+        # x = x + residual
         x = self.pool(x)  # (batch, 12, d) -> (batch, 12, d/2)
         return x
 
@@ -454,18 +457,18 @@ class HandMultichannelCNNGRU(nn.Module):
                                        middle_channels=middle_channels,
                                        filter_size=7)
         self.linear_class = nn.Linear(middle_channels, output_class)
-        #self.linear_class = nn.Linear(self.crop_len//2, output_class)
+        # self.linear_class = nn.Linear(self.crop_len//2, output_class)
         self.globalavgpool = nn.AdaptiveAvgPool1d(1)
         self.batchnorm1d = nn.BatchNorm1d(middle_channels)
-        #self.batchnorm1d = nn.BatchNorm1d(self.crop_len//2)
+        # self.batchnorm1d = nn.BatchNorm1d(self.crop_len//2)
 
         # GRU setting
         self.rnnblock1 = nn.GRU(batch_first=True,
-                                input_size=middle_channels*2*3,
+                                input_size=middle_channels * 2 * 3,
                                 hidden_size=128,
                                 num_layers=self.num_rnn_layers,
                                 bias=True, dropout=0)
-        
+
         self.rnnblock2 = nn.GRU(batch_first=True,
                                 input_size=128,
                                 hidden_size=64,
@@ -473,7 +476,7 @@ class HandMultichannelCNNGRU(nn.Module):
                                 bias=True, dropout=0)
 
     def forward(self, x):
-        
+
         # 3 channels of CNN
         cnn_output1 = self.cnn_channel1(x)
         cnn_output2 = self.cnn_channel2(x)
@@ -495,17 +498,17 @@ class HandMultichannelCNNGRU(nn.Module):
         gru_output, self.hidden2 = self.rnnblock2(gru_output, self.hidden2)
         self.hidden2 = self.hidden2.detach().cuda(self.device)
         # print("2.", gru_output.shape)
-        
+
         gru_output = gru_output.transpose(1, 2)
         gru_output = self.globalavgpool(gru_output)
         # print("3.", gru_output.shape)
-        
+
         gru_output = gru_output.view(-1, self.middle_channels)
-        #gru_output = gru_output.view(-1, self.crop_len//2)
+        # gru_output = gru_output.view(-1, self.crop_len//2)
         # print("4.", gru_output.shape)
-        
+
         gru_output = self.batchnorm1d(gru_output)
-        
+
         output = self.linear_class(gru_output)
         return output
 
@@ -525,37 +528,36 @@ class HandMultichannelCNNGRU(nn.Module):
 
         gru_output, self.hidden2 = self.rnnblock2(gru_output, self.hidden2)
         self.hidden2 = self.hidden2.detach().cuda(self.device)
-        
+
         gru_output = gru_output.transpose(1, 2)
         gru_output = self.globalavgpool(gru_output)
-        
+
         gru_output = gru_output.view(-1, self.middle_channels)
         gru_output = self.batchnorm1d(gru_output)
         return gru_output
-    
-    
+
     '''Initializes hidden state'''
     def init_hidden(self, batch_size, middle_channels):
 
         # Creates initial hidden state for GRU of zeroes
-        hidden = torch.ones(self.num_rnn_layers, 
-                            batch_size, 
+        hidden = torch.ones(self.num_rnn_layers,
+                            batch_size,
                             middle_channels).cuda(self.device)
 
         return hidden
 
+
 # Thought from Multichannel CNN-GRU model.
 # A Multichannel CNN-GRU Model for Human Activity Recognition
 # doi: 10.1109/ACCESS.2022.3185112
-
 class BothHandLRchannelGRU(nn.Module):
-    # latent space: (batch size, L+R channels, length) 
-    def __init__(self, 
-                in_channels=256,
-                middle_channels=64,
-                output_class=2,
-                num_rnn_layers = 3,
-                device='cuda:0'):
+    # latent space: (batch size, L+R channels, length)
+    def __init__(self,
+                 in_channels=256,
+                 middle_channels=64,
+                 output_class=2,
+                 num_rnn_layers=3,
+                 device='cuda:0'):
         super(BothHandLRchannelGRU, self).__init__()
 
         self.device = device
@@ -569,12 +571,12 @@ class BothHandLRchannelGRU(nn.Module):
         # GRU setting
         self.rnnblock1 = nn.GRU(batch_first=True,
                                 input_size=in_channels,
-                                hidden_size=middle_channels*2,
+                                hidden_size=middle_channels * 2,
                                 num_layers=self.num_rnn_layers,
                                 bias=True, dropout=0.3)
-        
+
         self.rnnblock2 = nn.GRU(batch_first=True,
-                                input_size=middle_channels*2,
+                                input_size=middle_channels * 2,
                                 hidden_size=middle_channels,
                                 num_layers=self.num_rnn_layers,
                                 bias=True, dropout=0.3)
@@ -586,7 +588,7 @@ class BothHandLRchannelGRU(nn.Module):
         self.hidden2 = self.init_hidden(batch_size, middle_channels=64)
 
         # x: (batch, L+R channels, length)
-        gru_output = x.transpose(1, 2) # equal to 'x.permute(0,2,1)'
+        gru_output = x.transpose(1, 2)  # equal to 'x.permute(0,2,1)'
         # gru_output: (batch, length, L+R channels)
         gru_output, self.hidden1 = self.rnnblock1(gru_output, self.hidden1)
         self.hidden1 = self.hidden1.detach().cuda(self.device)
@@ -595,12 +597,12 @@ class BothHandLRchannelGRU(nn.Module):
         gru_output, self.hidden2 = self.rnnblock2(gru_output, self.hidden2)
         self.hidden2 = self.hidden2.detach().cuda(self.device)
         # gru_output: (batch, length, hidden_layers=64) #print("2.", gru_output.shape)
-        
-        gru_output = gru_output.transpose(1, 2) # equal to 'x.permute(0,2,1)'
+
+        gru_output = gru_output.transpose(1, 2)  # equal to 'x.permute(0,2,1)'
         # gru_output: (batch, hidden_layers=64, length)
         gru_output = self.globalavgpool(gru_output)
         # gru_output: (batch, hidden_layers=64, 1) #print("3.", gru_output.shape)
-        
+
         gru_output = gru_output.view(-1, self.middle_channels)
         # gru_output: (batch, hidden_layers=64) #print("4.", gru_output.shape)
 
@@ -613,48 +615,50 @@ class BothHandLRchannelGRU(nn.Module):
     def init_hidden(self, batch_size, middle_channels):
 
         # Creates initial hidden state for GRU of zeroes
-        hidden = torch.ones(self.num_rnn_layers, 
-                            batch_size, 
+        hidden = torch.ones(self.num_rnn_layers,
+                            batch_size,
                             middle_channels).cuda(self.device)
 
         return hidden
 
+
 class BothHandFullConnected(nn.Module):
-    # only for (batch size, L+R channels) 
+    # only for (batch size, L+R channels)
     def __init__(self, in_channels=256, output_class=2) -> None:
         super(BothHandFullConnected, self).__init__()
-    
+
         self.in_channels = in_channels
 
         self.fc = nn.Sequential(
-            nn.Linear(in_channels, 128), nn.ReLU(), 
+            nn.Linear(in_channels, 128), nn.ReLU(),
             nn.BatchNorm1d(128), nn.Dropout(0.5),
             nn.Linear(128, 64), nn.ReLU(),
-            nn.Linear(64, output_class), 
-        ) 
-    
+            nn.Linear(64, output_class),
+        )
+
     def forward(self, x):
         output = self.fc(x)
         return output
 
+
 class BothHandTransformer(nn.Module):
-    # only for (batch size, L+R channels) 
+    # only for (batch size, L+R channels)
     def __init__(self, in_channels=256, d_model=8, output_class=2) -> None:
         super(BothHandTransformer, self).__init__()
-    
+
         self.in_channels = in_channels
-        self.each_hand_channels = in_channels//2
+        self.each_hand_channels = in_channels // 2
         self.prenet = nn.Linear(2, d_model)
         self.encoder_layer = nn.TransformerEncoderLayer(
             d_model=d_model, dim_feedforward=64, nhead=4
         )
         # self.encoder = nn.TransformerEncoder(self.encoder_layer, num_layers=2)
         self.fc = nn.Sequential(
-            nn.Linear(d_model, 64), nn.ReLU(), 
-            #nn.BatchNorm1d(64), nn.Dropout(0.5),
-            nn.Linear(64, output_class), 
-        ) 
-    
+            nn.Linear(d_model, 64), nn.ReLU(),
+            # nn.BatchNorm1d(64), nn.Dropout(0.5),
+            nn.Linear(64, output_class),
+        )
+
     def forward(self, x):
         # reshape: (batch size, L+R channels) -> (batch, each hand channels, 2)
         batch_size = np.shape(x)[0]
@@ -668,15 +672,16 @@ class BothHandTransformer(nn.Module):
         output = self.encoder_layer(output)
         # output: (batch size, each hand chs, d_model)
         output = output.transpose(0, 1)
-		# mean pooling
+        # mean pooling
         stats = output.mean(dim=1)
 
         # (batch, output_class)
         output = self.fc(stats)
         return output
 
+
 class BothHandCNN(nn.Module):
-    # only for (batch size, L+R channels) 
+    # only for (batch size, L+R channels)
     def __init__(self, in_channels=256, middle_channels=8, output_class=2) -> None:
         super(BothHandCNN, self).__init__()
 
@@ -688,16 +693,16 @@ class BothHandCNN(nn.Module):
         self.cnnblock1 = PoseConvBlock(input_channels=middle_channels,
                                        middle_channels=middle_channels * 2,
                                        dilation_list=[1, 2, 4])
-        
+
         self.fc = nn.Sequential(
-            nn.Linear(middle_channels * 2, middle_channels), nn.ReLU(), 
-            #nn.BatchNorm1d(64), nn.Dropout(0.5),
-            nn.Linear(middle_channels, middle_channels), nn.ReLU(), 
-            nn.Linear(middle_channels, output_class), 
-        ) 
+            nn.Linear(middle_channels * 2, middle_channels), nn.ReLU(),
+            # nn.BatchNorm1d(64), nn.Dropout(0.5),
+            nn.Linear(middle_channels, middle_channels), nn.ReLU(),
+            nn.Linear(middle_channels, output_class),
+        )
         self.dropout = nn.Dropout(0.5)
         self.adtavgpool = nn.AdaptiveAvgPool1d(1)
-    
+
     def forward(self, x):
         # reshape: (batch size, L+R channels) -> (batch, 1, L+R channels)
         batch_size = np.shape(x)[0]
@@ -711,9 +716,8 @@ class BothHandCNN(nn.Module):
         output = self.adtavgpool(output)
         # output: (batch size, middle_channels*2).
         output = output.view(-1, self.middle_channels * 2)
-        
+
         # output: (batch, output_class)
         output = self.fc(output)
 
-        
         return output

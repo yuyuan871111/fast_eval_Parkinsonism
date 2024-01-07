@@ -1,8 +1,12 @@
-import pandas as pd
 import numpy as np
-from utils.hand.model import *
-import torch.optim.lr_scheduler as lr_scheduler
+import pandas as pd
 import torch.optim as optim
+import torch.optim.lr_scheduler as lr_scheduler
+from utils.hand.model import (BothHandCNN, BothHandFullConnected,
+                              BothHandLRchannelGRU, BothHandTransformer,
+                              HandConvNet, HandConvNet_o,
+                              HandMultichannelCNNGRU, HandRNNConvNet,
+                              SampleCNNGA)
 
 
 def print_group_ratio(filename_label_df: pd.DataFrame,
@@ -16,7 +20,7 @@ def print_group_ratio(filename_label_df: pd.DataFrame,
     title: print title
     '''
     # rename colname
-    filename_label_df_annot = filename_label_df[[0,1]]
+    filename_label_df_annot = filename_label_df[[0, 1]]
     filename_label_df_annot.columns = ["csv_name", "label"]
 
     # split PUN to single column
@@ -71,7 +75,7 @@ def parse_args_keypoint(keypoint_string):
     else:
         keypoint_list = [int(item) for item in kpt_no.split(',')]
 
-    all_channels = ["timestamp"]  #first column
+    all_channels = ["timestamp"]  # first column
     for axis in kpt_axis:
         all_channels = all_channels + [
             f"{axis}_{item}" for item in keypoint_list
@@ -88,25 +92,25 @@ def get_model_by_name(model_name, crop_len=None, n_classes=2, in_channels=42, de
     if model_name == "sampleCNNGA":
         model = SampleCNNGA(n_classes=n_classes, in_channels=in_channels)
     elif model_name == "handconvnet":
-        model = HandConvNet(input_channels=in_channels, 
+        model = HandConvNet(input_channels=in_channels,
                             output_class=n_classes,
                             crop_len=crop_len,
                             device=device)
     elif model_name == "handconvnet_o":
-        model = HandConvNet_o(input_channels=in_channels, 
-                            output_class=n_classes,
-                            crop_len=crop_len,
-                            device=device)
+        model = HandConvNet_o(input_channels=in_channels,
+                              output_class=n_classes,
+                              crop_len=crop_len,
+                              device=device)
     elif model_name == "handrnnconvnet":
-        model = HandRNNConvNet(input_channels=in_channels, 
-                            output_class=n_classes,
-                            crop_len=crop_len,
-                            device=device)
+        model = HandRNNConvNet(input_channels=in_channels,
+                               output_class=n_classes,
+                               crop_len=crop_len,
+                               device=device)
     elif model_name == "handmultichannelconvgrunet":
         model = HandMultichannelCNNGRU(input_channels=in_channels,
-                                        output_class=n_classes,
-                                        crop_len=crop_len,
-                                        device=device)
+                                       output_class=n_classes,
+                                       crop_len=crop_len,
+                                       device=device)
     elif model_name == "bothhandFC":
         model = BothHandFullConnected(output_class=n_classes, in_channels=in_channels)
     elif model_name == "bothhandTransformer":
@@ -117,7 +121,7 @@ def get_model_by_name(model_name, crop_len=None, n_classes=2, in_channels=42, de
         model = BothHandLRchannelGRU(output_class=n_classes, in_channels=in_channels)
     else:
         raise NotImplementedError
-    
+
     return model
 
 
@@ -133,12 +137,11 @@ def get_scheduler_by_name(scheduler_name, optimizer, num_epochs):
     elif scheduler_name == "CosineAnnealingLR":
         scheduler = lr_scheduler.CosineAnnealingLR(optimizer,
                                                    T_max=5,
-                                                #    T_max=num_epochs // 10,
+                                                   # T_max=num_epochs // 10,
                                                    )
 
     elif scheduler_name == "LambdaLR":
-        lambda_func = lambda epoch: (0.95**epoch) * 0.5 * (1 + np.cos(
-            np.pi + np.pi * epoch / 5))
+        lambda_func = lambda epoch: (0.95**epoch) * 0.5 * (1 + np.cos(np.pi + np.pi * epoch / 5))
         scheduler = lr_scheduler.LambdaLR(optimizer, lr_lambda=lambda_func)
 
     else:
