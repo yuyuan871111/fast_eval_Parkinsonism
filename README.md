@@ -29,9 +29,14 @@ docker compose run web /bin/bash
 ## Hand Predictor API
 Read the document for indenpendently usage ([Hand Predictor API](./src/lib/hand_predictor)).
 ### Quick start
+Requirement: conda.  
 ```bash
+# install and activate environment via conda
+conda env create -f environment.yml  # only do this for the first time
+conda activate mediapipe
+
 # change the working directory
-cd ./src/lib/hand_predictor  # the path of the main script is as same as this README file
+cd ./src/lib/hand_predictor  # the path of the main script is as same as hand_predictor's README file
 
 # find help messange
 python hand_predictor.py -h

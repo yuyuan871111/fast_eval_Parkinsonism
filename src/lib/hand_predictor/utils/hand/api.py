@@ -19,7 +19,7 @@ from utils.hand.mediapipe_collect_hand_kpt import collect_hand_keypoints_pipe
 from utils.hand.supp2emptytime import supp2emptytimestamp
 from utils.seed import set_seed
 # from utils.third_party.measurement import measurements
-from utils.util import get_model_by_name, parse_args_keypoint
+from utils.hand.util import get_model_by_name, parse_args_keypoint
 
 # import pdb
 # import warnings
