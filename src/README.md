@@ -41,6 +41,7 @@ Not implemented.
 * admin: go to `localhost:13006/admin`, where is the backend of the website. You can see how the data storaged in the database and the users in the system.  
 
 ## Deployment instructions
+Not implemented.
 
 ## Development useful information
 ### debug (byebug)
