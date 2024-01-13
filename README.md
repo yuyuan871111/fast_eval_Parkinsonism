@@ -20,6 +20,7 @@ docker-compose up # start server or reactivate server
 
 ### Show
 Open your browser and use the `https://localhost:13006`
+Use this link `http://localhost:13006/letter_opener` as your local email box.  
 
 ### Stop
 ```bash
