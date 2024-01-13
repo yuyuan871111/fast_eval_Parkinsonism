@@ -19,8 +19,8 @@ docker-compose up # start server or reactivate server
 ```
 
 ### Show
-Open your browser and use the `https://localhost:13006`
-Use this link `http://localhost:13006/letter_opener` as your local email box.  
+Open your browser and use the `https://localhost:13006`.   
+Use this link `http://localhost:13006/letter_opener` as your local email box so that you can receive the confirmation letter when creating an account.  
 
 ### Stop
 ```bash
