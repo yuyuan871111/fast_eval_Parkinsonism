@@ -4,6 +4,19 @@ FastEval Parkinsonism
 users to capture keypoints, estimate the severity, and summarize in a report.
 ![cover_image](./imgs/cover.png)
 
+## Cite this work
+```
+@article{yang2024fasteval,
+  title={FastEval Parkinsonism: an instant deep learning--assisted video-based online system for Parkinsonian motor symptom evaluation},
+  author={Yang, Yu-Yuan and Ho, Ming-Yang and Tai, Chung-Hwei and Wu, Ruey-Meei and Kuo, Ming-Che and Tseng, Yufeng Jane},
+  journal={NPJ Digital Medicine},
+  volume={7},
+  number={1},
+  pages={1--13},
+  year={2024},
+  publisher={Nature Publishing Group}
+}
+```
 
 ## Local installation for the web with all functions
 ### Fast Installation at local by docker-compose
